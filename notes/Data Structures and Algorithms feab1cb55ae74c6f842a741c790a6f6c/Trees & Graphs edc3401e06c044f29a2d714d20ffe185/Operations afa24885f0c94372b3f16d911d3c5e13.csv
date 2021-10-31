@@ -1,0 +1,8 @@
+﻿Operation,Average,Worst Case
+Insert,O(log n),O(n)
+Lookup,O(log n),O(n)
+Delete,O(log n),O(n)
+Minimum,O(log n),O(n)
+Maximum,O(log n),O(n)
+Predecessor,O(log n),O(n)
+Successor,O(log n),O(n)

@@ -1,0 +1,6 @@
+﻿Less than,p1 < p2,p1.__lt__(p2)
+Less than or equal to,p1 <= p2,p1.__le__(p2)
+Equal to,p1 == p2,p1.__eq__(p2)
+Not equal to,p1 != p2,p1.__ne__(p2)
+Greater than,p1 > p2,p1.__gt__(p2)
+Greater than or equal to,p1 >= p2,p1.__ge__(p2)

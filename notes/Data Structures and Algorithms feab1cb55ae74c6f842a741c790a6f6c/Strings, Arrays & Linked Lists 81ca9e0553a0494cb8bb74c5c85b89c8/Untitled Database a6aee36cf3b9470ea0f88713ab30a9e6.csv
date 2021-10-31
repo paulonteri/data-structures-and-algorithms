@@ -1,0 +1,12 @@
+﻿Methods,Descriptions
+https://www.programiz.com/python-programming/methods/list/insert,inserts an item at the defined index
+https://www.programiz.com/python-programming/methods/list/remove,removes an item from the list
+https://www.programiz.com/python-programming/methods/list/index,returns the index of the first matched item
+https://www.programiz.com/python-programming/methods/list/count,returns the count of the number of items passed as an argument
+https://www.programiz.com/python-programming/methods/list/extend,adds all elements of a list to another list
+https://www.programiz.com/python-programming/methods/list/append,adds an element to the end of the list
+https://www.programiz.com/python-programming/methods/list/pop,returns and removes an element at the given index
+https://www.programiz.com/python-programming/methods/list/clear,removes all items from the list
+https://www.programiz.com/python-programming/methods/list/sort,sort items in a list in ascending order
+https://www.programiz.com/python-programming/methods/list/reverse,reverse the order of items in the list
+https://www.programiz.com/python-programming/methods/list/copy,returns a shallow copy of the list
