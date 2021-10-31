@@ -1,0 +1,7 @@
+{
+    "hosting": {
+        "site": "dsa-ont",
+        "public": "public",
+        "ignore": ["firebase.json"]
+    }
+}
