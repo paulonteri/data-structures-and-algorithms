@@ -1340,7 +1340,7 @@ The majority of the Dynamic Programming problems can be categorized into two typ
 
 - **0/1 Knapsack**
     
-    [0/1 Knapsack (Dynamic Programming)](Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/DP%20f1cdccd481ba461ea65ea993e984da07/0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6.md)
+    [0/1 Knapsack (Dynamic Programming)](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/DP%20f1cdccd481ba461ea65ea993e984da07/0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6.md)
     
 - **Levenshtein Distance**
 
@@ -1476,7 +1476,7 @@ The majority of the Dynamic Programming problems can be categorized into two typ
     
     [Coin Change 2 | LeetCode 518 | C++, Java, Python](https://youtu.be/Nvrhx4lbfLI)
     
-    Similar to [knapsack](Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/DP%20f1cdccd481ba461ea65ea993e984da07/0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6.md)
+    Similar to [knapsack](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/DP%20f1cdccd481ba461ea65ea993e984da07/0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6.md)
     
     ![Screenshot 2021-08-29 at 09.14.50.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-08-29_at_09.14.50.png)
     
@@ -2945,7 +2945,7 @@ The majority of the Dynamic Programming problems can be categorized into two typ
 
 ### Honourable mentions
 
-[0/1 Knapsack (Dynamic Programming)](Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/DP%20f1cdccd481ba461ea65ea993e984da07/0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6.md)
+[0/1 Knapsack (Dynamic Programming)](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/DP%20f1cdccd481ba461ea65ea993e984da07/0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6.md)
 
 ---
 
@@ -2995,7 +2995,7 @@ Fibonacci - This problem is normally solved with [Divide and Conquer](https://w
 2. **Conquer:** solve the sub-problems *recursively*
 3. **Combine:** combine all the sub-problems *to create a solution to the original problem*
 
-[Example](Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/DP%20f1cdccd481ba461ea65ea993e984da07/0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6.md)
+[Example](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/DP%20f1cdccd481ba461ea65ea993e984da07/0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6.md)
 
 ![Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Untitled.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Untitled.png)
 
@@ -3018,7 +3018,7 @@ def calculateFibonacciRecur(memoize, n):
 
 Tabulation is the opposite of the top-down approach and avoids recursion. In this approach, we solve the problem “bottom-up” (i.e. by solving all the related sub-problems first). This is typically done by filling up an n-dimensional table. Based on the results in the table, the solution to the top/original problem is then computed.
 
-[Example](Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/DP%20f1cdccd481ba461ea65ea993e984da07/0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6.md)
+[Example](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/DP%20f1cdccd481ba461ea65ea993e984da07/0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6.md)
 
 ```python
 def calculateFibonacci(n):

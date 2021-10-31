@@ -177,7 +177,7 @@ Bidirectional Search
 
 [Graph Data Structure: Directed, Acyclic, etc | Interview Cake](https://www.interviewcake.com/concept/python/graph?course=fc1&section=trees-graphs)
 
-[Topological Sort (for graphs) *](Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Topological%20Sort%20(for%20graphs)%20e35d20a5223f4c50b4a73c0f71dc2c07.md)
+[Topological Sort (for graphs) *](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Topological%20Sort%20(for%20graphs)%20e35d20a5223f4c50b4a73c0f71dc2c07.md)
 
 A tree is actually a type of graph, but not all graphs are trees. Simply put, a tree is a connected graph without cycles.
 
@@ -1546,7 +1546,7 @@ A connected component is a maximal set of vertices C such that each pair of vert
 
 ### Topological ordering
 
-[Topological Sort (for graphs) *](Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Topological%20Sort%20(for%20graphs)%20e35d20a5223f4c50b4a73c0f71dc2c07.md)
+[Topological Sort (for graphs) *](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Topological%20Sort%20(for%20graphs)%20e35d20a5223f4c50b4a73c0f71dc2c07.md)
 
 A ***directed acyclic graph*** (DAG) is a directed graph in which there are no cycles, i.e., paths which contain one or more edges and which begin and end at the same vertex.
 
@@ -1556,7 +1556,7 @@ Vertices that have no outgoing edges are referred to as ***sinks***.
 
 ***Indegree*** → count of incoming edges of each vertex/node or how many parents it has (used to determine sources)
 
-A [topological ordering](Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Topological%20Sort%20(for%20graphs)%20e35d20a5223f4c50b4a73c0f71dc2c07.md) of the vertices in a DAG is an ordering of the vertices in which each edge is from a vertex earlier in the ordering to a vertex later in the ordering.
+A [topological ordering](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Topological%20Sort%20(for%20graphs)%20e35d20a5223f4c50b4a73c0f71dc2c07.md) of the vertices in a DAG is an ordering of the vertices in which each edge is from a vertex earlier in the ordering to a vertex later in the ordering.
 
 ---
 
@@ -4109,7 +4109,7 @@ In this traversal mode, **one starts from the *left child*, move to the *right
     ```
     
 
-- Reconstruct Binary Search Tree from Preorder Traversal with [Less than, greater than patterns](Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Less%20than,%20Greater%20than%20in%20BST%20c2405eec6a8d4b22a056d718a768fc6a.md)
+- Reconstruct Binary Search Tree from Preorder Traversal with [Less than, greater than patterns](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Less%20than,%20Greater%20than%20in%20BST%20c2405eec6a8d4b22a056d718a768fc6a.md)
     
     ```python
     """
@@ -5497,7 +5497,7 @@ In this traversal mode, **one starts from the *left child*, move to the *right
     ```
     
 
-- Reconstruct Binary Search Tree from Preorder Traversal with [Less than, greater than patterns](Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Less%20than,%20Greater%20than%20in%20BST%20c2405eec6a8d4b22a056d718a768fc6a.md)
+- Reconstruct Binary Search Tree from Preorder Traversal with [Less than, greater than patterns](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Less%20than,%20Greater%20than%20in%20BST%20c2405eec6a8d4b22a056d718a768fc6a.md)
     
     ```python
     """
@@ -5851,7 +5851,7 @@ In this traversal mode, **one starts from the *left child*, move to the *right
     ```
     
 
-- Validate Binary Search Tree (with [Less than, greater than patterns](Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Less%20than,%20Greater%20than%20in%20BST%20c2405eec6a8d4b22a056d718a768fc6a.md))
+- Validate Binary Search Tree (with [Less than, greater than patterns](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Less%20than,%20Greater%20than%20in%20BST%20c2405eec6a8d4b22a056d718a768fc6a.md))
     
     ```python
     """
@@ -7461,7 +7461,7 @@ Union:
 
 # Topological sort
 
-[Topological Sort (for graphs) *](Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Topological%20Sort%20(for%20graphs)%20e35d20a5223f4c50b4a73c0f71dc2c07.md)
+[Topological Sort (for graphs) *](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Topological%20Sort%20(for%20graphs)%20e35d20a5223f4c50b4a73c0f71dc2c07.md)
 
 # [Morris Traversal]()
 

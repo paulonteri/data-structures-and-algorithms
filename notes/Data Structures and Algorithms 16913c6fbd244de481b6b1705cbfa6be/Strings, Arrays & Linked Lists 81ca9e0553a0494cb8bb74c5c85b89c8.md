@@ -1700,7 +1700,7 @@ StringBuilder (Java)
 
 ### Examples
 
-[Hare & Tortoise Algorithm](Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Pointers%20c5f2aa24da174319aec737993acf4e6a/Hare%20&%20Tortoise%20Algorithm%201020d217ffb54e47b7aea3c175d75618.md)
+[Hare & Tortoise Algorithm](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Pointers%20c5f2aa24da174319aec737993acf4e6a/Hare%20&%20Tortoise%20Algorithm%201020d217ffb54e47b7aea3c175d75618.md)
 
 - Contains Duplicate
     
@@ -3664,7 +3664,7 @@ print(my_tuple)
 
 ### Examples
 
-[Hare & Tortoise Algorithm](Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Pointers%20c5f2aa24da174319aec737993acf4e6a/Hare%20&%20Tortoise%20Algorithm%201020d217ffb54e47b7aea3c175d75618.md)
+[Hare & Tortoise Algorithm](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Pointers%20c5f2aa24da174319aec737993acf4e6a/Hare%20&%20Tortoise%20Algorithm%201020d217ffb54e47b7aea3c175d75618.md)
 
 - Reverse linked list
     
