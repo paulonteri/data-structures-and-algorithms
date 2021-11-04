@@ -3,8 +3,12 @@ name: Build and Deploy
 on:
   push:
     branches: [ master ]
+    paths:
+      - 'notes/**'
   pull_request:
     branches: [ master ]
+    paths:
+      - 'notes/**'
 
   workflow_dispatch:
 
