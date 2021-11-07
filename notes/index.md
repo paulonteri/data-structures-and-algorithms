@@ -2,6 +2,8 @@
 
 Personal notes on data structures and algorithms.
 
+---
+
 How to navigate these notes:
 
 - Use the left sidebar to open different pages
