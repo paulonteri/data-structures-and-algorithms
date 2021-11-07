@@ -19,7 +19,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Markdown Docs
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+        
+      - name: Add Footer To Notes
+        run: python add_footer_to_notes.py
+
+      - name: Convert Markdown Docs To HTML
         uses: ldeluigi/markdown-docs@v0.4.2
         with:
           src: notes
