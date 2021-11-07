@@ -14,7 +14,7 @@ General search
 
 - Search a 2D Matrix
     
-    ![Screenshot 2021-10-10 at 15.53.43.png](Searching%20733ff84c808c4c9cb5c40787b2df7b98/Screenshot_2021-10-10_at_15.53.43.png)
+    ![Treat is as one long 1D array](Searching%20733ff84c808c4c9cb5c40787b2df7b98/Screenshot_2021-10-10_at_15.53.43.png)
     
     Treat is as one long 1D array
     
@@ -175,75 +175,6 @@ General search
     """
     ```
     
-- Leftmost Column with at Least a One
-    
-    ```python
-    """ 
-    Leftmost Column with at Least a One:
-    
-    A row-sorted binary matrix means that all elements are 0 or 1 and each row of the matrix is sorted in non-decreasing order.
-    Given a row-sorted binary matrix binaryMatrix, return the index (0-indexed) of the leftmost column with a 1 in it. If such an index does not exist, return -1.
-    You can't access the Binary Matrix directly. You may only access the matrix using a BinaryMatrix interface:
-    BinaryMatrix.get(row, col) returns the element of the matrix at index (row, col) (0-indexed).
-    BinaryMatrix.dimensions() returns the dimensions of the matrix as a list of 2 elements [rows, cols], which means the matrix is rows x cols.
-    Submissions making more than 1000 calls to BinaryMatrix.get will be judged Wrong Answer. 
-    Also, any solutions that attempt to circumvent the judge will result in disqualification.
-    For custom testing purposes, the input will be the entire binary matrix mat. You will not have access to the binary matrix directly.
-    
-    Example 1:
-        Input: mat = [[0,0],[1,1]]
-        Output: 0
-    Example 2:
-        Input: mat = [[0,0],[0,1]]
-        Output: 1
-    Example 3:
-        Input: mat = [[0,0],[0,0]]
-        Output: -1
-    Example 4:
-        Input: mat = [[0,0,0,1],[0,0,1,1],[0,1,1,1]]
-        Output: 1
-    
-    https://leetcode.com/problems/leftmost-column-with-at-least-a-one
-    """
-    
-    # """
-    # This is BinaryMatrix's API interface.
-    # You should not implement it, or speculate about its implementation
-    # """
-    
-    class BinaryMatrix(object):
-        def get(self, row: int, col: int): pass
-        def dimensions(self): pass
-    
-    """ 
-    Binary search every row: 
-        Let N be the number of rows, and M be the number of columns.
-        Time complexity : O(NlogM).
-        
-    Start at the top right:
-    similar to Search In Sorted Matrix https://leetcode.com/problems/search-a-2d-matrix
-    
-    Using the information that the rows are sorted, if we start searching from the right top corner(1st row, last column) and every time when we get a 1, as the row is sorted in non-decreasing order, there is a chance of getting 1 in the left column, so go to previous column in the same row. And if we get 0, there is no chance that in that row we can find a 1, so go to next row. 
-    """
-    
-    class Solution:
-        def leftMostColumnWithOne(self, binaryMatrix: 'BinaryMatrix'):
-            left_most = -1
-            rows, cols = binaryMatrix.dimensions()
-    
-            row = 0
-            col = cols-1
-            while row < rows and col >= 0:
-                # find left most at each row
-                while col >= 0 and binaryMatrix.get(row, col) == 1:
-                    left_most = col
-                    col -= 1
-    
-                row += 1
-    
-            return left_most
-    ```
-    
 
 - Intersection of Two Arrays
     
@@ -277,10 +208,7 @@ General search
             two = set(nums2)
     
             for num in one:
-                if num in one and num in two:
-                    result.add(num)
-            for num in two:
-                if num in one and num in two:
+                if num in two:
                     result.add(num)
     
             return list(result)
@@ -514,20 +442,20 @@ The terminology used in Binary Search:
 
 ### How does it work?
 
-In its simplest form, Binary Search operates on a contiguous sequence with a specified left and right index. This is called the Search Space. 
-Binary Search maintains the left, right, and middle indices of the search space and **compares the search target or applies the search condition to the middle value** of the collection; if the condition is unsatisfied or values unequal, **the half in which the target cannot lie is eliminated** and the search continues on the remaining half until it is successful. 
-If the search ends with an empty half, the condition cannot be fulfilled and the target is not found.
+In its simplest form, Binary Search operates on a contiguous sequence with a specified left and right index. This is called the **Search Space**. Binary Search maintains the left, right, and middle indices of the search space and **compares the search target or applies the search condition to the middle value** of the collection; if the condition is unsatisfied or values unequal, **the half in which the target cannot lie is eliminated** and the search continues on the remaining half until it is successful. If the search ends with an empty half, the condition cannot be fulfilled and the target is not found.
 
-Binary Search can take many alternate forms and might not always be as straightforward as searching for a specific value. Sometimes you will have to apply a specific condition or rule to determine which side (left or right) to search next.
+<aside>
+💡 Binary Search can take many alternate forms and might not always be as straightforward as searching for a specific value. Sometimes you will have to apply a specific condition or rule to determine which side (left or right) to search next.
+
+</aside>
 
 ## Common types of Binary Search
 
 ### Simple Binary Search
 
-This is the most basic and elementary form of Binary Search. It is the standard Binary Search Template that most high schools or universities use when they first teach students computer science. 
-It is used to search for an element or condition which can be determined by **accessing a single index in the array**.
+This is the most basic and elementary form of Binary Search. It is the standard Binary Search Template that most high schools or universities use when they first teach students computer science. It is used to search for an element or condition which can be determined by **accessing a single index in the array**.
 
-Basic logic:
+**Basic logic:**
 
 ```python
 # Binary Search
@@ -567,8 +495,8 @@ def search(self, nums, target):
 
 **Key attributes:**
 
-- Search condition can be determined without comparing to the element's neighbours
-- No post-processing is required because at each step, you are checking to see if the element has been found. If you reach the end, then you know the element is not found
+- Search condition can be determined **without comparing to the element's neighbours**
+- **No post-processing** is required because at each step, you are checking to see if the element has been found. If you reach the end, then you know the element is not found
 - We allow the right & left pointer be on the same index
 
 **Distinguishing Syntax:**
@@ -1232,160 +1160,6 @@ The while loop looks similar to `while left <= right:`
             return left
     ```
     
-- Find Minimum in Rotated Sorted Array
-    
-    ```python
-    """
-    Find Minimum in Rotated Sorted Array:
-    
-    Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might become:
-    [4,5,6,7,0,1,2] if it was rotated 4 times.
-    [0,1,2,4,5,6,7] if it was rotated 7 times.
-    Notice that rotating an array [a[0], a[1], a[2], ..., a[n-1]] 1 time results in the array [a[n-1], a[0], a[1], a[2], ..., a[n-2]].
-    Given the sorted rotated array nums, return the minimum element of this array.
-    
-    https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
-    
-    After this: Search in Rotated Sorted Array https://leetcode.com/problems/search-in-rotated-sorted-array/
-    """
-    
-    class Solution:
-        # search for the beginning of the unsorted part
-        def findMin(self, nums):
-            if not nums:
-                return None
-    
-            left, right = 0, len(nums) - 1
-            while left < right:
-                mid = (right + left) // 2
-    
-                # look for the beginning of the unsorted part
-                if nums[mid] > nums[mid+1]:
-                    return nums[mid+1]
-                if nums[mid - 1] > nums[mid]:
-                    return nums[mid]
-    
-                # Binary Search
-                if nums[mid] > nums[right]:  # check if right side is unsorted
-                    left = mid + 1
-                else:
-                    right = mid - 1
-    
-            # return smallest number
-            return nums[left]
-    
-    """
-    [3,4,5,1,2]
-    [4,5,6,7,0,1,2]
-    [11,13,15,17]
-    [11,13,15,17,10]
-    [1]
-    [3,1,2]
-    """
-    ```
-    
-- Search in Rotated Sorted Array
-    
-    ```python
-    """ 
-    Search in Rotated Sorted Array:
-    
-    There is an integer array nums sorted in ascending order (with distinct values).
-    Prior to being passed to your function, nums is rotated at an unknown pivot index k (0 <= k < nums.length) 
-        such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). 
-        For example, [0,1,2,4,5,6,7] might be rotated at pivot index 3 and become [4,5,6,7,0,1,2].
-    Given the array nums after the rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.
-    You must write an algorithm with O(log n) runtime complexity.
-    
-    Example 1:
-        Input: nums = [4,5,6,7,0,1,2], target = 0
-        Output: 4
-    Example 2:
-        Input: nums = [4,5,6,7,0,1,2], target = 3
-        Output: -1
-    Example 3:
-        Input: nums = [1], target = 0
-        Output: -1
-    
-    https://leetcode.com/problems/search-in-rotated-sorted-array/
-    https://www.algoexpert.io/questions/Shifted%20Binary%20Search
-    
-    Prerequisite: Find Minimum in Rotated Sorted Array https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
-    """
-    
-    class Solution_:
-        def search(self, nums, target):
-    
-            start_idx = self.get_smallest_num_idx(nums)
-    
-            if target >= nums[start_idx] and target <= nums[-1]:
-                return self.binary_search(nums, target, start_idx, len(nums)-1)
-            return self.binary_search(nums, target, 0, start_idx)
-    
-        def get_smallest_num_idx(self, nums):
-    
-            left = 0
-            right = len(nums)-1
-            while left <= right:
-                mid = (left+right)//2
-    
-                if mid > 0 and nums[mid-1] > nums[mid]:
-                    return mid
-                if mid < len(nums)-1 and nums[mid+1] < nums[mid]:
-                    return mid+1
-    
-                # if right is unsorted
-                if nums[mid] > nums[right]:
-                    left = mid + 1
-                else:
-                    right = mid - 1
-    
-            return left
-    
-        def binary_search(self, nums, target, left, right):
-            while left <= right:
-                mid = (left+right) // 2
-    
-                if nums[mid] == target:
-                    return mid
-    
-                elif target > nums[mid]:
-                    left = mid + 1
-                else:
-                    right = mid - 1
-            return -1
-    
-    """ 
-    - we know that:
-        - If a section (left-mid or mid-right) is unsorted then the other must be sorted
-    
-    """
-    
-    class Solution:
-        def search(self, nums, target):
-    
-            left = 0
-            right = len(nums)-1
-            while left <= right:
-                mid = (left+right)//2
-                if nums[mid] == target:
-                    return mid
-    
-                if nums[left] <= nums[mid]:  # left is sorted
-                    if target >= nums[left] and target <= nums[mid]:  # in left
-                        right = mid
-                    else:
-                        left = mid + 1
-    
-                else:  # right is sorted
-                    if target >= nums[mid] and target <= nums[right]:  # in right
-                        left = mid
-                    else:
-                        right = mid - 1
-    
-            return -1
-    ```
-    
 - Find Peak Element
     
     ```python
@@ -1434,7 +1208,7 @@ The while loop looks similar to `while left <= right:`
             while left <= right:
                 mid = (left+right) // 2
     
-                # ends
+                # ends (also is peak)
                 if mid == 0:
                     if nums[mid+1] < nums[mid]:
                         return mid
@@ -1444,7 +1218,7 @@ The while loop looks similar to `while left <= right:`
                         return mid
                     right = mid
     
-                # is peak
+                # is peak but not on ends
                 elif nums[mid-1] < nums[mid] and nums[mid+1] < nums[mid]:
                     return mid
     
@@ -1460,7 +1234,7 @@ The while loop looks similar to `while left <= right:`
 
 - Search a 2D Matrix
     
-    ![Screenshot 2021-10-10 at 15.53.43.png](Searching%20733ff84c808c4c9cb5c40787b2df7b98/Screenshot_2021-10-10_at_15.53.43.png)
+    ![Treat is as one long 1D array](Searching%20733ff84c808c4c9cb5c40787b2df7b98/Screenshot_2021-10-10_at_15.53.43.png)
     
     Treat is as one long 1D array
     
@@ -1662,18 +1436,19 @@ def search(self, nums, target):
 
 **Key Attributes:**
 
-- Post-processing required. Loop/Recursion ends when you have 1
-element left. Need to assess if the remaining element meets the
-condition.
+- Most of the time Post-processing required. Loop/Recursion ends when you have 1 element left. Need to assess if the remaining element meets the condition.
 This is because the `while left < right` instead of `while left <= right` *
 If the target is at the right index, it won't have been found in the initial search(while loop).
-- Search Condition needs to access the element's immediate right neighbour
-- Use the element's right neighbour to determine if the condition is met and decide whether to go left or right
+- Search Condition needs to access the element's immediate right/left neighbour
+- Use the element's right/left neighbour to determine if the condition is met and decide whether to go left or right
 - Guarantees Search Space is at least 2 in size at each step
 - An advanced way to implement Binary Search.
 
-Note: Using pointers to remember the last seen element can drastocalluy simplify Advanced Binary Search.
+<aside>
+💡 Note: Using pointers to remember the last seen element can drastocalluy simplify Advanced Binary Search.
 Example: [Find First and Last Position of Element in Sorted Array]()
+
+</aside>
 
 **Distinguishing Syntax:**
 
@@ -1684,6 +1459,160 @@ Example: [Find First and Last Position of Element in Sorted Array]()
 
 ### Examples
 
+- Find Minimum in Rotated Sorted Array
+    
+    ```python
+    """
+    Find Minimum in Rotated Sorted Array:
+    
+    Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might become:
+    [4,5,6,7,0,1,2] if it was rotated 4 times.
+    [0,1,2,4,5,6,7] if it was rotated 7 times.
+    Notice that rotating an array [a[0], a[1], a[2], ..., a[n-1]] 1 time results in the array [a[n-1], a[0], a[1], a[2], ..., a[n-2]].
+    Given the sorted rotated array nums, return the minimum element of this array.
+    
+    https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+    
+    After this: Search in Rotated Sorted Array https://leetcode.com/problems/search-in-rotated-sorted-array/
+    """
+    
+    class Solution:
+        # search for the beginning of the unsorted part
+        def findMin(self, nums):
+            if not nums:
+                return None
+    
+            left, right = 0, len(nums) - 1
+            while left < right:
+                mid = (right + left) // 2
+    
+                # look for the beginning of the unsorted part
+                if nums[mid] > nums[mid+1]:
+                    return nums[mid+1]
+                if nums[mid - 1] > nums[mid]:
+                    return nums[mid]
+    
+                # Binary Search
+                if nums[mid] > nums[right]:  # check if right side is unsorted
+                    left = mid + 1
+                else:
+                    right = mid - 1
+    
+            # return smallest number
+            return nums[left]
+    
+    """
+    [3,4,5,1,2]
+    [4,5,6,7,0,1,2]
+    [11,13,15,17]
+    [11,13,15,17,10]
+    [1]
+    [3,1,2]
+    """
+    ```
+    
+- Search in Rotated Sorted Array
+    
+    ```python
+    """ 
+    Search in Rotated Sorted Array:
+    
+    There is an integer array nums sorted in ascending order (with distinct values).
+    Prior to being passed to your function, nums is rotated at an unknown pivot index k (0 <= k < nums.length) 
+        such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). 
+        For example, [0,1,2,4,5,6,7] might be rotated at pivot index 3 and become [4,5,6,7,0,1,2].
+    Given the array nums after the rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.
+    You must write an algorithm with O(log n) runtime complexity.
+    
+    Example 1:
+        Input: nums = [4,5,6,7,0,1,2], target = 0
+        Output: 4
+    Example 2:
+        Input: nums = [4,5,6,7,0,1,2], target = 3
+        Output: -1
+    Example 3:
+        Input: nums = [1], target = 0
+        Output: -1
+    
+    https://leetcode.com/problems/search-in-rotated-sorted-array/
+    https://www.algoexpert.io/questions/Shifted%20Binary%20Search
+    
+    Prerequisite: Find Minimum in Rotated Sorted Array https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+    """
+    
+    class Solution_:
+        def search(self, nums, target):
+    
+            start_idx = self.get_smallest_num_idx(nums)
+    
+            if target >= nums[start_idx] and target <= nums[-1]:
+                return self.binary_search(nums, target, start_idx, len(nums)-1)
+            return self.binary_search(nums, target, 0, start_idx)
+    
+        def get_smallest_num_idx(self, nums):
+    
+            left = 0
+            right = len(nums)-1
+            while left <= right:
+                mid = (left+right)//2
+    
+                if mid > 0 and nums[mid-1] > nums[mid]:
+                    return mid
+                if mid < len(nums)-1 and nums[mid+1] < nums[mid]:
+                    return mid+1
+    
+                # if right is unsorted
+                if nums[mid] > nums[right]:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+    
+            return left
+    
+        def binary_search(self, nums, target, left, right):
+            while left <= right:
+                mid = (left+right) // 2
+    
+                if nums[mid] == target:
+                    return mid
+    
+                elif target > nums[mid]:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+            return -1
+    
+    """ 
+    - we know that:
+        - If a section (left-mid or mid-right) is unsorted then the other must be sorted
+    
+    """
+    
+    class Solution:
+        def search(self, nums, target):
+    
+            left = 0
+            right = len(nums)-1
+            while left <= right:
+                mid = (left+right)//2
+                if nums[mid] == target:
+                    return mid
+    
+                if nums[left] <= nums[mid]:  # left is sorted
+                    if target >= nums[left] and target <= nums[mid]:  # in left
+                        right = mid
+                    else:
+                        left = mid + 1
+    
+                else:  # right is sorted
+                    if target >= nums[mid] and target <= nums[right]:  # in right
+                        left = mid
+                    else:
+                        right = mid - 1
+    
+            return -1
+    ```
+    
 - First Bad Version
     
     ```python
@@ -1784,6 +1713,8 @@ Example: [Find First and Last Position of Element in Sorted Array]()
     ```
     
 - Find First and Last Position of Element in Sorted Array/Search For Range
+    
+    ![Screenshot 2021-11-02 at 20.11.02.png](Searching%20733ff84c808c4c9cb5c40787b2df7b98/Screenshot_2021-11-02_at_20.11.02.png)
     
     ```python
     """ 
@@ -1980,16 +1911,85 @@ Example: [Find First and Last Position of Element in Sorted Array]()
             return [start_left, end_right]
     ```
     
-
----
-
----
-
----
-
----
-
----
+- Leftmost Column with at Least a One
+    
+    ![Screenshot 2021-11-02 at 19.41.04.png](Searching%20733ff84c808c4c9cb5c40787b2df7b98/Screenshot_2021-11-02_at_19.41.04.png)
+    
+    ![Screenshot 2021-11-02 at 19.44.33.png](Searching%20733ff84c808c4c9cb5c40787b2df7b98/Screenshot_2021-11-02_at_19.44.33.png)
+    
+    ![Screenshot 2021-11-02 at 19.45.05.png](Searching%20733ff84c808c4c9cb5c40787b2df7b98/Screenshot_2021-11-02_at_19.45.05.png)
+    
+    ![Screenshot 2021-11-02 at 19.45.26.png](Searching%20733ff84c808c4c9cb5c40787b2df7b98/Screenshot_2021-11-02_at_19.45.26.png)
+    
+    [Screen Recording 2021-11-02 at 19.43.05.mov](Searching%20733ff84c808c4c9cb5c40787b2df7b98/Screen_Recording_2021-11-02_at_19.43.05.mov)
+    
+    ```python
+    """ 
+    Leftmost Column with at Least a One:
+    
+    A row-sorted binary matrix means that all elements are 0 or 1 and each row of the matrix is sorted in non-decreasing order.
+    Given a row-sorted binary matrix binaryMatrix, return the index (0-indexed) of the leftmost column with a 1 in it. If such an index does not exist, return -1.
+    You can't access the Binary Matrix directly. You may only access the matrix using a BinaryMatrix interface:
+    BinaryMatrix.get(row, col) returns the element of the matrix at index (row, col) (0-indexed).
+    BinaryMatrix.dimensions() returns the dimensions of the matrix as a list of 2 elements [rows, cols], which means the matrix is rows x cols.
+    Submissions making more than 1000 calls to BinaryMatrix.get will be judged Wrong Answer. 
+    Also, any solutions that attempt to circumvent the judge will result in disqualification.
+    For custom testing purposes, the input will be the entire binary matrix mat. You will not have access to the binary matrix directly.
+    
+    Example 1:
+        Input: mat = [[0,0],[1,1]]
+        Output: 0
+    Example 2:
+        Input: mat = [[0,0],[0,1]]
+        Output: 1
+    Example 3:
+        Input: mat = [[0,0],[0,0]]
+        Output: -1
+    Example 4:
+        Input: mat = [[0,0,0,1],[0,0,1,1],[0,1,1,1]]
+        Output: 1
+    
+    https://leetcode.com/problems/leftmost-column-with-at-least-a-one
+    
+    Prerequisite:
+    - https://leetcode.com/problems/first-bad-version
+    """
+    
+    # This is BinaryMatrix's API interface.
+    # You should not implement it, or speculate about its implementation
+    class BinaryMatrix(object):
+        def get(self, row: int, col: int): pass
+        def dimensions(self): pass
+    
+    """ 
+    Binary search every row: 
+        Let N be the number of rows, and M be the number of columns.
+        Time complexity : O(NlogM).
+        
+    Start at the top right:
+    similar to Search In Sorted Matrix https://leetcode.com/problems/search-a-2d-matrix
+    
+    Using the information that the rows are sorted, if we start searching from the right top corner(1st row, last column) and every time when we get a 1, as the row is sorted in non-decreasing order, there is a chance of getting 1 in the left column, so go to previous column in the same row. And if we get 0, there is no chance that in that row we can find a 1, so go to next row. 
+    """
+    
+    class Solution:
+        def leftMostColumnWithOne(self, binaryMatrix: 'BinaryMatrix'):
+            left_most = -1
+            rows, cols = binaryMatrix.dimensions()
+    
+            row = 0
+            col = cols-1
+            while row < rows and col >= 0:
+                # find left most at each row
+                while col >= 0 and binaryMatrix.get(row, col) == 1:
+                    left_most = col
+                    col -= 1
+    
+                row += 1
+    
+            return left_most
+    ```
+    
 
 ---
 
@@ -2004,17 +2004,23 @@ Articles:
 
 Most graph, tree and string problems simply boil down to a DFS (Depth-first search) / BFS (Breadth-first search)
 
-Always remember : 
+<aside>
+💡 Always remember : 
 
     `stack` for DFS, imagine a vertical flow
     `queue` for BFS, horizontal flow
 
-Tree traversals:
+</aside>
+
+<aside>
+💡 Tree traversals:
 
 Preorder → **n**lr (root, left, right)
 Inorder → n**l**r (left, root, right): can use stack
 Postorder → nl**r
 l**evel order traversal: can be done using queue
+
+</aside>
 
 Have you ever wondered why we don’t use a queue for dfs or stack for bfs?
 questions like these really give us some insights into the difference
@@ -2036,7 +2042,10 @@ For me this revelation was pure bliss. Take a moment to celebrate the history of
 
 DFS → diving as deep as possible before coming back to take a dive again: can use stack
 
-DFS is suitable for **game or puzzle problems**. We make a decision, then explore all paths through this decision. And if this decision leads to winning situation, we stop.
+<aside>
+💡 DFS is suitable for **game or puzzle problems**. We make a decision, then explore all paths through this decision. And if this decision leads to winning situation, we stop.
+
+</aside>
 
 ### Examples:
 
@@ -2087,11 +2096,11 @@ class Node:
 
 ## DFS on graph
 
-![Screenshot 2021-10-09 at 11.52.28.png](Searching%20733ff84c808c4c9cb5c40787b2df7b98/Screenshot_2021-10-09_at_11.52.28.png)
+![look carefully at C](Searching%20733ff84c808c4c9cb5c40787b2df7b98/Screenshot_2021-10-09_at_11.52.28.png)
 
 look carefully at C
 
-![Screenshot 2021-10-09 at 12.16.02.png](Searching%20733ff84c808c4c9cb5c40787b2df7b98/Screenshot_2021-10-09_at_12.16.02.png)
+![DFS on an adjacency list](Searching%20733ff84c808c4c9cb5c40787b2df7b98/Screenshot_2021-10-09_at_12.16.02.png)
 
 DFS on an adjacency list
 
@@ -2111,7 +2120,10 @@ These are basically level order traversals.
 
 BFS can be used to find a single-source shortest path in an unweighted graph because, in BFS, we reach a vertex with a minimum number of edges from a source vertex.
 
-All shortest path problems use BFS
+<aside>
+💡 All shortest path problems use BFS
+
+</aside>
 
 **Thoughts on BFS:**
 
@@ -2335,16 +2347,18 @@ Bidirectional search is used to find the shortest path between a source and dest
 
 # Quick Select (used to select index)
 
-Based on [Quick Sort](Sorting%20c597de5051f1415793ddcf72086aa93d.md). The QuickSort sorting algorithm works by picking a "pivot" number from an array, positioning every other number in the array in sorted order with respect to the pivot (all smaller numbers to the pivot's left; all bigger numbers to the pivot's right), and then repeating the same two steps on both sides of the pivot until the entire array is sorted. Apply the technique used in Quick Sort until the pivot element gets positioned in the kth place in the array, at which point you'll have found the answer to the problem.
+Based on [Quick Sort](Sorting%20c597de5051f1415793ddcf72086aa93d.md). The QuickSort sorting algorithm works by **picking a "pivot"** number from an array, **positioning every other number in the array in sorted order with respect to the pivot** (all smaller numbers to the pivot's left; all bigger numbers to the pivot's right), and then **repeating the same two steps on both sides of the pivot** until the entire array is sorted. Apply the technique used in Quick Sort until the pivot element gets positioned in the kth place in the array, at which point you'll have found the answer to the problem.
 
 - Quicksort
 
-Pick a random number from the input array (the first number, for instance) and let that number be the pivot. Iterate through the rest of the array using two pointers, one starting at the left extremity of the array and progressively moving to the right, and the other one starting at the right extremity of the array and progressively moving to the left. As you iterate through the array, compare the left and right pointer numbers to the pivot. If the left number is greater than the pivot and the right number is less than the pivot, swap them; this will effectively sort these numbers with respect to the pivot at the end of the iteration. If the left number is ever less than or equal to the pivot, increment the left pointer; similarly, if the right number is ever greater than or equal to the pivot, decrement the right pointer. 
-Do this until the pointers pass each other, at which point swapping the pivot with the right number should position the pivot in its final, sorted position, where every number to its left is smaller and every number to its right is greater.
+Pick a random number from the input array (the first number, for instance) and let that number be the pivot. Iterate through the rest of the array using two pointers, one starting at the left extremity of the array and progressively moving to the right, and the other one starting at the right extremity of the array and progressively moving to the left. 
 
-If the pivot is in the kth position, you're done; if it isn't, figure out if the kth smallest number is located to the left or to the right of the pivot.
+As you iterate through the array, compare the left and right pointer numbers to the pivot. If the left number is greater than the pivot and the right number is less than the pivot, swap them; this will effectively **sort these numbers with respect to the pivot** at the end of the iteration. If the left number is ever less than or equal to the pivot, increment the left pointer; similarly, if the right number is ever greater than or equal to the pivot, decrement the right pointer. 
+Do this until the pointers pass each other, at which point **swapping the pivot with the right number should position the pivot in its final, sorted position**, where every number to its left is smaller and every number to its right is greater.
 
-Repeat the process on the side of the kth smallest number, and keep on repeating the process thereafter until you find the answer.
+**If the pivot is in the kth position, you're done**; if it isn't, figure out if the kth smallest number is located to the left or to the right of the pivot.
+
+Repeat the process on the **side of the kth smallest number**, and keep on repeating the process thereafter until you find the answer.
 
 ### Time Complexity
 

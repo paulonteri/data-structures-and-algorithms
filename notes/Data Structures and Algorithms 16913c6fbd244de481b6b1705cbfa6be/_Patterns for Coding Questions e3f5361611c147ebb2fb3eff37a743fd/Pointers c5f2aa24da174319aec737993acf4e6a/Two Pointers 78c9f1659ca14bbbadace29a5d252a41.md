@@ -73,7 +73,7 @@ def pair_with_targetsum(arr, target_sum):
 
 ![Two%20Pointers%2078c9f1659ca14bbbadace29a5d252a41/Screenshot_2021-08-11_at_08.09.57.png](Two%20Pointers%2078c9f1659ca14bbbadace29a5d252a41/Screenshot_2021-08-11_at_08.09.57.png)
 
-![Screenshot 2021-10-24 at 11.07.49.png](Two%20Pointers%2078c9f1659ca14bbbadace29a5d252a41/Screenshot_2021-10-24_at_11.07.49.png)
+![Check if number the current in the past using complements](Two%20Pointers%2078c9f1659ca14bbbadace29a5d252a41/Screenshot_2021-10-24_at_11.07.49.png)
 
 Check if number the current in the past using complements
 

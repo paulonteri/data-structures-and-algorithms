@@ -57,7 +57,7 @@ Recursive strategy:
     
 - Solve the **Little Cases** & identify **Base cases**
     
-    ![Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/download.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/download.png)
+    ![elf delivering presents for santa](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/download.png)
     
     elf delivering presents for santa
     
@@ -210,11 +210,12 @@ recursion stack:
     https://youtu.be/rf6uf3jNjbo
     https://runestone.academy/runestone/books/published/pythonds/Recursion/TowerofHanoi.html
     https://leetcode.com/discuss/general-discussion/1517167/Tower-of-Hanoi-Algorithm-%2B-Python-code
+    https://www.notion.so/paulonteri/Recursion-DP-Backtracking-525dddcdd0874ed98372518724fc8753#0fa86da6418247199688a4f435447d86
     """
     
     """ 
     Here is a high-level outline of how to move a tower from the starting pole, to the goal pole, using an intermediate pole:
-        1. Move a tower of height-1 to an intermediate pole, using the final pole.
+        1. Move a tower of height-1 to an intermediate pole
         2. Move the last/remaining disk to the final pole.
         3. Move the disks height-1 to the first rod and repeat the above steps.
             Move the tower of height-1 from the intermediate pole to the final pole using the original pole.
@@ -288,7 +289,7 @@ recursion stack:
     
 - Subsets With Duplicates
 
-- Permutations
+- Permutation
 - Letter Combinations of a Phone Number
     
     ```python
@@ -1034,9 +1035,6 @@ recursion stack:
     2. Assume that the solution works for the case of SumOfSquares(n, n+1).
     3. Now to finish the proof show that the solution works for SumOfSquares(n, n+2):
         1. The return value from the first recursive call to the function would be n + SumOfSquares(n+1, n+2).
-            
-            2
-            
         2. This is just the results of a call to the base case SumOfSquares(n, n) which we have already shown to work, and a call to what is syntactically equivalent to SumOfSquares(n, n+1) which we have assumed works.
         3. Thus, by induction, we have shown that the function works for all values of **m** and **n** where **m < n**.
 - number of choices to make
@@ -1045,7 +1043,7 @@ recursion stack:
 
 ## **Ways of dividing a problem into subproblems:**
 
-Recursive solutions, by definition, are built off of solutions to subproblems. Many times, this will mean simply to compute f ( n) by adding something, removing something, or otherwise changing the solution for f ( n-1). In other cases, you might solve the problem for the first half of the data set, then the second half, and then merge those results.
+Recursive solutions, by definition, are built off of solutions to subproblems. Many times, this will mean simply to compute f(n) by adding something, removing something, or otherwise changing the solution for f(n-1). In other cases, you might solve the problem for the first half of the data set, then the second half, and then merge those results.
 
 There are many ways you might divide a problem into subproblems. Three of the most common approaches to developing an algorithm are bottom-up, top-down, and half-and-half.
 
@@ -1059,8 +1057,6 @@ The top-down approach can be more complex since it's less concrete. But sometime
 
 In this approach, we try to solve the bigger problem by recursively finding the solution to smaller sub-problems. Whenever we solve a sub-problem, we cache its result so that we don’t end up solving it repeatedly if it’s called multiple times. Instead, we can just return the saved result. This technique of storing the results of already solved subproblems is called **Memoization**.
 
-[https://youtu.be/Taa9JDeakyU](https://youtu.be/Taa9JDeakyU)
-
 ### 2. **Bottom-Up Approach**
 
 The bottom-up approach is often the most intuitive. We **start with knowing how to solve the problem for a simple case**, like a list with only one element. Then we figure out how to solve the problem for two elements, then for three elements, and so on. The key here is to think about how you can build the solution for one case off of the previous case (or multiple previous cases).
@@ -1070,8 +1066,6 @@ The bottom-up approach is often the most intuitive. We **start with knowing how 
 **Tabulation** is the opposite of the top-down approach and avoids recursion. In this approach, we solve the problem “bottom-up” (i.e. by **solving all the related sub-problems first**). This is typically done by filling up an n-dimensional table. Based on the results in the table, the solution to the top/original problem is then computed.
 
 Tabulation is the **opposite of Memoization**, as in Memoization we solve the problem and maintain a map of already solved sub-problems. In other words, in memoization, we do it top-down in the sense that we solve the top problem first (which typically recurses down to solve the sub-problems).
-
-[https://youtu.be/OMkKWtSAF0c](https://youtu.be/OMkKWtSAF0c)
 
 Examples:
 
@@ -1167,11 +1161,11 @@ Guides:
 
 ### More explanation
 
-A useful mantra to adopt when solving problems recursively is ‘fake it ’til you make it’, that is, **pretend you’ve already solved the problem for a simpler case**, and then try to reduce the larger problem to use the solution for this simpler case. If a problem is suited to recursion, there should actually only be a small number of simple cases which you need to explicitly solve, i.e. this method of reducing to a simpler problem can be used to solve every other case.
+A useful mantra to adopt when solving problems recursively is *‘fake it ’til you make it’*, that is, **pretend you’ve already solved the problem for a simpler case**, and then try to reduce the larger problem to use the solution for this simpler case. If a problem is suited to recursion, there should actually only be a small number of simple cases which you need to explicitly solve, i.e. this method of reducing to a simpler problem can be used to solve every other case.
 
 ![Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/1_cxQUnD3J3jMDIQTpsB7PNQ.gif](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/1_cxQUnD3J3jMDIQTpsB7PNQ.gif)
 
-Suppose we are given some actual data of some data type, call it dₒ. The idea with recursion is to pretend that we have already solved the problem or computed the desired function f for all forms of this data type that are simpler than dₒ according to some degree of difficulty that we need to define. Then, if we can find a way of expressing f(dₒ) in terms of one or more f(d)s, where all of these d s are less difficult (have a smaller degree) than dₒ, then we have found a way to reduce and solve for f(dₒ). We repeat this process, and hopefully, at some point, the remaining f(d)s will get so simple that we can easily implement a fixed, closed solution to them. Then, our solution to the original problem will reveal itself as our solutions to progressively simpler problems aggregate and cascade back up to the top.
+Suppose we are given some actual data of some data type, call it `dₒ`. The idea with recursion is to pretend that we have already solved the problem or computed the desired function `f` for all forms of this data type that are simpler than `dₒ` according to some degree of difficulty that we need to define. Then, if we can find a way of expressing `f(dₒ)` in terms of one or more `f(d)`s, where all of these d s are less difficult (have a smaller degree) than `dₒ`, then we have found a way to reduce and solve for `f(dₒ)`. We repeat this process, and hopefully, at some point, the remaining `f(d)`s will get so simple that we can easily implement a **fixed, closed solution** to them. Then, our solution to the original problem will reveal itself as our solutions to progressively simpler problems aggregate and **cascade back up to the top**.
 
 # Honourable mentions
 
@@ -1266,6 +1260,195 @@ Suppose we are given some actual data of some data type, call it dₒ. The idea 
         return res
     ```
     
+    - Combination Sum III
+        
+        ![Screenshot 2021-10-17 at 06.42.45.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-17_at_06.42.45.png)
+        
+        ![Screenshot 2021-10-17 at 06.43.04.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-17_at_06.43.04.png)
+        
+        ![Screenshot 2021-10-17 at 06.43.19.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-17_at_06.43.19.png)
+        
+        ![Screenshot 2021-10-17 at 06.43.36.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-17_at_06.43.36.png)
+        
+        ![Screenshot 2021-10-17 at 06.43.50.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-17_at_06.43.50.png)
+        
+        ![Screenshot 2021-11-03 at 10.00.20.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-03_at_10.00.20.png)
+        
+        ```python
+        """
+        216. Combination Sum III
+        
+        Find all valid combinations of k numbers that sum up to n such that the following conditions are true:
+            Only numbers 1 through 9 are used.
+            Each number is used at most once.
+        Return a list of all possible valid combinations. The list must not contain the same combination twice, and the combinations may be returned in any order.
+        
+        Example 1:
+            Input: k = 3, n = 7
+            Output: [[1,2,4]]
+            Explanation:
+                1 + 2 + 4 = 7
+                There are no other valid combinations.
+        Example 2:
+            Input: k = 3, n = 9
+            Output: [[1,2,6],[1,3,5],[2,3,4]]
+            Explanation:
+                1 + 2 + 6 = 9
+                1 + 3 + 5 = 9
+                2 + 3 + 4 = 9
+                There are no other valid combinations.
+        Example 3:
+            Input: k = 4, n = 1
+            Output: []
+            Explanation: There are no valid combinations.
+                Using 4 different numbers in the range [1,9], 
+                the smallest sum we can get is 1+2+3+4 = 10 and since 10 > 1, there are no valid combination.
+        Example 4:
+            Input: k = 3, n = 2
+            Output: []
+            Explanation: There are no valid combinations.
+        Example 5:
+            Input: k = 9, n = 45
+            Output: [[1,2,3,4,5,6,7,8,9]]
+            Explanation:
+                1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 = 45
+                There are no other valid combinations.
+        
+        https://leetcode.com/problems/combination-sum-iii/
+        """
+        
+        class Solution(object):
+            def combinationSum3(self, k, n):
+                res = []
+                self.helper(n, res, 1, 0, [0]*k, 0)
+                return res
+        
+            def helper(self, n, res, start_num, curr_idx, curr, total):
+                if total == n and curr_idx == len(curr):
+                    res.append(curr[:])
+                    return
+                if total >= n or start_num > 9 or curr_idx >= len(curr):
+                    return
+        
+                for number in range(start_num, 10):
+                    curr[curr_idx] = number
+                    self.helper(n, res, number+1, curr_idx+1, curr, total+number)
+                    curr[curr_idx] = 0
+        ```
+        
+    - Combination Sum
+        
+        [Combination Sum - Backtracking - Leetcode 39 - Python](https://youtu.be/GBKI9VSKdGg)
+        
+        ![Screenshot 2021-11-03 at 09.54.39.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-03_at_09.54.39.png)
+        
+        ![Screenshot 2021-11-03 at 09.58.27.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-03_at_09.58.27.png)
+        
+        ```python
+        """ 
+        Combination Sum
+        
+        Given an array of distinct integers candidates and a target integer target, 
+            return a list of all unique combinations of candidates where the chosen numbers sum to target. 
+        You may return the combinations in any order.
+        The same number may be chosen from candidates an unlimited number of times. 
+        Two combinations are unique if the frequency of at least one of the chosen numbers is different.
+        It is guaranteed that the number of unique combinations that sum up to target is less than 150 combinations for the given input.
+        
+         
+        Example 1:
+            Input: candidates = [2,3,6,7], target = 7
+            Output: [[2,2,3],[7]]
+            Explanation:
+                2 and 3 are candidates, and 2 + 2 + 3 = 7. Note that 2 can be used multiple times.
+                7 is a candidate, and 7 = 7.
+                These are the only two combinations.
+        Example 2:
+            Input: candidates = [2,3,5], target = 8
+            Output: [[2,2,2,2],[2,3,3],[3,5]]
+        Example 3:
+            Input: candidates = [2], target = 1
+            Output: []
+        Example 4:
+            Input: candidates = [1], target = 1
+            Output: [[1]]
+        Example 5:
+            Input: candidates = [1], target = 2
+            Output: [[1,1]]
+        
+        https://leetcode.com/problems/combination-sum
+        """
+        
+        """
+        
+        candidates = [2,3,6,7], target = 7
+                                                            7[]
+                                                      5[2]         4[3]
+                                                   3[2,2] 2[2,3]
+                                                  
+                           []rem_target
+                   /          /     \     \
+            [2]5            [3]4  [6]1  [7]0
+         /       /    
+        [2,2]3   [2,3]2  
+        |        |
+        [2,2,3]0 [2,3,2]0
+        
+        """
+        
+        class Solution(object):
+            def combinationSum(self, candidates, target):
+                return self.helper(candidates, 0, target)
+        
+            def helper(self, candidates, idx, target):
+                # base cases
+                if target == 0:
+                    return [[]]
+                if target < 0 or idx >= len(candidates):
+                    return []
+                result = []
+        
+                # add number
+                # remember to give the current number another chance, rather than moving on (idx instead of idx+1)
+                for arr in self.helper(candidates, idx, target-candidates[idx]):
+                    result.append(arr + [candidates[idx]])
+        
+                # skip number
+                result += self.helper(candidates, idx+1, target)
+        
+                return result
+        
+        """ 
+        
+        """
+        
+        class Solution_:
+            def combinationSum(self, candidates, target):
+        
+                results = []
+        
+                def backtrack(remain, comb, start):
+                    if remain == 0:
+                        results.append(list(comb))
+                        return
+                    elif remain < 0:
+                        return
+        
+                    for i in range(start, len(candidates)):
+                        # add the number into the combination
+                        comb.append(candidates[i])
+        
+                        # give the current number another chance, rather than moving on (i instead of i+1)
+                        backtrack(remain - candidates[i], comb, i)
+        
+                        # backtrack, remove the number from the combination
+                        comb.pop()
+        
+                backtrack(target, [], 0)
+        
+                return results
+        ```
+        
 
 ---
 
@@ -1300,6 +1483,8 @@ Suppose we are given some actual data of some data type, call it dₒ. The idea 
 [Dynamic Programming](https://leetcode.com/discuss/study-guide/1433252/dynamic-programming-patterns)
 
 [Dynamic Programming](https://emre.me/algorithms/dynamic-programming/)
+
+[Dynamic programming is simple #3 (multi-root recursion) - LeetCode Discuss](https://leetcode.com/discuss/study-guide/1527916/dynamic-programming-is-simple-3-multi-root-recursion)
 
 Dynamic programming is basically, recursion plus using common sense. The intuition behind dynamic programming is that we trade space for time, i.e. to say that instead of calculating all the states taking a lot of time but no space, we take up space to store the results of all the sub-problems to save time later.
 
@@ -1384,7 +1569,7 @@ The majority of the Dynamic Programming problems can be categorized into two typ
     
     ![Screenshot 2021-08-28 at 08.22.55.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-08-28_at_08.22.55.png)
     
-    ![Screenshot 2021-09-25 at 18.27.26.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-09-25_at_18.27.26.png)
+    ![Duplicate recursive trees (we should avoid this)](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-09-25_at_18.27.26.png)
     
     Duplicate recursive trees (we should avoid this)
     
@@ -1943,11 +2128,11 @@ The majority of the Dynamic Programming problems can be categorized into two typ
 
 - Longest Increasing Subsequence *
     
-    ![Screenshot 2021-10-12 at 12.20.04.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-12_at_12.20.04.png)
+    ![Tabulation_2](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-12_at_12.20.04.png)
     
     Tabulation_2
     
-    [Screen Recording 2021-10-12 at 12.20.43.mov](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screen_Recording_2021-10-12_at_12.20.43.mov)
+    [Tabulation_2](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screen_Recording_2021-10-12_at_12.20.43.mov)
     
     Tabulation_2
     
@@ -2101,7 +2286,9 @@ The majority of the Dynamic Programming problems can be categorized into two typ
             return max(dp)
     ```
     
-- Russian Doll Envelopes
+- Russian Doll Envelopes **
+    
+    ![Screenshot 2021-11-03 at 08.57.34.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-03_at_08.57.34.png)
     
     ```python
     """ 
@@ -2177,7 +2364,9 @@ The majority of the Dynamic Programming problems can be categorized into two typ
             return max(dp)
     ```
     
-- Maximum Height by Stacking Cuboids
+- Maximum Height by Stacking Cuboids *
+    
+    ![Screenshot 2021-11-03 at 09.01.50.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-03_at_09.01.50.png)
     
     ```python
     """ 
@@ -2241,6 +2430,7 @@ The majority of the Dynamic Programming problems can be categorized into two typ
             return cache[idx]
     ```
     
+
 - Climbing Stairs / Triple Step
     
     ```python
@@ -2431,330 +2621,6 @@ The majority of the Dynamic Programming problems can be categorized into two typ
         return max_ways[-1]
     ```
     
-
-- Interleaving String/Interweaving Strings
-    
-    ```python
-    """ 
-    Interleaving String/Interweaving Strings:
-    
-    Given strings s1, s2, and s3, find whether s3 is formed by an interleaving of s1 and s2.
-    An interleaving of two strings s and t is a configuration where they are divided into non-empty substrings such that:
-        s = s1 + s2 + ... + sn
-        t = t1 + t2 + ... + tm
-        |n - m| <= 1
-    The interleaving is s1 + t1 + s2 + t2 + s3 + t3 + ... or t1 + s1 + t2 + s2 + t3 + s3 + ...
-    Note: a + b is the concatenation of strings a and b.
-    
-    Example 1:
-        Input: s1 = "aabcc", s2 = "dbbca", s3 = "aadbbcbcac"
-        Output: true
-    Example 2:
-        Input: s1 = "aabcc", s2 = "dbbca", s3 = "aadbbbaccc"
-        Output: false
-    Example 3:
-        Input: s1 = "", s2 = "", s3 = ""
-        Output: true
-    
-    https://www.algoexpert.io/questions/Interweaving%20Strings
-    https://leetcode.com/problems/interleaving-string/
-    https://leetcode.com/problems/interleaving-string/discuss/326347/C-dynamic-programming-practice-in-August-2018-with-interesting-combinatorics-warmup
-    """
-    
-    """ 
-    ------------------------------------------------------------------------------------------------------------------------------------------------------
-    """
-    
-    def interweavingStringsBF_(one, two, three):
-        if len(three) != len(one) + len(two):
-            return False
-        return interweavingStringsHelperBF_(one, two, three, 0, 0, 0)
-    
-    def interweavingStringsHelperBF_(one, two, three, one_idx, two_idx, three_idx):
-        if three_idx == len(three):
-            return True
-    
-        one_res = False
-        two_res = False
-        if one_idx < len(one) and one[one_idx] == three[three_idx]:
-            one_res = interweavingStringsHelperBF_(
-                one, two, three, one_idx+1, two_idx, three_idx+1)
-    
-        if two_idx < len(two) and two[two_idx] == three[three_idx]:
-            two_res = interweavingStringsHelperBF_(
-                one, two, three, one_idx, two_idx+1, three_idx+1)
-    
-        return one_res or two_res
-    
-    """ 
-    BF that can be cached
-    """
-    
-    def interweavingStringsBF(one, two, three):
-        if len(three) != len(one) + len(two):
-            return False
-        return interweavingStringsHelperBF(one, two, three, 0, 0)
-    
-    def interweavingStringsHelperBF(one, two, three, one_idx, two_idx, ):
-        three_idx = one_idx + two_idx
-        if three_idx == len(three):
-            return True
-    
-        one_res = False
-        two_res = False
-        if one_idx < len(one) and one[one_idx] == three[three_idx]:
-            one_res = interweavingStringsHelperBF(
-                one, two, three, one_idx+1, two_idx)
-    
-        if two_idx < len(two) and two[two_idx] == three[three_idx]:
-            two_res = interweavingStringsHelperBF(
-                one, two, three, one_idx, two_idx+1)
-    
-        return one_res or two_res
-    
-    """ 
-    ------------------------------------------------------------------------------------------------------------------------------------------------------
-    """
-    
-    def interweavingStringsMEMO(one, two, three):
-        if len(three) != len(one) + len(two):
-    
-            return False
-        cache = [[None for _ in range(len(two)+1)] for _ in range(len(one)+1)]
-        return interweavingStringsHelperMEMO(one, two, three, cache, 0, 0)
-    
-    def interweavingStringsHelperMEMO(one, two, three, cache, one_idx, two_idx, ):
-        three_idx = one_idx + two_idx
-        if three_idx == len(three):
-            return True
-        if cache[one_idx][two_idx] is not None:
-            return cache[one_idx][two_idx]
-    
-        one_res = False
-        two_res = False
-        if one_idx < len(one) and one[one_idx] == three[three_idx]:
-            one_res = interweavingStringsHelperMEMO(
-                one, two, three, cache, one_idx+1, two_idx)
-    
-        if two_idx < len(two) and two[two_idx] == three[three_idx]:
-            two_res = interweavingStringsHelperMEMO(
-                one, two, three, cache, one_idx, two_idx+1)
-    
-        cache[one_idx][two_idx] = one_res or two_res
-        return cache[one_idx][two_idx]
-    
-    """ 
-    ------------------------------------------------------------------------------------------------------------------------------------------------------
-    
-    Bottom up:
-    
-    - for each char(in one or two) check if it matches what is in three:
-        - if it does: if we had built the prev string up to that point == True (
-                one idx behind the curr idx in three (up or left depending on if the row or column matches) )
-            - then True
-    
-    # can be optimised to 1D array
-    """
-    
-    def interweavingStrings(one, two, three):
-        if len(three) != len(one) + len(two):
-            return False
-    
-        dp = [[False for _ in range(len(two)+1)] for _ in range(len(one)+1)]
-    
-        # # fill in the defaults that will be used to generate the next
-        dp[0][0] = True
-        for i in range(1, len(one)+1):  # left column
-            actual_idx = i-1
-            if one[actual_idx] == three[actual_idx] and dp[i-1][0] == True:
-                dp[i][0] = True
-        for i in range(1, len(two)+1):  # top row
-            actual_idx = i-1
-            if two[actual_idx] == three[actual_idx] and dp[0][i-1] == True:
-                dp[0][i] = True
-    
-        # # fill in the rest
-        for one_idx in range(1, len(one)+1):
-            for two_idx in range(1, len(two)+1):
-                actual_one_idx = one_idx-1
-                actual_two_idx = two_idx-1
-                actual_three_idx = one_idx + two_idx - 1
-    
-                # # check if the string matches then check if we had built it successfully up to that point
-                # check one
-                if one[actual_one_idx] == three[actual_three_idx] and dp[one_idx-1][two_idx] == True:
-                    dp[one_idx][two_idx] = True
-                # check two
-                if two[actual_two_idx] == three[actual_three_idx] and dp[one_idx][two_idx-1] == True:
-                    dp[one_idx][two_idx] = True
-    
-        return dp[-1][-1]
-    ```
-    
-
-- Unique Paths
-    
-    ![Screenshot 2021-10-14 at 12.52.46.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-14_at_12.52.46.png)
-    
-    ![Screenshot 2021-10-14 at 12.53.16.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-14_at_12.53.16.png)
-    
-    starting from end to beginning
-    
-    ![Screenshot 2021-10-14 at 12.59.31.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-14_at_12.59.31.png)
-    
-    ![Screenshot 2021-10-14 at 13.00.15.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-14_at_13.00.15.png)
-    
-    ---
-    
-    ![Screenshot 2021-10-14 at 12.50.42.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-14_at_12.50.42.png)
-    
-    [Screen Recording 2021-10-14 at 12.51.31.mov](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screen_Recording_2021-10-14_at_12.51.31.mov)
-    
-    ```python
-    """ 
-    Unique Paths:
-    
-    A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
-    The robot can only move either down or right at any point in time. 
-    The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
-    How many possible unique paths are there?
-    
-    Example 1:
-        Input: m = 3, n = 7
-        Output: 28
-    Example 2:
-        Input: m = 3, n = 2
-        Output: 3
-        Explanation:
-        From the top-left corner, there are a total of 3 ways to reach the bottom-right corner:
-        1. Right -> Down -> Down
-        2. Down -> Down -> Right
-        3. Down -> Right -> Down
-    Example 3:
-        Input: m = 7, n = 3
-        Output: 28
-    Example 4:
-        Input: m = 3, n = 3
-        Output: 6
-    Example:
-    		99*1 => 1
-    Example
-    	99*2 => 99
-    
-    Number Of Ways To Traverse Graph:
-    You're given two positive integers representing the width and height of a grid-shaped, rectangular graph.
-    Write a function that returns the number of ways to reach the bottom right corner of the graph when starting at the top left corner.
-    Each move you take must either go down or right. In other words, you can never move up or left in the graph.
-    For example, given the graph illustrated below, with width = 2 and height = 3, 
-        there are three ways to reach the bottom right corner when starting at the top left corner:
-            _ _
-            |_|_|
-            |_|_|
-            |_|_|
-            Down, Down, Right
-            Right, Down, Down
-            Down, Right, Down
-    Note: you may assume that width * height >= 2.
-    In other words, the graph will never be a 1x1 grid.
-        Sample Input
-        width = 4
-        height = 3
-        Sample Output
-        10
-    
-    https://leetcode.com/problems/unique-paths
-    https://www.algoexpert.io/questions/Number%20Of%20Ways%20To%20Traverse%20Graph
-    https://www.notion.so/paulonteri/Recursion-DP-Backtracking-525dddcdd0874ed98372518724fc8753#f980e95403a24443a371a10430a198ad
-    
-    Unique Paths II can help in understanding this
-    """
-    
-    """
-    Since robot can move either down or right, 
-    	there is only one path to reach the cells in the first row: right->right->...->right.
-    	The same is valid for the first column, though the path here is down->down-> ...->down.
-    """
-    
-    # starting from end to beginning
-    # note that the start is 1,1.   0,0 is out of bounds
-    class SolutionMEMO:
-        def uniquePaths(self, m, n):
-            cache = [[False for _ in range(n+1)] for _ in range(m+1)]
-            return self.uniquePathsHelper(m, n, cache)
-    
-        def uniquePathsHelper(self, m, n, cache):
-            if m == 1 and n == 1:
-                return 1
-            if m < 1 or n < 1:
-                return float('-inf')
-            if cache[m][n]:
-                return cache[m][n]
-    
-            left = self.uniquePathsHelper(m, n-1, cache)
-            up = self.uniquePathsHelper(m-1, n, cache)
-    
-            total = 0
-            if left != float('-inf'):
-                total += left
-            if up != float('-inf'):
-                total += up
-    
-            cache[m][n] = total
-            return cache[m][n]
-    
-    """ 
-    -------------------------------------------------------------------------------------------------------------------------------------
-    
-    what if the graph was:
-    [
-      1
-    1[1],
-    ]
-    
-    [
-      1  2
-    1[1, 1],
-    2[1, 2],
-    ]
-    
-    [
-      1  2  3
-    1[1, 1, 1],
-    2[1, 2, 3],
-    3[1, 3, 6]
-    ]
-    
-    [
-      1  2  3  4
-    1[1, 1, 1, 1],
-    2[1, 2, 3, 4],
-    3[1, 3, 6, 10],
-    4[1, 4, 10, 20]
-    ]
-    
-    """
-    
-    class Solution:
-        def uniquePaths(self, m, n):
-            if m == 1 and n == 1:
-                return 1
-            cache = [[0 for _ in range(n+1)] for _ in range(m+1)]
-    
-            # fill in defaults
-            for i in range(1, n+1):
-                cache[1][i] = 1
-            for i in range(1, m+1):
-                cache[i][1] = 1
-    
-            for h in range(2, m+1):
-                for w in range(2, n+1):
-                    #                      top  +  left
-                    cache[h][w] = cache[h-1][w] + cache[h][w-1]
-    
-            # print(cache)
-            return cache[-1][-1]
-    ```
-    
 - Decode ways
     
     ![Screenshot 2021-10-23 at 15.16.57.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-23_at_15.16.57.png)
@@ -2943,6 +2809,338 @@ The majority of the Dynamic Programming problems can be categorized into two typ
     ```
     
 
+- Interleaving String/Interweaving Strings
+    
+    ```python
+    """ 
+    Interleaving String/Interweaving Strings:
+    
+    Given strings s1, s2, and s3, find whether s3 is formed by an interleaving of s1 and s2.
+    An interleaving of two strings s and t is a configuration where they are divided into non-empty substrings such that:
+        s = s1 + s2 + ... + sn
+        t = t1 + t2 + ... + tm
+        |n - m| <= 1
+    The interleaving is s1 + t1 + s2 + t2 + s3 + t3 + ... or t1 + s1 + t2 + s2 + t3 + s3 + ...
+    Note: a + b is the concatenation of strings a and b.
+    
+    Example 1:
+        Input: s1 = "aabcc", s2 = "dbbca", s3 = "aadbbcbcac"
+        Output: true
+    Example 2:
+        Input: s1 = "aabcc", s2 = "dbbca", s3 = "aadbbbaccc"
+        Output: false
+    Example 3:
+        Input: s1 = "", s2 = "", s3 = ""
+        Output: true
+    
+    https://www.algoexpert.io/questions/Interweaving%20Strings
+    https://leetcode.com/problems/interleaving-string/
+    https://leetcode.com/problems/interleaving-string/discuss/326347/C-dynamic-programming-practice-in-August-2018-with-interesting-combinatorics-warmup
+    """
+    
+    """ 
+    ------------------------------------------------------------------------------------------------------------------------------------------------------
+    """
+    
+    def interweavingStringsBF_(one, two, three):
+        if len(three) != len(one) + len(two):
+            return False
+        return interweavingStringsHelperBF_(one, two, three, 0, 0, 0)
+    
+    def interweavingStringsHelperBF_(one, two, three, one_idx, two_idx, three_idx):
+        if three_idx == len(three):
+            return True
+    
+        one_res = False
+        two_res = False
+        if one_idx < len(one) and one[one_idx] == three[three_idx]:
+            one_res = interweavingStringsHelperBF_(
+                one, two, three, one_idx+1, two_idx, three_idx+1)
+    
+        if two_idx < len(two) and two[two_idx] == three[three_idx]:
+            two_res = interweavingStringsHelperBF_(
+                one, two, three, one_idx, two_idx+1, three_idx+1)
+    
+        return one_res or two_res
+    
+    """ 
+    BF that can be cached
+    """
+    
+    def interweavingStringsBF(one, two, three):
+        if len(three) != len(one) + len(two):
+            return False
+        return interweavingStringsHelperBF(one, two, three, 0, 0)
+    
+    def interweavingStringsHelperBF(one, two, three, one_idx, two_idx, ):
+        three_idx = one_idx + two_idx
+        if three_idx == len(three):
+            return True
+    
+        one_res = False
+        two_res = False
+        if one_idx < len(one) and one[one_idx] == three[three_idx]:
+            one_res = interweavingStringsHelperBF(
+                one, two, three, one_idx+1, two_idx)
+    
+        if two_idx < len(two) and two[two_idx] == three[three_idx]:
+            two_res = interweavingStringsHelperBF(
+                one, two, three, one_idx, two_idx+1)
+    
+        return one_res or two_res
+    
+    """ 
+    ------------------------------------------------------------------------------------------------------------------------------------------------------
+    """
+    
+    def interweavingStringsMEMO(one, two, three):
+        if len(three) != len(one) + len(two):
+    
+            return False
+        cache = [[None for _ in range(len(two)+1)] for _ in range(len(one)+1)]
+        return interweavingStringsHelperMEMO(one, two, three, cache, 0, 0)
+    
+    def interweavingStringsHelperMEMO(one, two, three, cache, one_idx, two_idx, ):
+        three_idx = one_idx + two_idx
+        if three_idx == len(three):
+            return True
+        if cache[one_idx][two_idx] is not None:
+            return cache[one_idx][two_idx]
+    
+        one_res = False
+        two_res = False
+        if one_idx < len(one) and one[one_idx] == three[three_idx]:
+            one_res = interweavingStringsHelperMEMO(
+                one, two, three, cache, one_idx+1, two_idx)
+    
+        if two_idx < len(two) and two[two_idx] == three[three_idx]:
+            two_res = interweavingStringsHelperMEMO(
+                one, two, three, cache, one_idx, two_idx+1)
+    
+        cache[one_idx][two_idx] = one_res or two_res
+        return cache[one_idx][two_idx]
+    
+    """ 
+    ------------------------------------------------------------------------------------------------------------------------------------------------------
+    
+    Bottom up:
+    
+    - for each char(in one or two) check if it matches what is in three:
+        - if it does: if we had built the prev string up to that point == True (
+                one idx behind the curr idx in three (up or left depending on if the row or column matches) )
+            - then True
+    
+    # can be optimised to 1D array
+    """
+    
+    def interweavingStrings(one, two, three):
+        if len(three) != len(one) + len(two):
+            return False
+    
+        dp = [[False for _ in range(len(two)+1)] for _ in range(len(one)+1)]
+    
+        # # fill in the defaults that will be used to generate the next
+        dp[0][0] = True
+        for i in range(1, len(one)+1):  # left column
+            actual_idx = i-1
+            if one[actual_idx] == three[actual_idx] and dp[i-1][0] == True:
+                dp[i][0] = True
+        for i in range(1, len(two)+1):  # top row
+            actual_idx = i-1
+            if two[actual_idx] == three[actual_idx] and dp[0][i-1] == True:
+                dp[0][i] = True
+    
+        # # fill in the rest
+        for one_idx in range(1, len(one)+1):
+            for two_idx in range(1, len(two)+1):
+                actual_one_idx = one_idx-1
+                actual_two_idx = two_idx-1
+                actual_three_idx = one_idx + two_idx - 1
+    
+                # # check if the string matches then check if we had built it successfully up to that point
+                # check one
+                if one[actual_one_idx] == three[actual_three_idx] and dp[one_idx-1][two_idx] == True:
+                    dp[one_idx][two_idx] = True
+                # check two
+                if two[actual_two_idx] == three[actual_three_idx] and dp[one_idx][two_idx-1] == True:
+                    dp[one_idx][two_idx] = True
+    
+        return dp[-1][-1]
+    ```
+    
+
+- Unique Paths **
+    
+    [Unique Paths - Dynamic Programming - Leetcode 62](https://youtu.be/IlEsdxuD4lY)
+    
+    [Unique Paths - Dynamic Programming - Leetcode 62](https://youtu.be/IlEsdxuD4lY?t=232)
+    
+    ![Screenshot 2021-11-02 at 15.50.50.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-02_at_15.50.50.png)
+    
+    ---
+    
+    ![Screenshot 2021-10-14 at 12.52.46.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-14_at_12.52.46.png)
+    
+    ![Screenshot 2021-10-14 at 12.53.16.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-14_at_12.53.16.png)
+    
+    starting from end to beginning
+    
+    ![Screenshot 2021-10-14 at 12.59.31.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-14_at_12.59.31.png)
+    
+    ![Screenshot 2021-10-14 at 13.00.15.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-14_at_13.00.15.png)
+    
+    ---
+    
+    ![Screenshot 2021-10-14 at 12.50.42.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-14_at_12.50.42.png)
+    
+    [Screen Recording 2021-10-14 at 12.51.31.mov](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screen_Recording_2021-10-14_at_12.51.31.mov)
+    
+    ```python
+    """ 
+    Unique Paths:
+    
+    A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
+    The robot can only move either down or right at any point in time. 
+    The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+    How many possible unique paths are there?
+    
+    Example 1:
+        Input: m = 3, n = 7
+        Output: 28
+    Example 2:
+        Input: m = 3, n = 2
+        Output: 3
+        Explanation:
+        From the top-left corner, there are a total of 3 ways to reach the bottom-right corner:
+        1. Right -> Down -> Down
+        2. Down -> Down -> Right
+        3. Down -> Right -> Down
+    Example 3:
+        Input: m = 7, n = 3
+        Output: 28
+    Example 4:
+        Input: m = 3, n = 3
+        Output: 6
+    Example:
+    		99*1 => 1
+    Example
+    	99*2 => 99
+    
+    Number Of Ways To Traverse Graph:
+    You're given two positive integers representing the width and height of a grid-shaped, rectangular graph.
+    Write a function that returns the number of ways to reach the bottom right corner of the graph when starting at the top left corner.
+    Each move you take must either go down or right. In other words, you can never move up or left in the graph.
+    For example, given the graph illustrated below, with width = 2 and height = 3, 
+        there are three ways to reach the bottom right corner when starting at the top left corner:
+            _ _
+            |_|_|
+            |_|_|
+            |_|_|
+            Down, Down, Right
+            Right, Down, Down
+            Down, Right, Down
+    Note: you may assume that width * height >= 2.
+    In other words, the graph will never be a 1x1 grid.
+        Sample Input
+        width = 4
+        height = 3
+        Sample Output
+        10
+    
+    https://leetcode.com/problems/unique-paths
+    https://www.algoexpert.io/questions/Number%20Of%20Ways%20To%20Traverse%20Graph
+    https://www.notion.so/paulonteri/Recursion-DP-Backtracking-525dddcdd0874ed98372518724fc8753#f980e95403a24443a371a10430a198ad
+    
+    Unique Paths II can help in understanding this
+    """
+    
+    """
+    Since robot can move either down or right, 
+    	there is only one path to reach the cells in the first row: right->right->...->right.
+    	The same is valid for the first column, though the path here is down->down-> ...->down.
+    """
+    
+    # starting from end to beginning
+    # note that the start is 1,1.   0,0 is out of bounds
+    class SolutionMEMO:
+        def uniquePaths(self, m, n):
+            cache = [[False for _ in range(n+1)] for _ in range(m+1)]
+            return self.uniquePathsHelper(m, n, cache)
+    
+        def uniquePathsHelper(self, m, n, cache):
+            if m == 1 and n == 1:
+                return 1
+            if m < 1 or n < 1:
+                return float('-inf')
+            if cache[m][n]:
+                return cache[m][n]
+    
+            left = self.uniquePathsHelper(m, n-1, cache)
+            up = self.uniquePathsHelper(m-1, n, cache)
+    
+            total = 0
+            if left != float('-inf'):
+                total += left
+            if up != float('-inf'):
+                total += up
+    
+            cache[m][n] = total
+            return cache[m][n]
+    
+    """ 
+    -------------------------------------------------------------------------------------------------------------------------------------
+    
+    what if the graph was:
+    [
+      1
+    1[1],
+    ]
+    
+    [
+      1  2
+    1[1, 1],
+    2[1, 2],
+    ]
+    
+    [
+      1  2  3
+    1[1, 1, 1],
+    2[1, 2, 3],
+    3[1, 3, 6]
+    ]
+    
+    [
+      1  2  3  4
+    1[1, 1, 1, 1],
+    2[1, 2, 3, 4],
+    3[1, 3, 6, 10],
+    4[1, 4, 10, 20]
+    ]
+    
+    """
+    
+    class Solution:
+        def uniquePaths(self, m, n):
+            if m == 1 and n == 1:
+                return 1
+            cache = [[0 for _ in range(n+1)] for _ in range(m+1)]
+    
+            # fill in defaults
+            for i in range(1, n+1):
+                cache[1][i] = 1
+            for i in range(1, m+1):
+                cache[i][1] = 1
+    
+            for h in range(2, m+1):
+                for w in range(2, n+1):
+                    #                      top  +  left
+                    cache[h][w] = cache[h-1][w] + cache[h][w-1]
+    
+            # print(cache)
+            return cache[-1][-1]
+    ```
+    
+
 ### Honourable mentions
 
 [0/1 Knapsack (Dynamic Programming)](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/DP%20f1cdccd481ba461ea65ea993e984da07/0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6.md)
@@ -3110,6 +3308,8 @@ In recursion for example for Fibonacci calculation, if the root node (in the rec
 
 ### [How to avoid duplicates in recursion]()
 
+![Screenshot 2021-11-03 at 09.54.39.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-03_at_09.54.39%201.png)
+
 ### [Brute-force that can work with caching]()
 
 ---
@@ -3133,11 +3333,12 @@ In recursion for example for Fibonacci calculation, if the root node (in the rec
     https://youtu.be/rf6uf3jNjbo
     https://runestone.academy/runestone/books/published/pythonds/Recursion/TowerofHanoi.html
     https://leetcode.com/discuss/general-discussion/1517167/Tower-of-Hanoi-Algorithm-%2B-Python-code
+    https://www.notion.so/paulonteri/Recursion-DP-Backtracking-525dddcdd0874ed98372518724fc8753#0fa86da6418247199688a4f435447d86
     """
     
     """ 
     Here is a high-level outline of how to move a tower from the starting pole, to the goal pole, using an intermediate pole:
-        1. Move a tower of height-1 to an intermediate pole, using the final pole.
+        1. Move a tower of height-1 to an intermediate pole
         2. Move the last/remaining disk to the final pole.
         3. Move the disks height-1 to the first rod and repeat the above steps.
             Move the tower of height-1 from the intermediate pole to the final pole using the original pole.
@@ -3216,7 +3417,7 @@ It is a **refined brute force** approach that tries out all the possible solut
 
 ### Examples:
 
-- Permutations II *
+- Permutations II **
     
     ![Screenshot 2021-10-13 at 14.57.32.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-13_at_14.57.32.png)
     
@@ -3263,6 +3464,7 @@ It is a **refined brute force** approach that tries out all the possible solut
                 numbers[num] += 1
     ```
     
+
 - N-Queens
     
     [The N Queens Placement Problem Clear Explanation (Backtracking/Recursion)](https://www.youtube.com/watch?v=wGbuCyNpxIg&t=672s)
@@ -3277,7 +3479,7 @@ It is a **refined brute force** approach that tries out all the possible solut
     
     ![Screenshot 2021-10-13 at 06.55.10.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-13_at_06.55.10.png)
     
-    ![Screenshot 2021-10-13 at 06.56.42.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-13_at_06.56.42.png)
+    ![Alternatively](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-13_at_06.56.42.png)
     
     Alternatively
     
@@ -3616,11 +3818,11 @@ It is a **refined brute force** approach that tries out all the possible solut
     
 - Word Break II
     
-    ![Screenshot 2021-10-26 at 14.16.31.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-26_at_14.16.31.png)
+    ![without caching](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-26_at_14.16.31.png)
     
     without caching
     
-    ![Screenshot 2021-10-26 at 14.16.45.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-26_at_14.16.45.png)
+    ![with caching](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-26_at_14.16.45.png)
     
     with caching
     
@@ -3693,7 +3895,11 @@ It is a **refined brute force** approach that tries out all the possible solut
     ```
     
 
-- Remove Invalid Parentheses
+- Remove Invalid Parentheses *
+    
+    ![Screenshot 2021-11-03 at 09.19.01.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-03_at_09.19.01.png)
+    
+    ![Screenshot 2021-11-03 at 09.19.33.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-03_at_09.19.33.png)
     
     ```python
     """
@@ -3872,6 +4078,7 @@ It is a **refined brute force** approach that tries out all the possible solut
             return opening_count == 0
     ```
     
+
 - Combination Sum III
     
     ![Screenshot 2021-10-17 at 06.42.45.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-17_at_06.42.45.png)
@@ -3883,6 +4090,8 @@ It is a **refined brute force** approach that tries out all the possible solut
     ![Screenshot 2021-10-17 at 06.43.36.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-17_at_06.43.36.png)
     
     ![Screenshot 2021-10-17 at 06.43.50.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-17_at_06.43.50.png)
+    
+    ![Screenshot 2021-11-03 at 10.00.20.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-03_at_10.00.20.png)
     
     ```python
     """
@@ -3947,6 +4156,12 @@ It is a **refined brute force** approach that tries out all the possible solut
     ```
     
 - Combination Sum
+    
+    [Combination Sum - Backtracking - Leetcode 39 - Python](https://youtu.be/GBKI9VSKdGg)
+    
+    ![Screenshot 2021-11-03 at 09.54.39.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-03_at_09.54.39.png)
+    
+    ![Screenshot 2021-11-03 at 09.58.27.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-03_at_09.58.27.png)
     
     ```python
     """ 
@@ -4054,7 +4269,7 @@ It is a **refined brute force** approach that tries out all the possible solut
     ```
     
 
-- Expression Add Operators *
+- Expression Add Operators **
     
     ![Screenshot 2021-10-22 at 10.19.48.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-22_at_10.19.48.png)
     
@@ -4115,6 +4330,10 @@ It is a **refined brute force** approach that tries out all the possible solut
     https://leetcode.com/problems/expression-add-operators
     """
     
+    """ 
+    https://www.notion.so/paulonteri/Recursion-DP-Backtracking-525dddcdd0874ed98372518724fc8753#83d1fce1c9944b78a65a2c973be09e46
+    """
+    
     class Solution:
         def addOperators(self, num: str, target: int):
             answers = []
@@ -4122,9 +4341,9 @@ It is a **refined brute force** approach that tries out all the possible solut
             def dfs(idx, prev_operand, prev_operation, total, string):
                 """ 
                 Important info:
-                    - `prev_operand` is used to recursivly build operands. 
+                    - `prev_operand` is used to recursively build operands. 
                         Eg: for 123, it will grow as follows 1 => 12 => 123  \n
-                    - `prev_operartion`is used to store the results of the prevous operation so that it can be undone in case we need to multiply \n
+                    - `prev_operation`is used to store the results of the previous operation so that it can be undone in case we need to multiply \n
                     - `total` is the result of the running calculation
                 """
                 if idx == len(num):
@@ -4141,33 +4360,36 @@ It is a **refined brute force** approach that tries out all the possible solut
                     dfs(idx + 1, operand, prev_operation, total, string)
     
                 # # Math -------------------------------------------------------------------------------------------------------------------
-                # remember to reset the prev_operand to 0 (it is nolonger needed, we will start a new one next time)
-    
-                # Addition - also used to handle index 0/starting out (no string)
-                string.append("+")
-                string.append(str_op)
-                dfs(idx+1, 0, operand, total+operand, string)
-                string.pop()
-                string.pop()
+                # remember to reset the prev_operand to 0 (it is no longer needed, we will start a new one next time)
     
                 # Can subtract or multiply only if there are some previous operands
                 if string:
-                    # Subtraction - negate operand so that we don't have to keep track of the signs
+                    # ---
+                    # Subtraction - negate operand (as prev_operation) so that we don't have to keep track of the signs
                     string.append("-")
                     string.append(str_op)
                     dfs(idx+1, 0, -operand, total-operand, string)
                     string.pop()
                     string.pop()
     
-                    # Multiplication - undo last operation
+                    # ---
+                    # Multiplication - undo last operation and multiply
                     operation = prev_operation * operand
-                    new_total = (total - prev_operation) + operation # undo prev operation
+                    new_total = (total - prev_operation) + operation
                     #
                     string.append("*")
                     string.append(str_op)
                     dfs(idx+1, 0, operation, new_total, string)
                     string.pop()
                     string.pop()
+    
+                # ---
+                # Addition - also used to handle index 0/starting out (no string)
+                string.append("+")
+                string.append(str_op)
+                dfs(idx+1, 0, operand, total+operand, string)
+                string.pop()
+                string.pop()
     
             dfs(0, 0, 0, 0, [])
             return answers
@@ -4223,9 +4445,9 @@ It is a **refined brute force** approach that tries out all the possible solut
     ```
     
 
-- Partition to K Equal Sum Subsets *
+- Partition to K Equal Sum Subsets **
     
-    ![Screenshot 2021-10-25 at 20.23.32.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-25_at_20.23.32.png)
+    ![O(N.N!) time](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-25_at_20.23.32.png)
     
     O(N.N!) time
     
@@ -4263,6 +4485,10 @@ It is a **refined brute force** approach that tries out all the possible solut
         For each of the nodes in the first level, we have (N-1) similar choices. 
         As a result, the second level has N∗(N−1) nodes, and so on. The last level must have N⋅(N−1)⋅(N−2)⋅(N−3)⋅...⋅2⋅1 nodes.
     
+    - make a subset with sum totalArraySum/k
+        - reduce the needed(k) by one
+        - start again with other numbers
+    -repeat the above till the needed substets == 0
     """
     
     class Solution:
@@ -4288,13 +4514,15 @@ It is a **refined brute force** approach that tries out all the possible solut
                 # check if you starting to visit at a current index will give us the subsets
                 for i in range(idx, len(nums)):
                     # try not picked elements to make some combinations.
-                    if not taken[i]:
-                        # visit (Include this element in current subset)
-                        taken[i] = True
-                        if backtracking(curr_sum+nums[i], curr_k, i+1):
-                            return True  # if the current index works out, none other can
-                        # unvisit (Backtrack step)
-                        taken[i] = False
+                    if taken[i]:
+                        continue
+    
+                    # visit (Include this element in current subset)
+                    taken[i] = True
+                    if backtracking(curr_sum+nums[i], curr_k, i+1):
+                        return True  # if the current index works out, none other can
+                    # un-visit (Backtrack step)
+                    taken[i] = False
     
                 # We were not able to make a valid combination after picking
                 # each element from the array, hence we can't make k subsets.
@@ -4303,6 +4531,8 @@ It is a **refined brute force** approach that tries out all the possible solut
             return backtracking(0, 0, 0)
     
     """ 
+    Memoization:
+    
     O(N.2^N) time | O(N.2^N) space:
     - There will be N^2 unique combinations of the taken tuple, 
         in which every combination of the given array will be linearly iterated. 
@@ -4350,7 +4580,7 @@ It is a **refined brute force** approach that tries out all the possible solut
                         taken[i] = True
                         if backtracking(curr_sum+nums[i], curr_k, i+1):
                             return True  # if the current index works out, none other can
-                        # unvisit (Backtrack step)
+                        # un-visit (Backtrack step)
                         taken[i] = False
     
                 # We were not able to make a valid combination after picking

@@ -364,6 +364,9 @@ It can be helpful to go through [2D array problems](Strings,%20Arrays%20&%20Link
     
 
 - Course Schedule/Tasks Scheduling
+    
+    ![Screenshot 2021-11-02 at 15.42.40.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_15.42.40.png)
+    
 
 - Minimum Passes Of Matrix
     
@@ -1360,7 +1363,7 @@ It can be helpful to go through [2D array problems](Strings,%20Arrays%20&%20Link
         Input: points = [[0,0],[2,2],[3,10],[5,2],[7,0]]
         Output: 20
     Explanation:
-        We can connect the points as shown above to get the minimum cost of 20.
+        We can connect the points as sown above to get the minimum cost of 20.
         Notice that there is a unique path between every pair of points.
     Example 2:
         Input: points = [[3,12],[-2,5],[-4,1]]
@@ -1398,6 +1401,100 @@ It can be helpful to go through [2D array problems](Strings,%20Arrays%20&%20Link
                 x1, y1 = points[idx]
                 for idx2 in range(idx + 1, len(points)):
                     x2, y2 = points[idx2]
+              
+    ```
+    
+- Connecting Cities With Minimum Cost
+    
+    ```python
+    """ 
+    1584. Min Cost to Connect All Points
+    
+    You are given an array points representing integer coordinates of some points on a 2D-plane, where points[i] = [xi, yi].
+    The cost of connecting two points [xi, yi] and [xj, yj] is the manhattan distance between them: |xi - xj| + |yi - yj|, where |val| denotes the absolute value of val.
+    Return the minimum cost to make all points connected. All points are connected if there is exactly one simple path between any two points.
+    
+    Example 1:
+        Input: points = [[0,0],[2,2],[3,10],[5,2],[7,0]]
+        Output: 20
+    Explanation:
+        We can connect the points as shown above to get the minimum cost of 20.
+        Notice that there is a unique path between every pair of points.
+    Example 2:
+        Input: points = [[3,12],[-2,5],[-4,1]]
+        Output: 18
+    Example 3:
+        Input: points = [[0,0],[1,1],[1,0],[-1,1]]
+        Output: 4
+    Example 4:
+        Input: points = [[-1000000,-1000000],[1000000,1000000]]
+        Output: 4000000
+    Example 5:
+        Input: points = [[0,0]]
+        Output: 0
+    
+    https://leetcode.com/problems/min-cost-to-connect-all-points
+    https://www.notion.so/paulonteri/Trees-Graphs-edc3401e06c044f29a2d714d20ffe185#2ac2c79816464704a3851de16d494dff
+    """
+    
+    import collections
+    import heapq
+    
+    """ 
+    Prim's Minimum Spanning Tree Algorithm: https://www.notion.so/paulonteri/Trees-Graphs-edc3401e06c044f29a2d714d20ffe185#596bc798759a4edabe22a895aadeb12c
+    https://youtu.be/f7JOBJIC-NA
+    """
+    
+    class Solution_:
+        def minCostConnectPoints(self, points):
+            total = 0
+    
+            # # Create adjacency list
+            # Will store  nodes in the form => `parent: [[cost_to_1, node_1], [cost_to_2, node_2], ...]`
+            graph = collections.defaultdict(list)
+            for idx in range(len(points)):
+                x1, y1 = points[idx]
+                for idx2 in range(idx + 1, len(points)):
+                    x2, y2 = points[idx2]
+                    cost = abs(x1 - x2) + abs(y1 - y2)
+    
+                    graph[str(x1)+str(y1)].append([cost, str(x2)+str(y2)])
+                    graph[str(x2)+str(y2)].append([cost, str(x1)+str(y1)])
+    
+            # # Prim's Minimum Spanning Tree Algorithm
+            visited = set()
+            priority_queue = []
+            first_node = str(points[0][0])+str(points[0][1])
+            heapq.heappush(priority_queue, (0, first_node))  # start from node 0
+            while len(visited) < len(graph):
+                cost, node = heapq.heappop(priority_queue)
+                # skip visited
+                if node in visited:
+                    continue
+                visited.add(node)
+    
+                # record cost
+                total += cost
+                # add neighbours
+                for neighbour in graph[node]:
+                    if neighbour[1] not in visited:
+                        heapq.heappush(priority_queue, neighbour)
+    
+            return total
+    
+    class Solution:
+        def minCostConnectPoints(self, points):
+    
+            total = 0
+    
+            # # Create adjacency list
+            # Will use the array indices as id's
+            # Will store  nodes in the form => `parent: [[cost_to_1, node_1], [cost_to_2, node_2], ...]`
+            graph = collections.defaultdict(list)
+            for idx in range(len(points)):
+                x1, y1 = points[idx]
+                for idx2 in range(idx + 1, len(points)):
+                    x2, y2 = points[idx2]
                     cost = abs(x1 - x2) + abs(y1 - y2)
     
                     graph[idx].append([cost, idx2])
@@ -1416,7 +1513,7 @@ It can be helpful to go through [2D array problems](Strings,%20Arrays%20&%20Link
     
                 # record cost
                 total += cost
-                # add neighboours
+                # add neighbours
                 for neighbour in graph[node]:
                     if neighbour[1] not in visited:
                         heapq.heappush(priority_queue, neighbour)
@@ -1424,106 +1521,44 @@ It can be helpful to go through [2D array problems](Strings,%20Arrays%20&%20Link
             return total
     ```
     
-- Connecting Cities With Minimum Cost
-    
-    ```python
-    """ 
-    Connecting Cities With Minimum Cost
-    
-    There are n cities labelled from 1 to n. 
-    You are given the integer n and an array connections where connections[i] = [xi, yi, costi] indicates that the cost of connecting city xi and city yi (bidirectional connection) is costi.
-    Return the minimum cost to connect all the n cities such that there is at least one path between each pair of cities. If it is impossible to connect all the n cities, return -1,
-    The cost is the sum of the connections' costs used.
-    
-    Example 1:
-        Input: n = 3, connections = [[1,2,5],[1,3,6],[2,3,1]]
-        Output: 6
-        Explanation: Choosing any 2 edges will connect all cities so we choose the minimum 2.
-    Example 2:
-        Input: n = 4, connections = [[1,2,3],[3,4,4]]
-        Output: -1
-        Explanation: There is no way to connect all cities even if all edges are used.
-    
-    https://leetcode.com/problems/connecting-cities-with-minimum-cost/
-    https://www.notion.so/paulonteri/Trees-Graphs-edc3401e06c044f29a2d714d20ffe185#127f401fa2624fbebe9ea79bc7fad235
-    """
-    
-    import collections
-    import heapq
-    
-    """ 
-    Prim's Minimum Spanning Tree Algorithm: https://www.notion.so/paulonteri/Trees-Graphs-edc3401e06c044f29a2d714d20ffe185#596bc798759a4edabe22a895aadeb12c
-    """
-    
-    class Solution:
-        def minimumCost(self, n: int, connections):
-            total_cost = 0
-    
-            # # Create adjacency list
-            # Will store  nodes in the form => `parent: [[cost_to_1, node_1], [cost_to_2, node_2], ...]`
-            graph = collections.defaultdict(set)
-            for city_x, city_y, cost in connections:
-                graph[city_x].add((cost, city_y))
-                graph[city_y].add((cost, city_x))
-    
-            # # Prim's Minimum Spanning Tree Algorithm
-            visited = set()
-            priority_queue = []
-            heapq.heappush(priority_queue, (0, 1))  # start from node 1
-            while priority_queue:
-                cost, node = heapq.heappop(priority_queue)
-                # skip visited
-                if node in visited:
-                    continue
-                visited.add(node)
-    
-                total_cost += cost
-                for neighbour_cost, neighbour in graph[node]:
-                    if neighbour not in visited:
-                        heapq.heappush(priority_queue, [neighbour_cost, neighbour])
-    
-            if len(visited) == n:
-                return total_cost
-            return -1
-    ```
-    
 
-It’s natural to use a graph when the problem involves spatially connected objects, e.g., road segments between cities.
+<aside>
+💡 It’s natural to use a graph when the problem involves spatially connected objects, e.g., road segments between cities.
 More generally, consider using a graph when you need to analyze any binary relationship, between objects, such as interlinked webpages, followers in a social graph, etc. In such cases, quite often the problem can be reduced to a well-known graph problem.
 
-Some graph problems entail analyzing structure, e.g., looking for cycles or connected components. ***[DFS](Searching%20733ff84c808c4c9cb5c40787b2df7b98.md)*** works particularly well for these applications
+</aside>
+
+<aside>
+💡 Some graph problems entail analyzing structure, e.g., looking for cycles or connected components. ***[DFS](Searching%20733ff84c808c4c9cb5c40787b2df7b98.md)*** works particularly well for these applications
 
 DFS is often preferred if we want to visit every node in the graph. Both will work just fine, but the depth-first search is a bit simpler.
 
-Some graph problems are related to **optimization**, e.g., finding the shortest path from one vertex to another. **[BFS](Searching%20733ff84c808c4c9cb5c40787b2df7b98.md), Dijkstra’s shortest path algorithm,** and **minimum spanning tree** are examples of graph algorithms appropriate for optimization problems.
+</aside>
+
+<aside>
+💡 Some graph problems are related to **optimization**, e.g., finding the shortest path from one vertex to another. **[BFS](Searching%20733ff84c808c4c9cb5c40787b2df7b98.md), Dijkstra’s shortest path algorithm,** and **minimum spanning tree** are examples of graph algorithms appropriate for optimization problems.
 
 all shortest path problems == BFS
 
+</aside>
+
 ## Terminology & Definitions
 
-![Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/graph.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/graph.png)
+![a directed, weighted, acyclic graph with 6 vertices and 8 edges](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/graph.png)
 
 a directed, weighted, acyclic graph with 6 vertices and 8 edges
 
 ### **Vertex/Node**
 
-A [vertex](https://en.wikipedia.org/wiki/Vertex_%28graph_theory%29) (also called a **node**) is a fundamental part of a graph. It can have a name (a **key**), it may also have additional information (the **payload**).
-
-Our graph has **6** vertices:
-
-`V = {a, b, c, d, e, f}`
+A [vertex](https://en.wikipedia.org/wiki/Vertex_%28graph_theory%29) (also called a **node**) is a fundamental part of a graph. It can have a name (a **key**), it may also have additional information (the **payload**). Our graph has **6** vertices: `V = {a, b, c, d, e, f}`
 
 ### **Edge/Arc**
 
-An [edge](https://en.wikipedia.org/wiki/Glossary_of_graph_theory_terms#edge) (also called an “**arc**”) is another fundamental part of a graph. An **edge** connects two vertices to show that there is a relationship between them.
-
-Our graph has **8** edges:
-
-`E = {(a, b, 45), (a, c, 52), (a, d, 7), (b, c, 11), (b, f, 5), (d, e, 17), (e, f, 6), (f, c, 21)}`
+An [edge](https://en.wikipedia.org/wiki/Glossary_of_graph_theory_terms#edge) (also called an “**arc**”) is another fundamental part of a graph. An **edge** connects two vertices to show that there is a relationship between them. Our graph has **8** edges: `E = {(a, b, 45), (a, c, 52), (a, d, 7), (b, c, 11), (b, f, 5), (d, e, 17), (e, f, 6), (f, c, 21)}`
 
 ### **Weighted or Unweighted**
 
-If a graph is **weighted**, each edge has a “weight.” The weight could, for example, represent the distance between two locations, or the cost or time it takes to travel between the locations.
+If a graph is **weighted**, each edge has a “weight.” The weight could, for example, represent the distance between two locations, or the cost or time it takes to travel between the locations.
 
 ### **Directed or Undirected**
 
@@ -1722,7 +1757,9 @@ A Bipartite Graph is a graph whose vertices can be divided into two independent 
 
 Equivalently, a bipartite graph is a graph that does not contain any odd-length cycles.
 
-![Screenshot 2021-10-10 at 07.45.57.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-10_at_07.45.57.png)
+![Graph coloring:
+- the graph on the left has an even cycle
+- the graph on the right failed to make an even cycle (at 4/5)](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-10_at_07.45.57.png)
 
 Graph coloring:
 - the graph on the left has an even cycle
@@ -1779,15 +1816,18 @@ Graph coloring:
     ```
     
 
-![Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/2019-07-26-binary-tree.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/2019-07-26-binary-tree.png)
+![Binary Tree](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/2019-07-26-binary-tree.png)
 
 Binary Tree
 
-Recursive algorithms are well-suited to problems on trees. Remember to include space implicitly allocated on the function call stack when doing space complexity analysis
+<aside>
+💡 Recursive algorithms are well-suited to problems on trees. Remember to include space implicitly allocated on the function call stack when doing space complexity analysis
+
+</aside>
 
 ### Examples:
 
-- Symmetric Tree
+- Symmetric Tree *
     
     ```python
     """ 
@@ -2179,7 +2219,7 @@ Recursive algorithms are well-suited to problems on trees. Remember to include s
     
 - Path Sum II
     
-    ![Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/path_sum_two.py.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/path_sum_two.py.png)
+    ![Path Sum II](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/path_sum_two.py.png)
     
     Path Sum II
     
@@ -2226,6 +2266,10 @@ Recursive algorithms are well-suited to problems on trees. Remember to include s
     
 
 - Populating Next Right Pointers in Each Node *
+    
+    ![Screenshot 2021-11-02 at 10.59.29.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_10.59.29.png)
+    
+    Remember that we are dealing with a perfect tree
     
     ```python
     """ 
@@ -2303,7 +2347,7 @@ Recursive algorithms are well-suited to problems on trees. Remember to include s
     ```
     
 
-- Flatten Binary Tree to Linked List *
+- Flatten Binary Tree to Linked List **
     
     ![Screenshot 2021-10-09 at 06.59.22.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-09_at_06.59.22.png)
     
@@ -2474,6 +2518,7 @@ Recursive algorithms are well-suited to problems on trees. Remember to include s
     
 - Find Successor
     
+    
     ```python
     """
     Find Successor:
@@ -2486,6 +2531,22 @@ Recursive algorithms are well-suited to problems on trees. Remember to include s
     If a node has no successor, your function should return None / null.
     Each BinaryTree node has an integer value, a parent node, a left child node, and a right child node.
     Children nodes can either be BinaryTree nodes themselves or None / null.
+    
+    Sample Input
+        tree = 
+                    1
+                 /   \
+                2     3
+              /   \ 
+             4     5
+            /       
+            6  
+        node = 5   
+    Sample Output
+        1
+        // This tree's in-order traversal order is:
+        // 6 -> 4 -> 2 -> 5 -> 1 -> 3 
+        // 1 comes immediately after 5.
     
     https://www.algoexpert.io/questions/Find%20Successor
     """
@@ -2566,7 +2627,7 @@ Recursive algorithms are well-suited to problems on trees. Remember to include s
     ```
     
 
-- Subtree of Another Tree
+- Subtree of Another Tree *
     - Check subtree
         
         ![Screenshot 2021-10-07 at 08.49.04.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-07_at_08.49.04.png)
@@ -2577,6 +2638,10 @@ Recursive algorithms are well-suited to problems on trees. Remember to include s
         
         ![Screenshot 2021-10-07 at 08.50.23.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-07_at_08.50.23.png)
         
+    
+    ![Screenshot 2021-11-02 at 11.45.39.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_11.45.39.png)
+    
+    ![Screenshot 2021-11-02 at 11.46.00.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_11.46.00.png)
     
     ```python
     """
@@ -2624,6 +2689,8 @@ Recursive algorithms are well-suited to problems on trees. Remember to include s
     [Construct Binary Tree from Inorder and Preorder Traversal - Leetcode 105 - Python](https://youtu.be/ihj4IQGZ2zc)
     
     [LeetCode 105. Construct Binary Tree from Preorder and Inorder Traversal (Algorithm Explained)](https://youtu.be/GeltTz3Z1rw)
+    
+    ![Screenshot 2021-11-02 at 12.35.33.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_12.35.33.png)
     
     ![Screenshot 2021-10-04 at 05.43.02.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-04_at_05.43.02.png)
     
@@ -2845,6 +2912,8 @@ Recursive algorithms are well-suited to problems on trees. Remember to include s
 - Preorder/Postorder
 - Binary Tree Inorder Traversal - Iterative **
     
+    ![Screenshot 2021-11-02 at 13.07.38.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_13.07.38.png)
+    
     [Screen Recording 2021-10-23 at 13.36.24.mov](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screen_Recording_2021-10-23_at_13.36.24.mov)
     
     ```python
@@ -2982,7 +3051,7 @@ Recursive algorithms are well-suited to problems on trees. Remember to include s
             self.inorderTraversalHelper(root.right, output)
     ```
     
-- Morris Inorder Tree Traversal - Inorder with O(1) space
+- Morris Inorder Tree Traversal - Inorder with O(1) space ***
     
     [https://youtu.be/wGXB9OWhPTg](https://youtu.be/wGXB9OWhPTg)
     
@@ -3055,7 +3124,9 @@ Recursive algorithms are well-suited to problems on trees. Remember to include s
     ```
     
 - 536. Construct Binary Tree from String
-- Serialize and Deserialize Binary Tree *
+- Serialize and Deserialize Binary Tree **
+    
+    ![Screenshot 2021-11-02 at 13.15.43.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_13.15.43.png)
     
     ```python
     """ 
@@ -3122,8 +3193,8 @@ Recursive algorithms are well-suited to problems on trees. Remember to include s
             return " ".join(preorder_result)
     
         def deserialize(self, data):
-            idx = 0
     
+            idx = 0
             def reverse_preorder(arr):
                 nonlocal idx
                 if idx > len(arr):
@@ -3149,7 +3220,7 @@ Recursive algorithms are well-suited to problems on trees. Remember to include s
     ```
     
 
-- Flatten Binary Tree to Linked List *
+- Flatten Binary Tree to Linked List **
     
     ![Screenshot 2021-10-09 at 06.59.22.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-09_at_06.59.22.png)
     
@@ -3445,6 +3516,12 @@ Recursive algorithms are well-suited to problems on trees. Remember to include s
 
 - Vertical Order Traversal of a Binary Tree
     
+    ![Screenshot 2021-11-02 at 13.19.01.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_13.19.01.png)
+    
+    ![Screenshot 2021-11-02 at 13.19.23.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_13.19.23.png)
+    
+    ![Screenshot 2021-11-02 at 13.19.38.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_13.19.38.png)
+    
     ```python
     """
     Vertical Order Traversal of a Binary Tree:
@@ -3559,7 +3636,9 @@ Recursive algorithms are well-suited to problems on trees. Remember to include s
             self.getNodesPositions(node.right, node_positions, x+1, y+1)
     ```
     
-- Find Nodes Distance K
+- Find Nodes Distance K *
+    
+    ![Screenshot 2021-11-02 at 13.23.31.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_13.23.31.png)
     
     ```python
     """ 
@@ -3667,17 +3746,15 @@ Recursive algorithms are well-suited to problems on trees. Remember to include s
 
 ### Definition of terms
 
-The **depth** of a node n is the number of nodes on the search path from the root to n, not including n itself. 
-The **height** of a binary tree is the maximum depth of any node in that tree. 
-A **level** of a tree is all nodes at the same depth.
+The ***depth*** of a node n is the number of nodes on the search path from the root to n, not including n itself. 
+The ***height*** of a binary tree is the maximum depth of any node in that tree. 
+A ***level*** of a tree is all nodes at the same depth.
 
 ***Balanced vs. Unbalanced***
 
-A **balanced binary tree**, also referred to as a **height-balanced binary tree**, is defined as a binary tree in which the height of the left and right subtree of any node differ by not more than 1.
+A ***balanced* binary tree**, also referred to as a **height-balanced binary tree**, is defined as a binary tree in which the height of the left and right subtree of any node differ by **not more than 1**. One way to think about it is that a "balanced" tree really means something more like "**not terribly imbal­anced**:" It's balanced enough to ensure 0(logn) times for insert and find,but it's not necessarily as balanced as it could be.
 
-While many trees are balanced, not all are. Ask your interviewer for clarification here. Note that balancing a tree does not mean the left and right subtrees are exactly the same size (like you see under"perfect binary trees").
-
-One way to think about it is that a "balanced" tree really means something more like "not terribly imbal­anced:" It's balanced enough to ensure 0(logn) times for insert and find,but it's not necessarily as balanced as it could be.
+While many trees are balanced, not all are. Ask your interviewer for clarification here. Note that balancing a tree does not mean the left and right subtrees are exactly the same size (like you see under "perfect binary trees").
 
 Two common types of balanced trees are **red-black trees** and **AVL trees.**
 
@@ -3686,7 +3763,7 @@ Two common types of balanced trees are **red-black trees** and **AVL trees.**
 ![Screenshot 2021-10-06 at 18.20.21.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-06_at_18.20.21.png)
 
 A ***complete binary tree*** is a binary tree in which every level, except
-possibly the last, is completely filled, and all nodes are as far left as possible (This terminology is not universal, e.g., some authors use complete binary tree where we write perfect binary tree.)
+possibly the last, **is completely filled**, and all nodes are **as far left as possible** (This terminology is not universal, e.g., some authors use complete binary tree where we write perfect binary tree.)
 
 ***Full Binary Trees***
 
@@ -3705,6 +3782,88 @@ Binary trees have a few interesting properties when they're perfect:
     ![Screenshot 2021-10-03 at 10.01.10.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-03_at_10.01.10.png)
     
 2. The number of nodes on the last level is equal to the sum of the number of nodes on all other levels (plus 1). In other words, about half of our nodes are on the last level.
+
+- Populating Next Right Pointers in Each Node *
+    
+    ![Screenshot 2021-11-02 at 10.59.29.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_10.59.29.png)
+    
+    Remember that we are dealing with a perfect tree
+    
+    ```python
+    """ 
+    116. Populating Next Right Pointers in Each Node
+    
+    You are given a perfect binary tree where all leaves are on the same level, and every parent has two children. The binary tree has the following definition:
+        struct Node {
+        int val;
+        Node *left;
+        Node *right;
+        Node *next;
+        }
+    
+    Populate each next pointer to point to its next right node. 
+    If there is no next right node, the next pointer should be set to NULL.
+    Initially, all next pointers are set to NULL.
+    
+    https://leetcode.com/problems/populating-next-right-pointers-in-each-node
+    EPI 9.16
+    """
+    import collections
+    
+    # Definition for a Node.
+    class Node:
+        def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+            self.val = val
+            self.left = left
+            self.right = right
+            self.next = next
+    
+    class Solution:
+        def connect(self, root: 'Node'):
+            if not root:
+                return
+    
+            queue = [root]
+            while queue:
+                curr = queue.pop(0)
+    
+                if curr.left:
+                    curr.left.next = curr.right
+                    queue.append(curr.left)
+    
+                if curr.right:
+                    if curr.next:
+                        curr.right.next = curr.next.left
+                    queue.append(curr.right)
+    
+            return root
+    
+    """ 
+    """
+    
+    class Solution_:
+        def connect(self, root: 'Node'):
+            if not root:
+                return None
+    
+            prev_nodes = collections.defaultdict(lambda: None)
+            queue = [(root, 0)]
+    
+            while queue:
+                curr, depth = queue.pop(0)
+    
+                curr.next = prev_nodes[depth]
+                prev_nodes[depth] = curr
+    
+                # next
+                if curr.right:
+                    queue.append((curr.right, depth+1))
+                if curr.left:
+                    queue.append((curr.left, depth+1))
+    
+            return root
+    ```
+    
 
 ## Binary Tree Traversals (Inorder, Preorder and Postorder)
 
@@ -4378,6 +4537,8 @@ In this traversal mode, **one starts from the *left child*, move to the *right
     
 - Serialize and Deserialize BST *
     
+    ![Screenshot 2021-11-02 at 13.47.27.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_13.47.27.png)
+    
     ```python
     """ 
     Serialize and Deserialize BST
@@ -4463,7 +4624,7 @@ In this traversal mode, **one starts from the *left child*, move to the *right
     ```
     
 
-- Subtree of Another Tree
+- Subtree of Another Tree *
     - Check subtree
         
         ![Screenshot 2021-10-07 at 08.49.04.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-07_at_08.49.04.png)
@@ -4474,6 +4635,10 @@ In this traversal mode, **one starts from the *left child*, move to the *right
         
         ![Screenshot 2021-10-07 at 08.50.23.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-07_at_08.50.23.png)
         
+    
+    ![Screenshot 2021-11-02 at 11.45.39.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_11.45.39.png)
+    
+    ![Screenshot 2021-11-02 at 11.46.00.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_11.46.00.png)
     
     ```python
     """
@@ -4521,6 +4686,8 @@ In this traversal mode, **one starts from the *left child*, move to the *right
     [Construct Binary Tree from Inorder and Preorder Traversal - Leetcode 105 - Python](https://youtu.be/ihj4IQGZ2zc)
     
     [LeetCode 105. Construct Binary Tree from Preorder and Inorder Traversal (Algorithm Explained)](https://youtu.be/GeltTz3Z1rw)
+    
+    ![Screenshot 2021-11-02 at 12.35.33.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_12.35.33.png)
     
     ![Screenshot 2021-10-04 at 05.43.02.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-04_at_05.43.02.png)
     
@@ -4742,6 +4909,8 @@ In this traversal mode, **one starts from the *left child*, move to the *right
 - Preorder/Postorder
 - Binary Tree Inorder Traversal - Iterative **
     
+    ![Screenshot 2021-11-02 at 13.07.38.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_13.07.38.png)
+    
     [Screen Recording 2021-10-23 at 13.36.24.mov](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screen_Recording_2021-10-23_at_13.36.24.mov)
     
     ```python
@@ -4879,7 +5048,7 @@ In this traversal mode, **one starts from the *left child*, move to the *right
             self.inorderTraversalHelper(root.right, output)
     ```
     
-- Morris Inorder Tree Traversal - Inorder with O(1) space
+- Morris Inorder Tree Traversal - Inorder with O(1) space ***
     
     [https://youtu.be/wGXB9OWhPTg](https://youtu.be/wGXB9OWhPTg)
     
@@ -4952,7 +5121,9 @@ In this traversal mode, **one starts from the *left child*, move to the *right
     ```
     
 - 536. Construct Binary Tree from String
-- Serialize and Deserialize Binary Tree *
+- Serialize and Deserialize Binary Tree **
+    
+    ![Screenshot 2021-11-02 at 13.15.43.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_13.15.43.png)
     
     ```python
     """ 
@@ -5019,8 +5190,8 @@ In this traversal mode, **one starts from the *left child*, move to the *right
             return " ".join(preorder_result)
     
         def deserialize(self, data):
-            idx = 0
     
+            idx = 0
             def reverse_preorder(arr):
                 nonlocal idx
                 if idx > len(arr):
@@ -5046,7 +5217,7 @@ In this traversal mode, **one starts from the *left child*, move to the *right
     ```
     
 
-- Flatten Binary Tree to Linked List *
+- Flatten Binary Tree to Linked List **
     
     ![Screenshot 2021-10-09 at 06.59.22.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-09_at_06.59.22.png)
     
@@ -5765,6 +5936,8 @@ In this traversal mode, **one starts from the *left child*, move to the *right
     ```
     
 - Serialize and Deserialize BST *
+    
+    ![Screenshot 2021-11-02 at 13.47.27.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_13.47.27.png)
     
     ```python
     """ 
@@ -6614,7 +6787,12 @@ The **Binary Search Tree (BST)** is a [Binary Tree]() with the following pro
 
 Key lookup, insertion, and deletion take time proportional to the height of the tree, which can in **worst-case be `O(n)`**, if insertions and deletions are naively implemented. However, there are implementations of insert and delete which guarantee that the tree has height `O(log n)`. These require storing and updating additional data at the tree nodes. **Red-black trees** are an example of height-balanced BSTs and are widely used in data structure libraries.
 
-Key lookup, insertion, and deletion take time proportional to the height of the tree, which can in **worst-case be `O(n)`**, if insertions and deletions are naively implemented
+<aside>
+💡 Key lookup, insertion, and deletion take time proportional to the height of the tree, which can in **worst-case be `O(n)`**, if insertions and deletions are naively implemented. Eg if the tree looks like a linked list
+
+![Screenshot 2021-11-02 at 17.53.49.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_17.53.49.png)
+
+</aside>
 
 When we are talking about the *average case*, it is the time it takes for the operation on a **balanced tree**, and when we are talking about the *worst case*, it is the time it takes for the given operation on a **non-balanced tree**.
 
@@ -6919,11 +7097,11 @@ Once we have found the node containing the key we want to *delete*, there are 
 2. The node to be deleted has **only one** child
 3. The node to be deleted has **two** children
 
-![Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/2019-08-27-deleting-node-without-children.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/2019-08-27-deleting-node-without-children.png)
+![1. The node to be deleted has **no** children](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/2019-08-27-deleting-node-without-children.png)
 
 1. The node to be deleted has **no** children
 
-![Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Untitled.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Untitled.png)
+![2. The node to be deleted has **only one** child](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Untitled.png)
 
 2. The node to be deleted has **only one** child
 
@@ -6938,7 +7116,7 @@ Once we have found the node containing the key we want to *delete*, there are 
     2. If the node has **no** *right child* and is the *left child* of its parent, then the *parent* is the *successor*
     3. If the node **is** the *right child* of its *parent*, and itself has **no** *right child*, then the *successor* to this node is the *successor* of its *parent*, excluding this node.
 
-![Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Untitled%201.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Untitled%201.png)
+![3. The node to be deleted has **two** children](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Untitled%201.png)
 
 3. The node to be deleted has **two** children
 
@@ -6968,7 +7146,7 @@ Once we have found the node containing the key we want to *delete*, there are 
         Input: points = [[0,0],[2,2],[3,10],[5,2],[7,0]]
         Output: 20
     Explanation:
-        We can connect the points as shown above to get the minimum cost of 20.
+        We can connect the points as sown above to get the minimum cost of 20.
         Notice that there is a unique path between every pair of points.
     Example 2:
         Input: points = [[3,12],[-2,5],[-4,1]]
@@ -7006,155 +7184,10 @@ Once we have found the node containing the key we want to *delete*, there are 
                 x1, y1 = points[idx]
                 for idx2 in range(idx + 1, len(points)):
                     x2, y2 = points[idx2]
-                    cost = abs(x1 - x2) + abs(y1 - y2)
-    
-                    graph[idx].append([cost, idx2])
-                    graph[idx2].append([cost, idx])
-    
-            # # Prim's Minimum Spanning Tree Algorithm
-            visited = set()
-            priority_queue = []
-            heapq.heappush(priority_queue, (0, 0))  # start from node 0
-            while len(visited) < len(graph):
-                cost, node = heapq.heappop(priority_queue)
-                # skip visited
-                if node in visited:
-                    continue
-                visited.add(node)
-    
-                # record cost
-                total += cost
-                # add neighboours
-                for neighbour in graph[node]:
-                    if neighbour[1] not in visited:
-                        heapq.heappush(priority_queue, neighbour)
-    
-            return total
+              
     ```
     
 - Connecting Cities With Minimum Cost
-    
-    ```python
-    """ 
-    Connecting Cities With Minimum Cost
-    
-    There are n cities labelled from 1 to n. 
-    You are given the integer n and an array connections where connections[i] = [xi, yi, costi] indicates that the cost of connecting city xi and city yi (bidirectional connection) is costi.
-    Return the minimum cost to connect all the n cities such that there is at least one path between each pair of cities. If it is impossible to connect all the n cities, return -1,
-    The cost is the sum of the connections' costs used.
-    
-    Example 1:
-        Input: n = 3, connections = [[1,2,5],[1,3,6],[2,3,1]]
-        Output: 6
-        Explanation: Choosing any 2 edges will connect all cities so we choose the minimum 2.
-    Example 2:
-        Input: n = 4, connections = [[1,2,3],[3,4,4]]
-        Output: -1
-        Explanation: There is no way to connect all cities even if all edges are used.
-    
-    https://leetcode.com/problems/connecting-cities-with-minimum-cost/
-    https://www.notion.so/paulonteri/Trees-Graphs-edc3401e06c044f29a2d714d20ffe185#127f401fa2624fbebe9ea79bc7fad235
-    """
-    
-    import collections
-    import heapq
-    
-    """ 
-    Prim's Minimum Spanning Tree Algorithm: https://www.notion.so/paulonteri/Trees-Graphs-edc3401e06c044f29a2d714d20ffe185#596bc798759a4edabe22a895aadeb12c
-    """
-    
-    class Solution:
-        def minimumCost(self, n: int, connections):
-            total_cost = 0
-    
-            # # Create adjacency list
-            # Will store  nodes in the form => `parent: [[cost_to_1, node_1], [cost_to_2, node_2], ...]`
-            graph = collections.defaultdict(set)
-            for city_x, city_y, cost in connections:
-                graph[city_x].add((cost, city_y))
-                graph[city_y].add((cost, city_x))
-    
-            # # Prim's Minimum Spanning Tree Algorithm
-            visited = set()
-            priority_queue = []
-            heapq.heappush(priority_queue, (0, 1))  # start from node 1
-            while priority_queue:
-                cost, node = heapq.heappop(priority_queue)
-                # skip visited
-                if node in visited:
-                    continue
-                visited.add(node)
-    
-                total_cost += cost
-                for neighbour_cost, neighbour in graph[node]:
-                    if neighbour not in visited:
-                        heapq.heappush(priority_queue, [neighbour_cost, neighbour])
-    
-            if len(visited) == n:
-                return total_cost
-            return -1
-    ```
-    
-
-## Minimum Spanning Tree
-
-A ***minimum spanning tree*** (or ***MST*** *for* short) is a tree which spans the whole graph **connecting all nodes** together *while* **minimizing the total edge cost**. It's important to note that your spanning tree cannot contain any cycles, otherwise it's not a tree.
-
-![Screenshot 2021-10-19 at 06.00.31.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.00.31.png)
-
-![Screenshot 2021-10-19 at 06.00.49.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.00.49.png)
-
-Given a connected and undirected graph, a spanning tree of that graph is a subgraph that is a tree and connects all the vertices together. A single graph can have many different spanning trees. A minimum spanning tree (MST) or minimum weight spanning tree for a weighted, connected, undirected graph is a spanning tree with a weight less than or equal to the weight of every other spanning tree. The weight of a spanning tree is the sum of weights given to each edge of the spanning tree.
-
-![Screenshot 2021-10-19 at 06.01.22.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.01.22.png)
-
-![Screenshot 2021-10-19 at 06.01.53.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.01.53.png)
-
----
-
-By nature its a greedy algorithm which always selects the next best edge to add to the MST and it works very well on dense graphs with lots of edges.
-
-## Prim's Minimum Spanning Tree Algorithm
-
-![Screenshot 2021-10-19 at 06.28.47.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.28.47.png)
-
-### Lazy Prim's Minimum Spanning Tree Algorithm
-
-Maintain a Priority Queue that sorts edges based on minimum edge cost. This PQ is used to tell you which node to go to next and what edge was used to get there. Then the algorithm begins and we start on any starting node s and mark s as visited and iterate over all its edges and add them to the PQ. From this point on, while the PQ is not empty and a MST has not been formed, dequeue the next best edge from the PQ. If the dequeued edge is not outdatedwhich it could be if we visit the node it points to via another path before getting to this edge then mark the current node as visited and add the selectededge to the PQ. If you selected a stale outdated edge simply poll again.Then repeat the process of iterating over the current node's edges and adding them to the PQ. While doing this care not to add edges which point to alreadyvisited nodes, this will reduce the number of outdated edges in the PQ.
-
-[Screen Recording 2021-10-19 at 06.15.29.mov](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screen_Recording_2021-10-19_at_06.15.29.mov)
-
-### Eager Prim's Minimum Spanning Tree Algorithm
-
-[Eager Prim's Minimum Spanning Tree Algorithm | Graph Theory](https://youtu.be/xq3ABa-px_g)
-
-The lazy implementation of Prim’s inserts `E` edges into the PQ. This results in each poll operation on the PQ to be `O(log(E))`. In the eager version, we maintain the idea that instead of adding edges to the PQ which could later become stale, that instead we should track `(node, edge)` key-value pairs that can easily be  updated and polled to determine the next best edge to add to the MST.
-
-For this all to make sense there's a **key realization** that needs to happen and that is: for any MST with directed edges, each node is **paired with exactly one of its incoming edges** (except for the start node). One way to see this is on a MST with possibly multiple edges leaving a node, but only ever one edge entering a node.
-
-![Screenshot 2021-10-19 at 06.34.57.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.34.57.png)
-
-![Screenshot 2021-10-19 at 06.35.14.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.35.14.png)
-
-In the eager version, we are trying to determine which of a node's incoming edges we should select to include in the MST. The main difference coming from the lazy version is that instead of adding edges to the PQ as we iterate over the edges of node we’re going to relax (update) the destination node’s most promising incoming edge.
-
-![Screenshot 2021-10-19 at 06.37.10.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.37.10.png)
-
-Think of an IPQ as the data structure you'd get if a hashtable and a priority queue had a baby together. It supports sorted key-value pair update and poll operations in logarithmic time.
-
-[Indexed Priority Queue | Data Structure](https://youtu.be/DT8xZ0Uf8wo)
-
-![Screenshot 2021-10-19 at 06.39.10.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.39.10.png)
-
-[Screen Recording 2021-10-19 at 06.40.30.mov](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screen_Recording_2021-10-19_at_06.40.30.mov)
-
-Examples (do not add more here, add above)
-
-- Min Cost to Connect All Points
-    
-    [Prim's Algorithm - Minimum Spanning Tree - Min Cost to Connect all Points - Leetcode 1584 - Python](https://youtu.be/f7JOBJIC-NA)
-    
-    ![Screenshot 2021-10-19 at 07.17.51.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_07.17.51.png)
     
     ```python
     """ 
@@ -7195,11 +7228,50 @@ Examples (do not add more here, add above)
     https://youtu.be/f7JOBJIC-NA
     """
     
-    class Solution:
+    class Solution_:
         def minCostConnectPoints(self, points):
             total = 0
     
             # # Create adjacency list
+            # Will store  nodes in the form => `parent: [[cost_to_1, node_1], [cost_to_2, node_2], ...]`
+            graph = collections.defaultdict(list)
+            for idx in range(len(points)):
+                x1, y1 = points[idx]
+                for idx2 in range(idx + 1, len(points)):
+                    x2, y2 = points[idx2]
+                    cost = abs(x1 - x2) + abs(y1 - y2)
+    
+                    graph[str(x1)+str(y1)].append([cost, str(x2)+str(y2)])
+                    graph[str(x2)+str(y2)].append([cost, str(x1)+str(y1)])
+    
+            # # Prim's Minimum Spanning Tree Algorithm
+            visited = set()
+            priority_queue = []
+            first_node = str(points[0][0])+str(points[0][1])
+            heapq.heappush(priority_queue, (0, first_node))  # start from node 0
+            while len(visited) < len(graph):
+                cost, node = heapq.heappop(priority_queue)
+                # skip visited
+                if node in visited:
+                    continue
+                visited.add(node)
+    
+                # record cost
+                total += cost
+                # add neighbours
+                for neighbour in graph[node]:
+                    if neighbour[1] not in visited:
+                        heapq.heappush(priority_queue, neighbour)
+    
+            return total
+    
+    class Solution:
+        def minCostConnectPoints(self, points):
+    
+            total = 0
+    
+            # # Create adjacency list
+            # Will use the array indices as id's
             # Will store  nodes in the form => `parent: [[cost_to_1, node_1], [cost_to_2, node_2], ...]`
             graph = collections.defaultdict(list)
             for idx in range(len(points)):
@@ -7224,7 +7296,7 @@ Examples (do not add more here, add above)
     
                 # record cost
                 total += cost
-                # add neighboours
+                # add neighbours
                 for neighbour in graph[node]:
                     if neighbour[1] not in visited:
                         heapq.heappush(priority_queue, neighbour)
@@ -7232,28 +7304,96 @@ Examples (do not add more here, add above)
             return total
     ```
     
-- Connecting Cities With Minimum Cost
+
+## Minimum Spanning Tree
+
+A ***minimum spanning tree*** (or ***MST*** *for* short) is a tree which spans the whole graph **connecting all nodes** together *while* **minimizing the total edge cost**. It's important to note that your spanning tree cannot contain any cycles, otherwise it's not a tree.
+
+![Screenshot 2021-10-19 at 06.00.31.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.00.31.png)
+
+![Screenshot 2021-10-19 at 06.00.49.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.00.49.png)
+
+Given a connected and undirected graph, a spanning tree of that graph is a subgraph that is a tree and connects all the vertices together. A single graph can have many different spanning trees. A minimum spanning tree (MST) or minimum weight spanning tree for a weighted, connected, undirected graph is a spanning tree with a **weight less than or equal to the weight of every other spanning tree**. The weight of a spanning tree is the sum of weights given to each edge of the spanning tree.
+
+![Screenshot 2021-10-19 at 06.01.22.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.01.22.png)
+
+![Screenshot 2021-10-19 at 06.01.53.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.01.53.png)
+
+---
+
+By nature its a greedy algorithm which always selects the next best edge to add to the MST and it works very well on dense graphs with lots of edges.
+
+## Prim's Minimum Spanning Tree Algorithm
+
+![Screenshot 2021-10-19 at 06.28.47.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.28.47.png)
+
+### Lazy Prim's Minimum Spanning Tree Algorithm
+
+Maintain a ***Priority Queue*** that sorts edges based on minimum edge cost. This PQ is used to **tell you which node to go to next** and **what edge was used to get there**. Then the algorithm begins and we start on any starting node s and mark s as visited and iterate over all its edges and add them to the PQ. From this point on, while the PQ is not empty and a MST has not been formed, dequeue the next best edge from the PQ. If the dequeued edge is not outdatedwhich it could be if we visit the node it points to via another path before getting to this edge then mark the current node as visited and add the selectededge to the PQ. If you selected a stale outdated edge simply poll again.Then repeat the process of iterating over the current node's edges and adding them to the PQ. While doing this care not to add edges which point to alreadyvisited nodes, this will reduce the number of outdated edges in the PQ.
+
+[Screen Recording 2021-10-19 at 06.15.29.mov](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screen_Recording_2021-10-19_at_06.15.29.mov)
+
+### Eager Prim's Minimum Spanning Tree Algorithm
+
+[Eager Prim's Minimum Spanning Tree Algorithm | Graph Theory](https://youtu.be/xq3ABa-px_g)
+
+The lazy implementation of Prim’s inserts `E` edges into the PQ. This results in each poll operation on the PQ to be `O(log(E))`. In the eager version, we maintain the idea that instead of adding edges to the PQ which could later become stale, that instead we should track `(node, edge)` key-value pairs that can easily be  updated and polled to determine the next best edge to add to the MST.
+
+For this all to make sense there's a **key realization** that needs to happen and that is: for any MST with directed edges, each node is **paired with exactly one of its incoming edges** (except for the start node). One way to see this is on a MST with possibly multiple edges leaving a node, but only ever one edge entering a node.
+
+![Screenshot 2021-10-19 at 06.34.57.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.34.57.png)
+
+![Screenshot 2021-10-19 at 06.35.14.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.35.14.png)
+
+In the eager version, we are trying to determine which of a node's incoming edges we should select to include in the MST. The main difference coming from the lazy version is that instead of adding edges to the PQ as we iterate over the edges of node we’re going to relax (update) the destination node’s most promising incoming edge.
+
+![Think of an IPQ as the data structure you'd get if a hashtable and a priority queue had a baby together. It supports sorted key-value pair update and poll operations in logarithmic time.](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.37.10.png)
+
+Think of an IPQ as the data structure you'd get if a hashtable and a priority queue had a baby together. It supports sorted key-value pair update and poll operations in logarithmic time.
+
+[Indexed Priority Queue | Data Structure](https://youtu.be/DT8xZ0Uf8wo)
+
+![Screenshot 2021-10-19 at 06.39.10.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.39.10.png)
+
+[Screen Recording 2021-10-19 at 06.40.30.mov](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screen_Recording_2021-10-19_at_06.40.30.mov)
+
+Examples (do not add more here, add above)
+
+- Min Cost to Connect All Points
+    
+    [Prim's Algorithm - Minimum Spanning Tree - Min Cost to Connect all Points - Leetcode 1584 - Python](https://youtu.be/f7JOBJIC-NA)
+    
+    ![Screenshot 2021-10-19 at 07.17.51.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_07.17.51.png)
     
     ```python
     """ 
-    Connecting Cities With Minimum Cost
+    1584. Min Cost to Connect All Points
     
-    There are n cities labelled from 1 to n. 
-    You are given the integer n and an array connections where connections[i] = [xi, yi, costi] indicates that the cost of connecting city xi and city yi (bidirectional connection) is costi.
-    Return the minimum cost to connect all the n cities such that there is at least one path between each pair of cities. If it is impossible to connect all the n cities, return -1,
-    The cost is the sum of the connections' costs used.
+    You are given an array points representing integer coordinates of some points on a 2D-plane, where points[i] = [xi, yi].
+    The cost of connecting two points [xi, yi] and [xj, yj] is the manhattan distance between them: |xi - xj| + |yi - yj|, where |val| denotes the absolute value of val.
+    Return the minimum cost to make all points connected. All points are connected if there is exactly one simple path between any two points.
     
     Example 1:
-        Input: n = 3, connections = [[1,2,5],[1,3,6],[2,3,1]]
-        Output: 6
-        Explanation: Choosing any 2 edges will connect all cities so we choose the minimum 2.
+        Input: points = [[0,0],[2,2],[3,10],[5,2],[7,0]]
+        Output: 20
+    Explanation:
+        We can connect the points as sown above to get the minimum cost of 20.
+        Notice that there is a unique path between every pair of points.
     Example 2:
-        Input: n = 4, connections = [[1,2,3],[3,4,4]]
-        Output: -1
-        Explanation: There is no way to connect all cities even if all edges are used.
+        Input: points = [[3,12],[-2,5],[-4,1]]
+        Output: 18
+    Example 3:
+        Input: points = [[0,0],[1,1],[1,0],[-1,1]]
+        Output: 4
+    Example 4:
+        Input: points = [[-1000000,-1000000],[1000000,1000000]]
+        Output: 4000000
+    Example 5:
+        Input: points = [[0,0]]
+        Output: 0
     
-    https://leetcode.com/problems/connecting-cities-with-minimum-cost/
-    https://www.notion.so/paulonteri/Trees-Graphs-edc3401e06c044f29a2d714d20ffe185#127f401fa2624fbebe9ea79bc7fad235
+    https://leetcode.com/problems/min-cost-to-connect-all-points
+    https://www.notion.so/paulonteri/Trees-Graphs-edc3401e06c044f29a2d714d20ffe185#2ac2c79816464704a3851de16d494dff
     """
     
     import collections
@@ -7261,38 +7401,138 @@ Examples (do not add more here, add above)
     
     """ 
     Prim's Minimum Spanning Tree Algorithm: https://www.notion.so/paulonteri/Trees-Graphs-edc3401e06c044f29a2d714d20ffe185#596bc798759a4edabe22a895aadeb12c
+    https://youtu.be/f7JOBJIC-NA
     """
     
     class Solution:
-        def minimumCost(self, n: int, connections):
-            total_cost = 0
+        def minCostConnectPoints(self, points):
+            total = 0
     
             # # Create adjacency list
             # Will store  nodes in the form => `parent: [[cost_to_1, node_1], [cost_to_2, node_2], ...]`
-            graph = collections.defaultdict(set)
-            for city_x, city_y, cost in connections:
-                graph[city_x].add((cost, city_y))
-                graph[city_y].add((cost, city_x))
+            graph = collections.defaultdict(list)
+            for idx in range(len(points)):
+                x1, y1 = points[idx]
+                for idx2 in range(idx + 1, len(points)):
+                    x2, y2 = points[idx2]
+              
+    ```
+    
+- Connecting Cities With Minimum Cost
+    
+    ```python
+    """ 
+    1584. Min Cost to Connect All Points
+    
+    You are given an array points representing integer coordinates of some points on a 2D-plane, where points[i] = [xi, yi].
+    The cost of connecting two points [xi, yi] and [xj, yj] is the manhattan distance between them: |xi - xj| + |yi - yj|, where |val| denotes the absolute value of val.
+    Return the minimum cost to make all points connected. All points are connected if there is exactly one simple path between any two points.
+    
+    Example 1:
+        Input: points = [[0,0],[2,2],[3,10],[5,2],[7,0]]
+        Output: 20
+    Explanation:
+        We can connect the points as shown above to get the minimum cost of 20.
+        Notice that there is a unique path between every pair of points.
+    Example 2:
+        Input: points = [[3,12],[-2,5],[-4,1]]
+        Output: 18
+    Example 3:
+        Input: points = [[0,0],[1,1],[1,0],[-1,1]]
+        Output: 4
+    Example 4:
+        Input: points = [[-1000000,-1000000],[1000000,1000000]]
+        Output: 4000000
+    Example 5:
+        Input: points = [[0,0]]
+        Output: 0
+    
+    https://leetcode.com/problems/min-cost-to-connect-all-points
+    https://www.notion.so/paulonteri/Trees-Graphs-edc3401e06c044f29a2d714d20ffe185#2ac2c79816464704a3851de16d494dff
+    """
+    
+    import collections
+    import heapq
+    
+    """ 
+    Prim's Minimum Spanning Tree Algorithm: https://www.notion.so/paulonteri/Trees-Graphs-edc3401e06c044f29a2d714d20ffe185#596bc798759a4edabe22a895aadeb12c
+    https://youtu.be/f7JOBJIC-NA
+    """
+    
+    class Solution_:
+        def minCostConnectPoints(self, points):
+            total = 0
+    
+            # # Create adjacency list
+            # Will store  nodes in the form => `parent: [[cost_to_1, node_1], [cost_to_2, node_2], ...]`
+            graph = collections.defaultdict(list)
+            for idx in range(len(points)):
+                x1, y1 = points[idx]
+                for idx2 in range(idx + 1, len(points)):
+                    x2, y2 = points[idx2]
+                    cost = abs(x1 - x2) + abs(y1 - y2)
+    
+                    graph[str(x1)+str(y1)].append([cost, str(x2)+str(y2)])
+                    graph[str(x2)+str(y2)].append([cost, str(x1)+str(y1)])
     
             # # Prim's Minimum Spanning Tree Algorithm
             visited = set()
             priority_queue = []
-            heapq.heappush(priority_queue, (0, 1))  # start from node 1
-            while priority_queue:
+            first_node = str(points[0][0])+str(points[0][1])
+            heapq.heappush(priority_queue, (0, first_node))  # start from node 0
+            while len(visited) < len(graph):
                 cost, node = heapq.heappop(priority_queue)
                 # skip visited
                 if node in visited:
                     continue
                 visited.add(node)
     
-                total_cost += cost
-                for neighbour_cost, neighbour in graph[node]:
-                    if neighbour not in visited:
-                        heapq.heappush(priority_queue, [neighbour_cost, neighbour])
+                # record cost
+                total += cost
+                # add neighbours
+                for neighbour in graph[node]:
+                    if neighbour[1] not in visited:
+                        heapq.heappush(priority_queue, neighbour)
     
-            if len(visited) == n:
-                return total_cost
-            return -1
+            return total
+    
+    class Solution:
+        def minCostConnectPoints(self, points):
+    
+            total = 0
+    
+            # # Create adjacency list
+            # Will use the array indices as id's
+            # Will store  nodes in the form => `parent: [[cost_to_1, node_1], [cost_to_2, node_2], ...]`
+            graph = collections.defaultdict(list)
+            for idx in range(len(points)):
+                x1, y1 = points[idx]
+                for idx2 in range(idx + 1, len(points)):
+                    x2, y2 = points[idx2]
+                    cost = abs(x1 - x2) + abs(y1 - y2)
+    
+                    graph[idx].append([cost, idx2])
+                    graph[idx2].append([cost, idx])
+    
+            # # Prim's Minimum Spanning Tree Algorithm
+            visited = set()
+            priority_queue = []
+            heapq.heappush(priority_queue, (0, 0))  # start from node 0
+            while len(visited) < len(graph):
+                cost, node = heapq.heappop(priority_queue)
+                # skip visited
+                if node in visited:
+                    continue
+                visited.add(node)
+    
+                # record cost
+                total += cost
+                # add neighbours
+                for neighbour in graph[node]:
+                    if neighbour[1] not in visited:
+                        heapq.heappush(priority_queue, neighbour)
+    
+            return total
     ```
     
 
@@ -7312,7 +7552,7 @@ Examples (do not add more here, add above)
 
 With Dijkstra's Algorithm, you can find the shortest path between nodes in a graph. Particularly, you can find the shortest path from a node (called the "source node") to all other nodes in the graph, producing a shortest-path tree.
 
-![Untitled](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Untitled%202.png)
+![Dr.Edsger Dijkstra at ETH Zurich in 1994](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Untitled%202.png)
 
 Dr.Edsger Dijkstra at ETH Zurich in 1994
 
@@ -7321,6 +7561,12 @@ Dijkstra's Algorithm can only work with graphs that have **positive** weights.
 If there is a negative weight in the graph, then the algorithm will not work properly. Once a node has been marked as "visited", the current path to that node is marked as the shortest path to reach that node. And negative weights can alter this if the total weight can be decremented after this step has occurred.
 
 [Screen Recording 2021-10-22 at 20.17.10.mov](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screen_Recording_2021-10-22_at_20.17.10.mov)
+
+![Screenshot 2021-11-02 at 17.56.18.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_17.56.18.png)
+
+![Screenshot 2021-11-02 at 17.57.10.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_17.57.10.png)
+
+![Screenshot 2021-11-02 at 17.55.22.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_17.55.22.png)
 
 ```
 function dijkstra(G, S)
@@ -7339,6 +7585,10 @@ function dijkstra(G, S)
 
     return distance[], previous[]
 ```
+
+### Time & Space complexity
+
+`O((v + e) * log(v))` time | `O(v)` space - where v is the number of vertices and e is the number of edges in the input graph
 
 ### Examples:
 
@@ -7439,13 +7689,13 @@ function dijkstra(G, S)
 
 [Screen Recording 2021-10-27 at 07.07.23.mov](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screen_Recording_2021-10-27_at_07.07.23.mov)
 
-The Disjoint sett uses chaining to define a set. The chaining is defined as a parent-child relationship.
+The Disjoint set uses chaining to define a set. The chaining is defined as a parent-child relationship.
 
 ![Screenshot 2021-10-27 at 07.16.15.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-27_at_07.16.15.png)
 
 ![Screenshot 2021-10-27 at 07.21.09.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-27_at_07.21.09.png)
 
-![Screenshot 2021-10-27 at 07.18.51.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-27_at_07.18.51.png)
+![Every node points to its parent and absolute roots have no parent](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-27_at_07.18.51.png)
 
 Every node points to its parent and absolute roots have no parent
 

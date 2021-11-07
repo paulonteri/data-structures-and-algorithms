@@ -36,7 +36,7 @@
 
 [Parenthesis](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Parenthesis%20b2a79fe0baaf47459a53183b2f99115c.md)
 
-[**Modified Binary Search**](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Modified%20Binary%20Search%207916aebcf6bf415bb198d5d38777371f.md)
+[Advanc**ed Binary Search**](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Advanced%20Binary%20Search%207916aebcf6bf415bb198d5d38777371f.md)
 
 [Suffix Trees & Arrays](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Suffix%20Trees%20&%20Arrays%20e140496d3faf415e95403045726ada4e.md)
 

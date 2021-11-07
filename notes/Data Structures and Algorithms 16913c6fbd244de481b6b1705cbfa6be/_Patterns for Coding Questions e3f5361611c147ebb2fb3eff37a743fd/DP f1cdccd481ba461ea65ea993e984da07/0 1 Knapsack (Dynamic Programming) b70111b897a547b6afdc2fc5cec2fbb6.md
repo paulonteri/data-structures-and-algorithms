@@ -10,11 +10,16 @@
 
 Given the weights and profits of ‘N’ items, we are asked to put these items in a knapsack that has a capacity ‘C’. The goal is to get the maximum profit from the items in the knapsack. Each item **can only be selected once**, as we don’t have multiple quantities of any item.
 
-Let’s take Merry’s example, who wants to carry some fruits in the knapsack to get maximum profit. Here are the weights and profits of the fruits: **Items:** { Apple, Orange, Banana, Melon } **Weights:** { 2, 3, 1, 4 }**Profits:** { 4, 5, 3, 7 }**Knapsack capacity:** 5 Let’s try to put different combinations of fruits in the knapsack, such that their total weight is not more than 5: Apple + Orange (total weight 5) => 9 profitApple + Banana (total weight 3) => 7 profitOrange + Banana (total weight 4) => 8 profitBanana + Melon (total weight 5) => 10 profit This shows that **Banana + Melon** is the best combination, as it gives us the maximum profit and the total weight does not exceed the capacity.
+Let’s take Merry’s example, who wants to carry some fruits in the knapsack to get maximum profit. Here are the weights and profits of the fruits: **Items:** { Apple, Orange, Banana, Melon } **Weights:** { 2, 3, 1, 4 } **Profits:** { 4, 5, 3, 7 } **Knapsack capacity:** 5 Let’s try to put different combinations of fruits in the knapsack, such that their total weight is not more than 5: 
+Apple + Orange (total weight 5) => 9 profit
+Apple + Banana (total weight 3) => 7 profit
+Orange + Banana (total weight 4) => 8 profit
+Banana + Melon (total weight 5) => 10 profit 
+This shows that **Banana + Melon** is the best combination, as it gives us the maximum profit and the total weight does not exceed the capacity.
 
 ### **Problem Statement**
 
-Given two integer arrays to represent weights and profits of ‘N’ items, we need to find a subset of these items which will give us maximum profit such that their cumulative weight is not more than a given number ‘C’. Write a function that returns the maximum profit. Each item can only be selected once, which means either we put an item in the knapsack or skip it.
+Given two integer arrays to represent weights and profits of ‘N’ items, we need to find a subset of these items which will give us maximum profit such that their cumulative weight is not more than a given number ‘C’. Write a function that returns the maximum profit. Each item **can only be selected once**, which means either we put an item in the knapsack or skip it.
 
 ```python
 """
@@ -47,8 +52,7 @@ def solve_knapsack_helper(profits, weights, capacity, total_profits):
         rem_weights = weights[:idx] + weights[idx+1:]
         highest = max(
             highest,
-            solve_knapsack_helper(rem_profits, rem_weights,
-                                     capacity-weight, total_profits+profits[idx])
+            solve_knapsack_helper(rem_profits, rem_weights, capacity-weight, total_profits+profits[idx])
         )
 
     return max(total_profits, highest)
@@ -57,7 +61,7 @@ def solve_knapsack(profits, weights, capacity):
     return solve_knapsack_helper(profits, weights, capacity, 0)
 ```
 
-![0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-07-25_at_10.22.23.png](0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-07-25_at_10.22.23.png)
+![All green boxes have a total weight that is less than or equal to the capacity (7), and all the red ones have a weight that is more than 7. The best solution we have is with items [B, D] having a total profit of 22 and a total weight of 7.](0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-07-25_at_10.22.23.png)
 
 All green boxes have a total weight that is less than or equal to the capacity (7), and all the red ones have a weight that is more than 7. The best solution we have is with items [B, D] having a total profit of 22 and a total weight of 7.
 
@@ -65,7 +69,7 @@ All green boxes have a total weight that is less than or equal to the capacity (
 
 [When given problems (involving choice) with two arrays, where their indices represent an entity, you can recurse by iterating through each index deciding to include it or not](../../Strings,%20Arrays%20&%20Linked%20Lists%2081ca9e0553a0494cb8bb74c5c85b89c8.md) 
 
-![0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-07-31_at_21.53.46.png](0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-07-31_at_21.53.46.png)
+![(in reverse) When given problems (involving choice) with two arrays, where their indices represent an entity, you can recurse by iterating through each index deciding to include it or not ](0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-07-31_at_21.53.46.png)
 
 (in reverse) When given problems (involving choice) with two arrays, where their indices represent an entity, you can recurse by iterating through each index deciding to include it or not 
 
@@ -121,9 +125,9 @@ def solve_knapsack_2(profits, weights, capacity):
 
 ### We have overlapping sub-problems
 
-Let’s visually draw the recursive calls to see if there are any overlapping sub-problems. As we can see, in each recursive call, profits and weights arrays remain constant, and only capacity and currentIndex change. For simplicity, let’s denote capacity with ‘c’ and idx/currentIndex with ‘i’:
+Let’s visually draw the recursive calls to see if there are any overlapping sub-problems. As we can see, in each recursive call, profits and weights arrays remain constant, and only `capacity` and `currentIndex` change. For simplicity, let’s denote capacity with ‘c’ and idx/currentIndex with ‘i’:
 
-![0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-07-25_at_11.35.10.png](0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-07-25_at_11.35.10.png)
+![Denoted capacity with `c` and idx/currentIndex with `i`](0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-07-25_at_11.35.10.png)
 
 Denoted capacity with `c` and idx/currentIndex with `i`
 
@@ -191,9 +195,11 @@ Let’s try to populate our `dp[][]` array from the above solution, working in a
 
 ### How to work this out
 
-[0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screen_Recording_2021-07-25_at_12.16.21.mov](0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screen_Recording_2021-07-25_at_12.16.21.mov)
+[Formulae discussed below](0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screen_Recording_2021-07-25_at_12.16.21.mov)
 
 Formulae discussed below
+
+![Screenshot 2021-11-01 at 10.34.06.png](0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-11-01_at_10.34.06.png)
 
 So, for each item at index `i` $(0 <= i < items.length)$ and capacity `c` $(0 <= c <= capacity)$, we have two options:
 
@@ -212,11 +218,11 @@ dp[i][c] = max( dp[i-1][c], # **exclude item:** take prev/top profit
 
 ![0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-08-01_at_08.16.30.png](0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-08-01_at_08.16.30.png)
 
-![0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-08-01_at_08.25.18.png](0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-08-01_at_08.25.18.png)
+![Decide whether not to **include curr item (v=4,w=3) and have a value/profit of 4** (the prev best val) or **include it and have a value/profit of 6** → 2+4, **include its profit plus whatever profit we get from the remaining capacity** (move w steps back in the top row(2) + curr val(4))](0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-08-01_at_08.25.18.png)
 
 Decide whether not to **include curr item (v=4,w=3) and have a value/profit of 4** (the prev best val) or **include it and have a value/profit of 6** → 2+4, **include its profit plus whatever profit we get from the remaining capacity** (move w steps back in the top row(2) + curr val(4))
 
-![0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-08-03_at_20.11.48.png](0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-08-03_at_20.11.48.png)
+![Start at 0 to the max](0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-08-03_at_20.11.48.png)
 
 Start at 0 to the max
 
@@ -445,7 +451,7 @@ def can_partition_bf3(num):
 
 ### Time complexity
 
-The time complexity for Brute Force 3 is exponential O(2^n), where ‘n’ represents the total number. The space complexity is O(n), this memory will be used to store the recursion stack.
+The time complexity for Brute Force 3 is exponential `O(2^n)`, where `‘n’` represents the total number. The space complexity is `O(n)`, this memory will be used to store the recursion stack.
 
 ---
 
@@ -494,31 +500,31 @@ def can_partition_memo(num):
 
 ### Time complexity
 
-The above algorithm has a time and space complexity of O(N*S), where ‘N’ represents total numbers and ‘S’ is the total sum of all the numbers.
+The above algorithm has a time and space complexity of `O(N*S)`, where `‘N’` represents total numbers and `‘S’` is the total sum of all the numbers.
 
 ---
 
 ## Bottom-up Dynamic Programming
 
+![Screenshot 2021-11-01 at 10.40.27.png](0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screenshot_2021-11-01_at_10.40.27.png)
+
 [0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screen_Recording_2021-08-04_at_11.12.59.mov](0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6/Screen_Recording_2021-08-04_at_11.12.59.mov)
 
-dp[n][total] means whether the specific sum 'total' can be gotten from the first 'n' numbers.
+`dp[n][total]` means whether the specific sum `'total'` can be gotten from the first `'n'` numbers.
 
 If we can find such numbers from 0-'n' whose sum is total, dp[n][total] is true, otherwise, it is false.
 
-dp[0][0] is true since with 0 elements a subset-sum of 0 is possible (both empty sets).
+`dp[0][0]` is true since with 0 elements a subset-sum of 0 is possible (both empty sets).
 
-dp[n][total] is true if dp[n-1][total] is true (meaning that we skipped this element, and took the sum of the previous result)
+`dp[n][total]` is true if `dp[n-1][total]` is true (meaning that we skipped this element, and took the sum of the previous result) or `dp[n-1][total- element’s value(num[n])]` assuming this isn’t out of range (meaning that we added this value to our subset-sum so we look at the sum — the current element’s value).
 
-or dp[n-1][total- element’s value(num[n])] assuming this isn’t out of range (meaning that we added this value to our subset-sum so we look at the sum — the current element’s value).
+This means `dp[n][total]` will be ‘true’ if we can make sum ‘total’ from the first ‘n’ numbers.
 
-This means dp[n][total] will be ‘true’ if we can make sum ‘total’ from the first ‘n’ numbers.
+**For each n and sum, we have two options:**
 
-For each n and sum, we have two options:
+1. Exclude the n. In this case, we will see if we can get the total from the subset excluding this n: `dp[n-1][total]`
 
-1. Exclude the n. In this case, we will see if we can get the total from the subset excluding this n: dp[n-1][total]
-
-2. Include the n if its value is not more than ‘total’. In this case, we will see if we can find a subset to get the remaining sum: dp[n-1][total-num[n]]
+2. Include the n if its value is not more than ‘total’. In this case, we will see if we can find a subset to get the remaining sum: `dp[n-1][total-num[n]]`
 
 ### Code
 
@@ -546,8 +552,7 @@ def can_partition_bu(num):
         # if its a an odd number, we can't have two subsets with equal sum
         return False
 
-    dp = [[False for _ in range(half_total+1)]
-          for _ in range(len(num))]  # type: ignore
+    dp = [[False for _ in range(half_total+1)] for _ in range(len(num))]  # type: ignore
 
     for n in range(len(num)):
         for total in range(half_total+1):
@@ -577,6 +582,6 @@ def can_partition_bu(num):
 
 ### Time complexity
 
-The above algorithm has a time and space complexity of O(N*S), where ‘N’ represents total numbers and ‘S’ is the total sum of all the numbers.
+The above algorithm has a time and space complexity of `O(N*S)`, where `‘N’` represents total numbers and `‘S’` is the total sum of all the numbers.
 
 # Honourable mentions

@@ -8,7 +8,7 @@ This pattern describes an efficient technique to deal with overlapping intervals
 
 Given two intervals (‘a’ and ‘b’), there will be six different ways the two intervals can relate to each other:
 
-![Screenshot 2021-08-18 at 09.49.39.png](Merge%20Intervals%20579d83afac224dcaa70b8b68dcbcf2d9/Screenshot_2021-08-18_at_09.49.39.png)
+![Understanding the above six cases will help us in solving all intervals related problems.](Merge%20Intervals%20579d83afac224dcaa70b8b68dcbcf2d9/Screenshot_2021-08-18_at_09.49.39.png)
 
 Understanding the above six cases will help us in solving all intervals related problems.
 
@@ -93,7 +93,7 @@ Let’s take the example of two intervals (‘a’ and ‘b’) such that a.star
 
 Our goal is to merge the intervals whenever they overlap. For the above-mentioned three overlapping scenarios (2, 3, and 4), this is how we will merge them:
 
-![Screenshot 2021-08-18 at 10.20.44.png](Merge%20Intervals%20579d83afac224dcaa70b8b68dcbcf2d9/Screenshot_2021-08-18_at_10.20.44.png)
+![Earliest end vs latest end](Merge%20Intervals%20579d83afac224dcaa70b8b68dcbcf2d9/Screenshot_2021-08-18_at_10.20.44.png)
 
 Earliest end vs latest end
 
