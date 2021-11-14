@@ -21,6 +21,11 @@ jobs:
         run: python update_notes.py
         env:
           NOTES_ZIP_URL: ${{ secrets.NOTES_ZIP_URL }}
+          
+      - name: Set current date as env variable
+        run: echo "NOW::$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
         
       - name: Add & commit changes
         uses: EndBug/add-and-commit@v7.4.0
+        with:
+          message: Update notes $NOW
