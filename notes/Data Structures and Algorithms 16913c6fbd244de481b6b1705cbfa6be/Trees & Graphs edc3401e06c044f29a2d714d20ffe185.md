@@ -4,6 +4,8 @@
 
 # General Trees
 
+[Tree question pattern ||2021 placement - LeetCode Discuss](https://leetcode.com/discuss/study-guide/1337373/Tree-question-pattern-oror2021-placement)
+
 ### [DFS, BFS & Bidirectional Search](Searching%20733ff84c808c4c9cb5c40787b2df7b98.md)
 
 [Searching](Searching%20733ff84c808c4c9cb5c40787b2df7b98.md)
@@ -176,6 +178,12 @@ Bidirectional Search
 [Graphs](https://emre.me/data-structures/graphs/)
 
 [Graph Data Structure: Directed, Acyclic, etc | Interview Cake](https://www.interviewcake.com/concept/python/graph?course=fc1&section=trees-graphs)
+
+[List of graph algorithms for coding interview - LeetCode Discuss](https://leetcode.com/discuss/interview-question/753236/List-of-graph-algorithms-for-coding-interview)
+
+[Graph For Beginners [Problems | Pattern | Sample Solutions] - LeetCode Discuss](https://leetcode.com/discuss/study-guide/655708/Graph-For-Beginners-Problems-or-Pattern-or-Sample-Solutions)
+
+[Graph Algorithms One Place | Dijkstra | Bellman Ford | Floyd Warshall | Prims | Kruskals | DSU - LeetCode Discuss](https://leetcode.com/discuss/general-discussion/969327/Graph-Algorithms-One-Place-or-Dijkstra-or-Bellman-Ford-or-Floyd-Warshall-or-Prims-or-Kruskals-or-DSU)
 
 [Topological Sort (for graphs) *](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Topological%20Sort%20(for%20graphs)%20e35d20a5223f4c50b4a73c0f71dc2c07.md)
 
@@ -1775,6 +1783,8 @@ Graph coloring:
 
 [Binary Tree Bootcamp: Full, Complete, & Perfect Trees. Preorder, Inorder, & Postorder Traversal.](https://www.youtube.com/watch?v=BHB0B1jFKQc&list=PLiQ766zSC5jND9vxch5-zT7GuMigiWaV_&index=5)
 
+[Binary Trees study guide - LeetCode Discuss](https://leetcode.com/discuss/study-guide/1212004/Binary-Trees-study-guide)
+
 ## General
 
 - Implementation
@@ -2217,7 +2227,16 @@ Binary Tree
         return TreeInfo(curr_max_as_branch, curr_max_as_branch_or_triangle)
     ```
     
+- [Smallest String Starting From Leaf - LeetCode](https://leetcode.com/problems/smallest-string-starting-from-leaf/solution/)
+    
+    [Smallest String Starting From Leaf - LeetCode](https://leetcode.com/problems/smallest-string-starting-from-leaf/solution/231218)
+    
+    ![Screenshot 2021-11-08 at 20.38.36.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-08_at_20.38.36.png)
+    
+
 - Path Sum II
+    
+    [Simple Python Solution: top-down DFS - LeetCode Discuss](https://leetcode.com/problems/smallest-string-starting-from-leaf/discuss/328119/Simple-Python-Solution%3A-top-down-DFS)
     
     ![Path Sum II](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/path_sum_two.py.png)
     
@@ -2262,6 +2281,103 @@ Binary Tree
         
         
     """
+    ```
+    
+- Path Sum III **
+    
+    ![Screenshot 2021-11-13 at 20.04.00.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-13_at_20.04.00.png)
+    
+    ![Screenshot 2021-11-13 at 19.57.50.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-13_at_19.57.50.png)
+    
+    ![Screenshot 2021-11-13 at 19.58.15.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-13_at_19.58.15.png)
+    
+    ![Screenshot 2021-11-13 at 19.58.32.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-13_at_19.58.32.png)
+    
+    ![Screenshot 2021-11-13 at 19.59.47.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-13_at_19.59.47.png)
+    
+    ![Screenshot 2021-11-13 at 20.00.42.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-13_at_20.00.42.png)
+    
+    ![Screenshot 2021-11-13 at 20.01.04.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-13_at_20.01.04.png)
+    
+    [Screen Recording 2021-11-13 at 20.01.46.mov](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screen_Recording_2021-11-13_at_20.01.46.mov)
+    
+    ```python
+    """ 
+    437. Path Sum III
+    
+    Given the root of a binary tree and an integer targetSum, 
+        return the number of paths where the sum of the values along the path equals targetSum.
+    The path does not need to start or end at the root or a leaf, but it must go downwards 
+        (i.e., traveling only from parent nodes to child nodes).
+    
+    Example 1:
+        Input: root = [10,5,-3,3,2,null,11,3,-2,null,1], targetSum = 8
+        Output: 3
+        Explanation: The paths that sum to 8 are shown.
+    Example 2:
+        Input: root = [5,4,8,11,null,13,4,7,2,null,null,5,1], targetSum = 22
+        Output: 3
+    
+    Prerequisite:
+    - https://leetcode.com/problems/subarray-sum-equals-k
+    
+    https://leetcode.com/problems/path-sum-iii
+    """
+    
+    from typing import Optional
+    from collections import defaultdict
+    
+    # Definition for a binary tree node
+    class TreeNode:
+        def __init__(self, val=0, left=None, right=None):
+            self.val = val
+            self.left = left
+            self.right = right
+    
+    """ 
+    
+    The idea behind the approach below is as follows: 
+    - If the cumulative sum(represented by sum[i] in an array for sum up to i^th index) up to two indices is the same,
+        the sum of the elements lying in between those indices is zero.
+    - Extending the same thought further, 
+        if the cumulative sum up to two indices, say i and j is at a difference of k 
+            i.e. if sum[i] - sum[j] = k, 
+        the sum of elements lying between indices i and j is k.
+    
+    https://www.notion.so/paulonteri/Strings-Arrays-Linked-Lists-81ca9e0553a0494cb8bb74c5c85b89c8#2c097c6a479142b6bb1f584f122d3e9b
+    """
+    
+    class Solution:
+        def pathSum(self, root: Optional[TreeNode], targetSum: int):
+            sums = defaultdict(int)
+            sums[0] = 1
+    
+            return self.path_sum_helper(targetSum, sums, root, 0)
+    
+        def path_sum_helper(self, targetSum, sums, node, running_sum):
+            if not node:
+                return 0
+    
+            total = 0
+            cur_sum = running_sum + node.val
+    
+            # check if the needed is in the sums dict
+            needed = cur_sum - targetSum
+            if needed in sums:
+                total += sums[needed]
+    
+            # add the current sum to the sums dict
+            sums[cur_sum] += 1
+    
+            total += self.path_sum_helper(targetSum, sums, node.left, cur_sum)
+            total += self.path_sum_helper(targetSum, sums, node.right, cur_sum)
+    
+            # remove the current sum to the sums dict
+            sums[cur_sum] -= 1
+            if sums[cur_sum] == 0:
+                sums.pop(cur_sum)
+    
+            return total
     ```
     
 
@@ -3522,6 +3638,12 @@ Binary Tree
     
     ![Screenshot 2021-11-02 at 13.19.38.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-02_at_13.19.38.png)
     
+    ![Screenshot 2021-11-09 at 11.59.40.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-09_at_11.59.40.png)
+    
+    ![Screenshot 2021-11-09 at 12.00.28.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-09_at_12.00.28.png)
+    
+    ![Screenshot 2021-11-09 at 12.00.50.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-09_at_12.00.50.png)
+    
     ```python
     """
     Vertical Order Traversal of a Binary Tree:
@@ -3534,6 +3656,19 @@ Binary Tree
     Return the vertical order traversal of the binary tree.
     
     https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/
+    """
+    
+    """
+    https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/solution/999715
+    
+    think the main time complexity is within sorting, in addition to the last solution, 
+    you can optimize and record both row and column min and max then there is no need for sorting for row and column, 
+    just need to sort the values with duplicate indices, which can greatly reduced time complexity,
+    
+    int minRow = 0;
+    int maxRow = 0;
+    int minCol = 0;
+    int maxCol = 0;
     """
     
     class TreeNode:
@@ -3743,6 +3878,7 @@ Binary Tree
     
     ![Screenshot 2021-10-07 at 09.31.19.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-07_at_09.31.19.png)
     
+- [Find Bottom Left Tree Value - LeetCode](https://leetcode.com/problems/find-bottom-left-tree-value/submissions/)
 
 ### Definition of terms
 
@@ -6777,6 +6913,69 @@ In this traversal mode, **one starts from the *left child*, move to the *right
     ```
     
 
+- **Delete Node in a BST**
+    
+    [Delete Node in a BST - LeetCode](https://leetcode.com/problems/delete-node-in-a-bst/solution/)
+    
+    [DELETE NODE IN A BST (Leetcode) - Code & Whiteboard](https://youtu.be/CMRl1rHtYP4)
+    
+    [Binary Search Tree Removal](https://youtu.be/8K7EO7s_iFE)
+    
+    ```python
+    # Definition for a binary tree node.
+    # class TreeNode:
+    #     def __init__(self, val=0, left=None, right=None):
+    #         self.val = val
+    #         self.left = left
+    #         self.right = right
+    
+    class Solution:
+    
+        def findMinVal(self, root):
+            curr = root
+            while curr.left:
+                curr = curr.left
+            return curr
+    
+        def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
+            if not root:
+                return None
+    
+            elif key < root.val:
+                root.left = self.deleteNode(root.left, key)
+    
+            elif key > root.val:
+                root.right = self.deleteNode(root.right, key)
+    
+            else:
+                """
+                Removal Cases:
+                    - No Children
+                    - Right Child
+                    - Left Child
+                    - Both
+                        - replace with max of left or
+                        - replace with min of right
+                        
+                """
+                if not root.right and not root.left:
+                    root = None
+    
+                elif not root.left:
+                    root = root.right
+    
+                elif not root.right:
+                    root = root.left
+    
+                else:
+                    temp = self.findMinVal(root.right)
+                    root.val = temp.val
+                    root.right = self.deleteNode(root.right, temp.val)
+    
+            return root
+    ```
+    
+
 The **Binary Search Tree (BST)** is a [Binary Tree]() with the following properties.
 
 1. Keys that are **less than** the *parent* are found in the **left subtree**
@@ -7089,6 +7288,8 @@ Once the tree is constructed, the next task is to implement the retrieval of a v
 
 `delete()` operation is the most challenging operation in the *Binary Search Tree*.
 
+![Screenshot 2021-11-09 at 12.46.07.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-09_at_12.46.07.png)
+
 The first task is to find the *node to delete* **by searching the tree**. If the tree has more than one node we search using the `_get()` method to find the `Node()` that needs to be *removed*. If the tree only has a single node, that means we are removing the *root* of the tree, but we still must check to make sure the key of the root matches the key that is to be deleted. In either case if the key is not found the `delete()` method raises an error.
 
 Once we have found the node containing the key we want to *delete*, there are **three cases** that we must consider:
@@ -7105,6 +7306,8 @@ Once we have found the node containing the key we want to *delete*, there are 
 
 2. The node to be deleted has **only one** child
 
+[]()
+
 1. Handling the first case is pretty easy ↑
 2. ← If a node has only a **single child**, then we can simply promote the child to take the place of its parent.The decision proceeds as follows:
     1. If the **current node is a left child** then we only need to **update** the *parent* reference of the *left child* to point to the *parent* of the *current node*, and then **update** the *left child* reference of the *parent* to point to the *current node’s left child*.
@@ -7119,6 +7322,79 @@ Once we have found the node containing the key we want to *delete*, there are 
 ![3. The node to be deleted has **two** children](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Untitled%201.png)
 
 3. The node to be deleted has **two** children
+
+![Screenshot 2021-11-09 at 12.25.04.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-09_at_12.25.04.png)
+
+![Screenshot 2021-11-09 at 12.25.22.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-09_at_12.25.22.png)
+
+![Screenshot 2021-11-09 at 12.23.26.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-09_at_12.23.26.png)
+
+![Screenshot 2021-11-09 at 12.22.53.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-09_at_12.22.53.png)
+
+![Screenshot 2021-11-09 at 12.23.11.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-09_at_12.23.11.png)
+
+- **Delete Node in a BST**
+    
+    [Delete Node in a BST - LeetCode](https://leetcode.com/problems/delete-node-in-a-bst/solution/)
+    
+    [DELETE NODE IN A BST (Leetcode) - Code & Whiteboard](https://youtu.be/CMRl1rHtYP4)
+    
+    [Binary Search Tree Removal](https://youtu.be/8K7EO7s_iFE)
+    
+    ```python
+    # Definition for a binary tree node.
+    # class TreeNode:
+    #     def __init__(self, val=0, left=None, right=None):
+    #         self.val = val
+    #         self.left = left
+    #         self.right = right
+    
+    class Solution:
+    
+        def findMinVal(self, root):
+            curr = root
+            while curr.left:
+                curr = curr.left
+            return curr
+    
+        def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
+            if not root:
+                return None
+    
+            elif key < root.val:
+                root.left = self.deleteNode(root.left, key)
+    
+            elif key > root.val:
+                root.right = self.deleteNode(root.right, key)
+    
+            else:
+                """
+                Removal Cases:
+                    - No Children
+                    - Right Child
+                    - Left Child
+                    - Both
+                        - replace with max of left or
+                        - replace with min of right
+                        
+                """
+                if not root.right and not root.left:
+                    root = None
+    
+                elif not root.left:
+                    root = root.right
+    
+                elif not root.right:
+                    root = root.left
+    
+                else:
+                    temp = self.findMinVal(root.right)
+                    root.val = temp.val
+                    root.right = self.deleteNode(root.right, temp.val)
+    
+            return root
+    ```
+    
 
 ---
 
@@ -7685,6 +7961,135 @@ function dijkstra(G, S)
 
 [Disjoint Set | UNION and FIND](https://youtu.be/eTaWFhPXPz4)
 
+[Disjoint Set Union (DSU)/Union-Find - A Complete Guide - LeetCode Discuss](https://leetcode.com/discuss/general-discussion/1072418/Disjoint-Set-Union-(DSU)Union-Find-A-Complete-Guide)
+
+Examples:
+
+- Making A Large Island
+    
+    ```python
+    """ 
+    Making A Large Island
+    
+    You are given an n x n binary matrix grid. You are allowed to change at most one 0 to be 1.
+    Return the size of the largest island in grid after applying this operation.
+    An island is a 4-directionally connected group of 1s.
+    
+    Example 1:
+        Input: grid = [[1,0],[0,1]]
+        Output: 3
+        Explanation: Change one 0 to 1 and connect two 1s, then we get an island with area = 3.
+    Example 2:
+        Input: grid = [[1,1],[1,0]]
+        Output: 4
+        Explanation: Change the 0 to 1 and make the island bigger, only one island with area = 4.
+    Example 3:
+        Input: grid = [[1,1],[1,1]]
+        Output: 4
+        Explanation: Can't change any 0 to 1, only one island with area = 4.
+    
+    https://leetcode.com/problems/making-a-large-island
+    """
+    from collections import defaultdict
+    from typing import List
+    
+    # O(N^2) time | O(N^2) space
+    # we traverse the graph twice in the worst case, for time, and only store row*col nodes, for space
+    class Solution:
+        def largestIsland(self, grid: List[List[int]]):
+            """ 
+            * Based on union find: https://www.notion.so/paulonteri/Trees-Graphs-edc3401e06c044f29a2d714d20ffe185#02cd6da5a64447feab03037d22d40b38
+    
+            - Group nodes into different islands
+                - store the island sizes
+                - record the island_id for each node
+            - For each 0, try to merge its surrounding islands
+            """
+            island_sizes, child_to_island_id = self.create_islands(grid)
+    
+            largest_island = 0
+            if island_sizes:
+                largest_island = max(island_sizes.values())
+    
+            for row in range(len(grid)):
+                for col in range(len(grid[0])):
+                    if grid[row][col] != 0:
+                        continue
+                    """ 
+                    Try to connect the surrounding islands
+                    if we have seen the island before, we don't need to do anything
+                    """
+                    seen_island_ids = set()
+    
+                    top_island, top = self.get_node_island_and_size(grid, row-1, col, island_sizes, child_to_island_id)
+                    seen_island_ids.add(top_island)
+    
+                    bottom_island, bottom = self.get_node_island_and_size(grid, row+1, col, island_sizes, child_to_island_id)
+                    # is part of an island we saw above (in this case part of top_island)
+                    if bottom_island in seen_island_ids:
+                        bottom = 0
+                    seen_island_ids.add(bottom_island)
+    
+                    left_island, left = self.get_node_island_and_size(grid, row, col-1, island_sizes, child_to_island_id)
+                    if left_island in seen_island_ids:
+                        left = 0
+                    seen_island_ids.add(left_island)
+    
+                    right_island, right = self.get_node_island_and_size(grid, row, col+1, island_sizes, child_to_island_id)
+                    if right_island in seen_island_ids:
+                        right = 0
+                    seen_island_ids.add(right_island)
+    
+                    # merge all neighbouring islands + the current node (1)
+                    largest_island = max(largest_island, 1+top+bottom+left+right)
+    
+            return largest_island
+    
+        def get_node_island_and_size(self, grid, row, col, island_sizes, child_to_island_id):
+            """ Returns the node's island_id and size """
+            if row < 0 or col < 0 or row >= len(grid) or col >= len(grid[0]):
+                return None, 0
+            if grid[row][col] == 0:
+                return None, 0
+            island_id = child_to_island_id[(row, col)]
+            return island_id, island_sizes[island_id]
+    
+        def create_islands(self, grid: List[List[int]]):
+            """
+            Creates islands
+            - returns:
+                - a dict of { `island_id` -> `island_size` }
+                - a dict of {`child/node` -> `island_id` }
+            """
+            island_sizes = defaultdict(int)
+            child_to_island_id = {}
+    
+            def group_into_island(row, col, island_id):
+                if row < 0 or col < 0 or row >= len(grid) or col >= len(grid[0]):
+                    return
+                if (row, col) in child_to_island_id:
+                    return  # skip if part of an island
+                if grid[row][col] == 0:
+                    return
+    
+                island_sizes[island_id] += 1
+                child_to_island_id[(row, col)] = island_id
+    
+                group_into_island(row-1, col, island_id)
+                group_into_island(row, col-1, island_id)
+                group_into_island(row+1, col, island_id)
+                group_into_island(row, col+1, island_id)
+    
+            curr_id = -1
+            for row in range(len(grid)):
+                for col in range(len(grid[0])):
+                    group_into_island(row, col, curr_id)
+                    curr_id -= 1
+    
+            return island_sizes, child_to_island_id
+    ```
+    
+
 ![Screenshot 2021-10-27 at 07.03.26.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-27_at_07.03.26.png)
 
 [Screen Recording 2021-10-27 at 07.07.23.mov](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screen_Recording_2021-10-27_at_07.07.23.mov)
@@ -7706,6 +8111,291 @@ Find:
 Union:
 
 - make the absolute root of one point to the absolutte root of another
+
+# Segment tree
+
+[Segment Trees Tutorials & Notes | Data Structures | HackerEarth](https://www.hackerearth.com/practice/data-structures/advanced-data-structures/segment-trees/tutorial/)
+
+[Understanding Range Queries and Updates: Segment Tree, Lazy Propagation and MO's Algorithm](https://medium.com/nybles/understanding-range-queries-and-updates-segment-tree-lazy-propagation-and-mos-algorithm-d2cd2f6586d8)
+
+[Sum of given range | Segment tree construction and update | Simplest explanation](https://youtu.be/2bSS8rtFym4)
+
+[What is a segment tree?](https://www.educative.io/edpresso/what-is-a-segment-tree)
+
+## Introduction
+
+[Segment Tree](https://levelup.gitconnected.com/segment-tree-640d1e0fee6f)
+
+A ***segment tree*** is a very flexible data structure, because it is used to solve numerous range query problems like finding minimum, maximum, sum, greatest common divisor, least common denominator in array in logarithmic time.
+
+---
+
+![Screenshot 2021-11-12 at 11.17.08.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-12_at_11.17.08.png)
+
+Let’s say we have an array **A** of size **N**. A **segment** of the array is a contiguous part of an array in form **`A[i:j]`** A **segment tree** is essentially a binary tree in whose nodes we store the information about the segments of a linear data structure such as an array. Do not worry about what kind of information as of now. We shall take a look at that later.
+
+- The root node of the segment tree would contain the information about segment **`A[0:N-1]`**
+- The left child of the root node would contain the information about segment **`A[0:(N-1)/2]`** and similarly,
+- The right child of the root node would contain the information about segment 
+**`A[ 1+((N-1)/2) : (N-1) ]`** and so on.
+
+In simpler terms the **root node** contains **information about the whole array**, its **left child** contains a similar kind of information about the **left half of the array**, and the **right child** of the root node will contain the information about the **right half of the array** and so on. Thus at each step (level of the tree), we divide the segment into two halves and the further children nodes contain the information about these two halves. This continues till we reach the **leaf nodes** which contain the element of the array **A** itself. The **`i-th`** leaf node contains **`A[i]`**. Thus we can say that there will be **N** leaf ****nodes and the height of the tree will be log **N** to the base 2.
+
+---
+
+> **Note:** Once a segment tree is built for an array, its structure cannot be changed. We are allowed to update the values of the nodes but we cannot change the structure of the Segment Tree. That is to say, we cannot add more elements to the array and expect the segment tree to update. In that case, we will have to create a new segment tree altogether. However, we are allowed to update the values of the array and the segment tree shall be updated accordingly.
+> 
+
+Segment Trees allow for the following two operations:
+
+- **Update:** This operation allows us to update the values of array **A** and reflect the corresponding changes in the segment tree.
+- **Query:** This operation allows us to perform a range query on the array. For example, let's say we have an array of size 15 and we wish to find the maximum element in the segment of an array with start index as **3** and end index **9**. This is an example of a range query.
+
+Thus we can say that a segment tree comes in handy when we have a lot of range-based queries to be performed on an array along with value updates on the same array. The process of creation of a segment tree takes some time but once it's done, the operation of range queries becomes very fast.
+
+### **What kind of information does a segment tree hold?**
+
+Now that we have a basic understanding of the structure of the segment tree let us have a look at what kind of information does a segment tree hold. Consider an array `A = [1, 4, 5, 8, 0, 13]`
+
+Now a segment tree is always associated with a piece of certain information that is directly linked with the kind of range queries we wish to perform. A couple of them are as follows:
+
+- Find the **sum/product** of elements of an array in the range `A[i:j]`
+- Find the **maximum/minimum** element in the range `A[i:j]`
+- Find the **count of even/odd/prime** etc, numbers in the range `A[i:j]`
+
+There can be many others depending upon the usage. Let us have a look at how we can make use of a segment tree to find the **sum of elements in a given range**.
+
+### Construction
+
+![Screenshot 2021-11-12 at 10.23.54.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-12_at_10.23.54.png)
+
+![Screenshot 2021-11-12 at 10.24.51.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-12_at_10.24.51.png)
+
+![Screenshot 2021-11-12 at 10.25.31.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-12_at_10.25.31.png)
+
+![Screenshot 2021-11-12 at 10.26.25.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-12_at_10.26.25.png)
+
+![Screenshot 2021-11-12 at 10.27.04.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-12_at_10.27.04.png)
+
+[Screen Recording 2021-11-12 at 12.03.56.mov](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screen_Recording_2021-11-12_at_12.03.56.mov)
+
+Let’s say we have an array `A = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]` ****and we wish to find the sum of elements in a given range. Then each node would store the sum of its children nodes, except the leaf nodes which store the array elements. Then the segment tree for the same would look something like this:
+
+![Untitled](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Untitled%203.png)
+
+The red node being the root node, the blue nodes being the internal nodes and the green nodes being the leaf nodes. Each node contains information about a particular segment of the array. In this example,
+
+- Root node contains the sum of all the elements of the array
+- The left child of the root node contains the information about the sum of the left half of the array i.e. **[1, 2, 3, 4, 5]**. Its left child in turn contains the sum of the segment **[1, 2, 3]** and the right child contains the sum of the segment **[4, 5]** and so on.
+- The right child of the root node contains the information about the sum of the left half of the array i.e. **[6, 7, 8, 9, 10]**. Its left child in turn contains the sum of the segment **[6, 7, 8]** and the right child contains the sum of the segment **[9, 10]** and so on.
+
+If we wanted to compute, let's say, the maximum element then we would be storing the maximum element in each segment in the corresponding nodes. Thus before building the Segment Tree one must figure out the intent behind building the tree and the type of values to be stored in the tree’s nodes.
+
+> Thus we can also notice that a segment tree is always going to be a [*full binary tree*]() i.e. each node either has 2 or 0 children.
+> 
+
+---
+
+The total number of leaf nodes is at least N. Total number of internal nodes = N-1. So, the total number of nodes = 2*N-1. But generally, to build a segment tree over an array of size N, we use a tree of **4*N nodes**. (Why?)
+
+Array representation of above segment tree will be
+
+```cpp
+Tree[] = {1,2,3,4,5,6,7,8,9,dummy,dummy,10,11,dummy,dummy};
+```
+
+Since we use the array representation of the segment tree, so a bit of space is wasted as you can see in the above example. This wasted space can be removed but in that case, its implementation would be more complex. Considering these waste spaces, for the smooth working of data structure, a tree of **size 4*N** is used, which is still of **linear space complexity.**
+
+**4*N size is enough for an array of size N. Why?**
+
+![https://miro.medium.com/max/1400/1*7bMT5LjI7EwM3gh4e18Abg.png](https://miro.medium.com/max/1400/1*7bMT5LjI7EwM3gh4e18Abg.png)
+
+```cpp
+void build(int node, int start, int end)
+{
+    if(start == end)
+    {
+        // Leaf node will have a single element
+        tree[node] = A[start];
+    }
+    else
+    {
+        int mid = (start + end) / 2;
+
+        // Recurse on the left child
+        build(2*node, start, mid);
+        // Recurse on the right child
+        build(2*node+1, mid+1, end);
+
+        // Internal node will have the sum of both of its children
+        tree[node] = tree[2*node] + tree[2*node+1];
+    }
+}
+```
+
+```cpp
+void Build_Tree(int node, int st, int end)
+{
+	if(st == end)
+	{
+		/*Leaf node will store the single array element*/
+		tree[node] = A[st];
+		return ;
+	}
+	int mid = (st+end)/2;
+	
+	/*Call recursion for left child*/
+	Build_Tree(node*2, st, mid);
+	
+	/*Call recursion for right child*/	
+	Build_Tree(node*2+1, mid+1, end);
+		
+	/*Update the current node as minimum of both children*/
+	tree[node] = min(tree[2*node], tree[2*node+1]);
+	return;
+}
+```
+
+![Screenshot 2021-11-12 at 11.28.39.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-12_at_11.28.39.png)
+
+In the above function, **node** represents the current node of the tree being processed and variables **st** and **end** represent the range (segment) of that current node. Recall that segment tree is a binary tree, left child, given by ***2*node***, contains the range A[st : mid] and right child, which is given by ***2*node+1***, contains the range A [mid+1: end] where mid=(st+end)/2.
+
+Since the build function is being called once for each node (total maximum 4*N node), so the time complexity of the **build()** is **O(N)**.
+
+### **Update the Tree**
+
+[Screen Recording 2021-11-12 at 12.05.24.mov](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screen_Recording_2021-11-12_at_12.05.24.mov)
+
+Now, we want to modify the array element as **A[a] = b** and hence we have to modify the segment tree. Looking at the tree, one can clearly observe that index to be updated lies only in one segment of each level so we need to update only **log(N)** nodes. Starting from the root node we will recursively call the update function for the node which contains required index till we reach the leaf node representing that index. Then we will update that node, and in backtracking all the ancestors till root will be updated as minimum of its children.
+
+Code for the same is:
+
+```cpp
+void update(int node, int start, int end, int idx, int val)
+{
+    if(start == end)
+    {
+        // Leaf node
+        A[idx] += val;
+        tree[node] += val;
+    }
+    else
+    {
+        int mid = (start + end) / 2;
+        if(start <= idx and idx <= mid)
+        {
+            // If idx is in the left child, recurse on the left child
+            update(2*node, start, mid, idx, val);
+        }
+        else
+        {
+            // if idx is in the right child, recurse on the right child
+            update(2*node+1, mid+1, end, idx, val);
+        }
+        // Internal node will have the sum of both of its children
+        tree[node] = tree[2*node] + tree[2*node+1];
+    }
+}
+```
+
+```cpp
+void update(int node, int st, int end, int idx, int value)
+{
+	if(st == end)
+	{
+		/*Update leaf node*/
+		tree[node] = value;
+		A[idx] = value;
+		return ;
+	}
+	
+	int mid = (st+end)/2;
+	/*if index lies in the left child call update() for left child*/
+	if(idx<=mid)
+	  update(2*node, st, mid, idx, value);
+	
+	/*else index would lie in the right child, call update() for the right child*/
+	else
+		update(2*node+1, mid+1, end, idx, value);
+	
+	/*after updating the children,update the current node as smallest of its children */
+	tree[node] = min(tree[2*node], tree[2*node+1]);
+	return ;
+}
+```
+
+TIme complexity of update function is **O(log(N))**.
+
+**P.S.** *Often we don’t need to write one special **build()** function for building the segment tree. It can be done using the update function as well. For that we need to initialize the tree nodes with such a value that will never affect our answer*.
+
+### Range **query**
+
+[Screen Recording 2021-11-12 at 12.05.58.mov](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screen_Recording_2021-11-12_at_12.05.58.mov)
+
+We are given two integers l and r, we need to find the smallest element in this range (l and r inclusive).
+
+To accomplish the task, we will traverse the segment tree and use the pre-computed values of the intervals. Let’s consider that currently, we are at a vertex that covers the interval A[st, st+1, st+2, . . ., end]. Then there are three possibilities:
+
+- **Range represented by the node lies completely inside the given query range:** In this case, we will just return the value stored at that node in the segment tree.
+- **The range represented by the node lies completely outside the given query range:** In this case, the query function should return such a value that will not affect our answer. For example, if we want to find the minimum element, our function should return infinity (**INT_MAX**).
+- **Range represented by the node lies partially inside and partially outside the given query range:** As in this case, our answer depends on both the children so we will make two recursive calls one for each child. Let’s say partial answer from left child is ans1 and that from right child is ans2, so our answer would be min(ans1, ans2).
+
+<aside>
+💡 To query on a given range, check 3 conditions:
+- Range represented by a node is completely inside the given range
+- Range represented by a node is completely outside the given range
+- Range represented by a node is partially inside and partially outside the given range
+
+</aside>
+
+```cpp
+int query(int node, int start, int end, int l, int r)
+{
+    if(r < start or end < l)
+    {
+        // range represented by a node is completely outside the given range
+        return 0;
+    }
+    if(l <= start and end <= r)
+    {
+        // range represented by a node is completely inside the given range
+        return tree[node];
+    }
+    // range represented by a node is partially inside and partially outside the given range
+    int mid = (start + end) / 2;
+    int p1 = query(2*node, start, mid, l, r);
+    int p2 = query(2*node+1, mid+1, end, l, r);
+    return (p1 + p2);
+}
+```
+
+```cpp
+int range_min_query(int node, int st, int end, int l, int r)
+{
+	/*if range of the current node lies inside the query range*/
+	if(l <= st && end <= r )
+	{
+		return tree[node];
+	}
+	/*If current range is completely outside the query range*/
+	if(st>r || end<l)
+	return INT_MAX;
+	
+  /*If query range intersects both the children*/
+	int mid = (st+end)/2;
+	int ans1 = range_min_query(2*node, st, mid, l, r);
+	int ans2 = range_min_query(2*node+1, mid+1, end, l, r);	
+	return min(ans1, ans2);	
+}
+```
+
+**Time Complexity:** Since, at any level at most 4 nodes will be visited and the total number of levels in the tree is log(N). The upper bound of the all the visited nodes would be 4*log(N). Hence, the time complexity of each query would be **O(log(N).**
+
+## **Range Sum Query - Mutable**
+
+![Screenshot 2021-11-12 at 10.33.38.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-12_at_10.33.38.png)
+
+![Screenshot 2021-11-12 at 10.34.36.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-12_at_10.34.36.png)
 
 # Tries
 

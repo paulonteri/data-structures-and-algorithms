@@ -6,6 +6,8 @@
 
 [Trie (Keyword Tree) Tutorials & Notes | Data Structures | HackerEarth](https://www.hackerearth.com/practice/data-structures/advanced-data-structures/trie-keyword-tree/tutorial/)
 
+[Article on Trie. General Template and List of problems. - LeetCode Discuss](https://leetcode.com/discuss/study-guide/680706/Article-on-Trie.-General-Template-and-List-of-problems)
+
 Simple Trie
 
 ![Screenshot 2021-08-31 at 09.42.21.png](Trie%20(Keyword%20Tree)%20995fecf3f7ca418b88b528597f88fbfa/Screenshot_2021-08-31_at_09.42.21.png)

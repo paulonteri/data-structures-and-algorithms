@@ -1,5 +1,7 @@
 # Math Tricks
 
+[📌 TIPS | HACKS WHICH YOU CAN'T IGNORE AS A CODER ✨🎩 - LeetCode Discuss](https://leetcode.com/discuss/study-guide/1151183/TIPS-or-HACKS-WHICH-YOU-CAN'T-IGNORE-AS-A-CODER)
+
 Whenever you get an integer conversion problem, think of modulo `%` and floor division `//`
 
 6.2 epi

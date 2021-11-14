@@ -94,6 +94,7 @@ Delete* O(log n) **O(log n)**     O(n)      O(n)
 - n smallest value → **min heap**, n largest value → **max heap**
 
 - Kth Largest Number in a Stream
+
 - Continuous Median
 - Meeting Rooms II/Laptop Rentals
     

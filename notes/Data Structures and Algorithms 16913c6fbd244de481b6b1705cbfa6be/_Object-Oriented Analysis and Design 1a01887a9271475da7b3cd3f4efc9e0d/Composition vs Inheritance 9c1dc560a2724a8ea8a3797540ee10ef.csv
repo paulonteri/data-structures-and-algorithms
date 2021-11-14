@@ -1,0 +1,4 @@
+﻿table,Inheritance,Composition
+Difference,is-a relation,has-a relation
+Difference,extends implementation,declare implementation
+advantages,easy to understand relationship,"won't break encapsulation, easy to test, fits java for no multiple inheritance allowed"

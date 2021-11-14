@@ -1,5 +1,7 @@
 # Python basics
 
+[20+ helpful Python syntax patterns for coding interviews](https://towardsdatascience.com/19-helpful-python-syntax-patterns-for-coding-interviews-3704c15b758f)
+
 # Integers
 
 Integers in python3 are unbounded

@@ -1143,7 +1143,7 @@ When dealing with recursive functions, keep in mind that each recursive call has
 
 - Thread (pass down) the state through each recursive call so that the current state is part of the current call’s execution context
 - Keep the state in the global scope
-    - eg: use [nonlocal](Object-Oriented%20Analysis%20and%20Design%201a01887a9271475da7b3cd3f4efc9e0d.md)
+    - eg: use [nonlocal](_Object-Oriented%20Analysis%20and%20Design%201a01887a9271475da7b3cd3f4efc9e0d.md)
 
 ---
 
@@ -1485,6 +1485,8 @@ Suppose we are given some actual data of some data type, call it `dₒ`. The ide
 [Dynamic Programming](https://emre.me/algorithms/dynamic-programming/)
 
 [Dynamic programming is simple #3 (multi-root recursion) - LeetCode Discuss](https://leetcode.com/discuss/study-guide/1527916/dynamic-programming-is-simple-3-multi-root-recursion)
+
+[Patterns](https://leetcode.com/discuss/general-discussion/458695/Dynamic-Programming-Patterns)
 
 Dynamic programming is basically, recursion plus using common sense. The intuition behind dynamic programming is that we trade space for time, i.e. to say that instead of calculating all the states taking a lot of time but no space, we take up space to store the results of all the sub-problems to save time later.
 
@@ -2125,6 +2127,87 @@ The majority of the Dynamic Programming problems can be categorized into two typ
     ```
     
 - Maximum Subarray
+- Longest Common Subsequence **
+    
+    DP pattern
+    
+    ```python
+    """ 
+    Longest Common Subsequence
+    
+    Given two strings text1 and text2, return the length of their longest common subsequence. 
+    If there is no common subsequence, return 0.
+    A subsequence of a string is a new string generated from the original string with some characters (can be none)
+        deleted without changing the relative order of the remaining characters.
+    For example, "ace" is a subsequence of "abcde".
+    A common subsequence of two strings is a subsequence that is common to both strings.
+    
+    Example 1:
+        Input: text1 = "abcde", text2 = "ace" 
+        Output: 3  
+        Explanation: The longest common subsequence is "ace" and its length is 3.
+    Example 2:
+        Input: text1 = "abc", text2 = "abc"
+        Output: 3
+        Explanation: The longest common subsequence is "abc" and its length is 3.
+    Example 3:
+        Input: text1 = "abc", text2 = "def"
+        Output: 0
+        Explanation: There is no such common subsequence, so the result is 0.
+    
+    Constraints:
+        1 <= text1.length, text2.length <= 1000
+        text1 and text2 consist of only lowercase English characters.
+        
+    https://leetcode.com/problems/longest-common-subsequence
+    """
+    
+    class Solution:
+        def longestCommonSubsequence(self, text1: str, text2: str):
+            cache = [[None for _ in text2] for _ in text1]
+            return self.lcs_helper(cache, text1, text2, 0, 0)
+    
+        def lcs_helper(self, cache, text1, text2, idx_1, idx_2):
+            """ 
+            - base cases:
+                - out of bounds
+                - in cache
+            - Check if characters match or not:
+                - if match: move both idxs forwards and and add 1 to the result of that and return
+                - else: try moving both idxs forward in separate function calls and return the longer one
+            """
+            if idx_1 >= len(text1) or idx_2 >= len(text2):
+                return 0
+            if cache[idx_1][idx_2]:
+                return cache[idx_1][idx_2]
+    
+            if text1[idx_1] == text2[idx_2]:
+                cache[idx_1][idx_2] = 1 + self.lcs_helper(cache, text1, text2, idx_1+1, idx_2+1)
+            else:
+                cache[idx_1][idx_2] = max(
+                    self.lcs_helper(cache, text1, text2, idx_1+1, idx_2),
+                    self.lcs_helper(cache, text1, text2, idx_1, idx_2+1)
+                )
+    
+            return cache[idx_1][idx_2]
+    
+    class Solution_:
+        def longestCommonSubsequence(self, text1: str, text2: str):
+            dp = [[0 for _ in range(len(text2)+1)] for _ in range(len(text1)+1)]
+    
+            for idx_1 in reversed(range(len(text1))):
+                for idx_2 in reversed(range(len(text2))):
+    
+                    # if match
+                    if text1[idx_1] == text2[idx_2]:
+                        dp[idx_1][idx_2] = 1 + dp[idx_1+1][idx_2+1]
+                    # add previous count
+                    else:
+                        dp[idx_1][idx_2] = max(dp[idx_1+1][idx_2], dp[idx_1][idx_2+1])
+    
+            return dp[0][0]
+    ```
+    
 
 - Longest Increasing Subsequence *
     
@@ -3400,6 +3483,8 @@ In recursion for example for Fibonacci calculation, if the root node (in the rec
 
 [Java: Backtracking Template -- General Approach - LeetCode Discuss](https://leetcode.com/problems/palindrome-partitioning/discuss/182307/Java:-Backtracking-Template-General-Approach)
 
+[A general approach to backtracking questions in Java (Subsets, Permutations, Combination Sum, Palindrome Partitioning) - LeetCode Discuss](https://leetcode.com/problems/combination-sum/discuss/16502/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partitioning))
+
 > Backtracking Algorithm tries each possibility until they find the right one. It is a **depth-first search** of the set of possible solution. During the search, if an alternative doesn't work, then backtrack to the choice point, the place which presented different alternatives, and tries the next alternative.
 > 
 
@@ -3416,6 +3501,102 @@ It is known for solving problems recursively one step at a time and removing tho
 It is a **refined brute force** approach that tries out all the possible solutions and chooses the best possible ones out of them.
 
 ### Examples:
+
+- All Paths From Source to Target
+    
+    ![Screenshot 2021-11-12 at 09.00.11.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-12_at_09.00.11.png)
+    
+    ![Screenshot 2021-11-12 at 09.01.07.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-12_at_09.01.07.png)
+    
+    ![Screenshot 2021-11-12 at 09.01.23.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-12_at_09.01.23.png)
+    
+    ![Screenshot 2021-11-12 at 09.01.36.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-12_at_09.01.36.png)
+    
+    ![Screenshot 2021-11-12 at 09.01.56.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-12_at_09.01.56.png)
+    
+    ![Screenshot 2021-11-12 at 09.02.21.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-12_at_09.02.21.png)
+    
+    ```python
+    """ 
+    All Paths From Source to Target
+    
+    Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1, find all possible paths from node 0 to node n - 1 and return them in any order.
+    The graph is given as follows: graph[i] is a list of all nodes you can visit from node i (i.e., there is a directed edge from node i to node graph[i][j]).
+    
+    Example 1:
+        Input: graph = [[1,2],[3],[3],[]]
+        Output: [[0,1,3],[0,2,3]]
+        Explanation: There are two paths: 0 -> 1 -> 3 and 0 -> 2 -> 3.
+    Example 2:
+        Input: graph = [[4,3,1],[3,2,4],[3],[4],[]]
+        Output: [[0,4],[0,3,4],[0,1,3,4],[0,1,2,3,4],[0,1,4]]
+    Example 3:
+        Input: graph = [[1],[]]
+        Output: [[0,1]]
+    Example 4:
+        Input: graph = [[1,2,3],[2],[3],[]]
+        Output: [[0,1,2,3],[0,2,3],[0,3]]
+    Example 5:
+        Input: graph = [[1,3],[2],[3],[]]
+        Output: [[0,1,2,3],[0,3]]
+    
+    Constraints:
+        n == graph.length
+        2 <= n <= 15
+        0 <= graph[i][j] < n
+        graph[i][j] != i (i.e., there will be no self-loops).
+        All the elements of graph[i] are unique.
+        The input graph is guaranteed to be a DAG.
+        
+    https://leetcode.com/problems/all-paths-from-source-to-target
+    """
+    
+    from typing import List
+    
+    """ 
+    As a reminder, backtracking is a general algorithm that incrementally builds candidates to the solutions, 
+        and abandons a candidate ("backtrack") as soon as it determines that the candidate cannot possibly lead to a valid solution.
+    Specifically, for this problem, we could assume ourselves as an agent in a game, we can explore the graph one step at a time.
+    At any given node, we try out each neighbour node recursively until we reach the target or there is no more node to hop on. 
+    By trying out, we mark the choice before moving on, and later on we reverse the choice (i.e. backtrack) and start another exploration.
+    
+    """
+    
+    # O(2^N) time | O(2^N) space
+    # - every time we add a new node into the graph, the number of paths would double.
+    # We have 2^N paths with building a path taking N time
+    # We have 2^N paths with each path possibly containing N nodes
+    class Solution:
+        def allPathsSourceTarget(self, graph: List[List[int]]):
+            """ 
+            - paths = []
+            - dfs(node, visiting, path):
+                - if node is n-1: add the built path to the paths array
+                - if node is in visiting set: return
+                - (not needed because graph is acyclic) add node to visiting set
+                - for all the child accessible to the node:
+                    - add node to path
+                    - dfs(child)
+                    - remove node from path
+            - return paths
+            """
+    
+            paths = []
+    
+            # backtracking
+            def dfs(node, curr_path):
+                if node == len(graph)-1:
+                    paths.append(curr_path[:])
+    
+                for child in graph[node]:
+                    curr_path.append(child)
+                    dfs(child, curr_path)
+                    curr_path.pop()
+    
+            dfs(0, [0])
+            return paths
+    ```
+    
 
 - Permutations II **
     
@@ -3850,6 +4031,26 @@ It is a **refined brute force** approach that tries out all the possible solut
     """
     
     from typing import List
+    
+    """ 
+    Time Complexity: O(n * 2^n), where n is the number of characters. In a worst case scenario
+    Space Complexity: O(n * 2^n)
+    There seems to be some disagreement online about the complexity of this problem; consider the following example to see the worst case scenario:
+    
+    s = aaaaaa
+    wordDict = [a, aa, aaa, aaaa, aaaaa, aaaaaa]
+    
+    Our memo would look something like: 
+    {
+        "a": ["a"] ----------------------------------------- 2^0 items,
+        "aa": ["a a","aa"] ------------------------------ 2^1 items,
+        "aaa": ["a a a", "aa a", "a aa", "aaa"] - 2^2 items,
+        ...
+    }
+    That explains the space.
+    
+    The time could be explained by the number of executions of the subproblems. Namely, in the worst case we'd have to make n calls of the helper function, and each one of those calls would have 2^n append calls made, leaving us with O(n * 2^n)
+    """
     
     class Solution:
         def wordBreak(self, s: str, wordDict: List[str]):
@@ -4445,7 +4646,7 @@ It is a **refined brute force** approach that tries out all the possible solut
     ```
     
 
-- Partition to K Equal Sum Subsets **
+- Partition to K Equal Sum Subsets *
     
     ![O(N.N!) time](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-25_at_20.23.32.png)
     

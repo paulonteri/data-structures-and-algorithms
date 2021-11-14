@@ -6,7 +6,7 @@
 
 [**Complexity Analysis &** Big O](Data%20Structures%20and%20Algorithms%2016913c6fbd244de481b6b1705cbfa6be/Complexity%20Analysis%20&%20Big%20O%20ded85f7996b548c7953055302969348c.md)
 
-[Object-Oriented Analysis and Design](Data%20Structures%20and%20Algorithms%2016913c6fbd244de481b6b1705cbfa6be/Object-Oriented%20Analysis%20and%20Design%201a01887a9271475da7b3cd3f4efc9e0d.md)
+[_Object-Oriented Analysis and Design](Data%20Structures%20and%20Algorithms%2016913c6fbd244de481b6b1705cbfa6be/_Object-Oriented%20Analysis%20and%20Design%201a01887a9271475da7b3cd3f4efc9e0d.md)
 
 [Hashtables & Hashsets](Data%20Structures%20and%20Algorithms%2016913c6fbd244de481b6b1705cbfa6be/Hashtables%20&%20Hashsets%20220d9f0e409044c58ec6c2b0e7fe0ab5.md)
 
@@ -42,6 +42,8 @@
 
 ![Data%20Structures%20and%20Algorithms%2016913c6fbd244de481b6b1705cbfa6be/Screenshot_2021-07-21_at_14.30.56.png](Data%20Structures%20and%20Algorithms%2016913c6fbd244de481b6b1705cbfa6be/Screenshot_2021-07-21_at_14.30.56.png)
 
+[I have to literally lookup up every leetcode solution. Is it normal?](https://www.reddit.com/r/cscareerquestions/comments/bc85gv/i_have_to_literally_lookup_up_every_leetcode/?utm_medium=android_app&utm_source=share%5D(https://www.reddit.com/r/cscareerquestions/comments/bc85gv/i_have_to_literally_lookup_up_every_leetcode/?utm_medium=android_app&utm_source=share))
+
 [Introduction | Tech Interview Handbook](https://techinterviewhandbook.org/algorithms/algorithms-introduction/)
 
 [Coding Interview Prep](https://lei-d.gitbook.io/leetcode/)
@@ -57,6 +59,22 @@
 [How To Find a Solution](https://www.topcoder.com/thrive/articles/How%20To%20Find%20a%20Solution)
 
 [Python Functions](https://www.programiz.com/python-programming/function)
+
+[TOPICS WHICH YOU CAN'T SKIP [INTERVIEW PREPARATION | STUDY PLAN] USING LEETCODE - LeetCode Discuss](https://leetcode.com/discuss/study-guide/1098600/TOPICS-WHICH-YOU-CAN'T-SKIP-INTERVIEW-PREPARATION-or-STUDY-PLAN-USING-LEETCODE)
+
+[All You Need This For Better Preparation - LeetCode Discuss](https://leetcode.com/discuss/general-discussion/1563880/all-you-need-this-for-better-preparation)
+
+[Important and Useful links from all over the LeetCode - LeetCode Discuss](https://leetcode.com/discuss/general-discussion/665604/important-and-useful-links-from-all-over-the-leetcode)
+
+[A LeetCode Grinding Guide](https://www.reddit.com/r/cscareerquestions/comments/6luszf/a_leetcode_grinding_guide/)
+
+[Data structures playlist](https://youtube.com/playlist?list=PLDV1Zeh2NRsB6SWUrDFW2RmDotAfPbeHu)
+
+[My notes for the night before interview. - LeetCode Discuss](https://leetcode.com/discuss/career/217868/My-notes-for-the-night-before-interview)
+
+Other
+
+[Google Interview Tips + FAQs Answered + Resources - LeetCode Discuss](https://leetcode.com/discuss/career/449744/Google-Interview-Tips-%2B-FAQs-Answered-%2B-Resources)
 
 Data structures and Algorithms (patterns):
 

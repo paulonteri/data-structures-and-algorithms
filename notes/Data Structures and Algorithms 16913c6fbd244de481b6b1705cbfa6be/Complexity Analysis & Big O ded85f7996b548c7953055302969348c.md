@@ -28,18 +28,18 @@ Note that in the context of coding interviews, Big O notation is usually underst
 A mathematical concept that's widely used in Computer Science and that's defined by the following equation:
 
 <aside>
-💡 **logb(x) = y** if and only if **b^y = x**
+💡 **log b(x) = y** if and only if **b^y = x**
 
 </aside>
 
-In the context of coding interviews, the logarithm is used to describe the complexity analysis of algorithms, and its usage always implies a logarithm of base **2**. In other words, the logarithm used in the context of coding interviews is defined by the following equation:
+In the context of coding interviews, the logarithm is used to describe the complexity analysis of algorithms, and its usage always implies a **logarithm of base 2**. In other words, the logarithm used in the context of coding interviews is defined by the following equation:
 
 <aside>
 💡 **log(n) = y** if and only if **2y = n**
 
 </aside>
 
-In plain English, if an algorithm has a logarithmic time complexity (**O(log(n))**, where n is the size of the input), then **whenever the algorithm's input doubles in size** (i.e., whenever **n** doubles), **the number of operations needed to complete the algorithm only increases by one unit**. Conversely, an algorithm with a linear time complexity would see its number of operations double if its input size doubled.
+In plain English, if an algorithm has a logarithmic time complexity **`O(log(n)`**, where `n` is the size of the input), then **whenever the algorithm's input doubles in size** (i.e., whenever **n** doubles), **the number of operations needed to complete the algorithm only increases by one unit**. Conversely, an algorithm with a linear time complexity would see its number of operations double if its input size doubled.
 
 As an example, a linear-time-complexity algorithm with an input of size 1,000 might take roughly 1,000 operations to complete, whereas a logarithmic-time-complexity algorithm with the same input would take roughly 10 operations to complete, since **210 ~= 1,000**.
 
@@ -146,13 +146,13 @@ Suppose you wanted to write a function that counted all the frequencies of chara
 
 The **runtime** of this function depends on the length of the string. 1 more character, means 1 more step, so the runtime is **O(N)**.
 
-But what about **space complexity**? We’re using a few variables, but the obvious one that seems to scale up with the size of the string is counts hashmap. The more characters you have, the more it seems like you’ll have to keep track of, so it might seem like it’s also O(N). 
+But what about **space complexity**? We’re using a few variables, but the obvious one that seems to scale up with the size of the string is the `counts` hashmap. The more characters you have, the more it seems like you’ll have to keep track of, so it might seem like it’s also O(N). 
 
 But the reality is that it’s actually **O(1)** 🤯 because you are only dealing with a **finite character set.** Sometimes see this big-O notation written as **O(C)**. It’s used to express the fact that constant time/space isn’t just limited to one step or one unit of memory usage. There can be some amount of scaling up in runtime or memory usage, as long as it’s to some **fixed, finite upper limit**.
 
 ## Example
 
-### N * (N-1) * (N-2) * (N-3) * ... * 2 * 1  ==  N!
+### Factorial - N * (N-1) * (N-2) * (N-3) * ... * 2 * 1  ==  N!
 
 [Factorial - Wikipedia](https://en.wikipedia.org/wiki/Factorial)
 
@@ -170,7 +170,7 @@ Examples:
 
 ---
 
-### (N-1) + (N-2) + (N-3) + ... + 2 + 1  ~=  N^2
+### Not factorial 😂 - (N-1) + (N-2) + (N-3) + ... + 2 + 1  ~=  N^2
 
 ![Screenshot 2021-09-26 at 10.41.34.png](Complexity%20Analysis%20&%20Big%20O%20ded85f7996b548c7953055302969348c/Screenshot_2021-09-26_at_10.41.34.png)
 
@@ -178,7 +178,7 @@ Examples:
 
 ![Screenshot 2021-09-26 at 10.43.45.png](Complexity%20Analysis%20&%20Big%20O%20ded85f7996b548c7953055302969348c/Screenshot_2021-09-26_at_10.43.45.png)
 
-### Algorithm that took in an array of strings, sorted each string, and then sorted the full array
+### An algorithm that took in an array of strings, sorted each string and then sorted the full array
 
 ![Screenshot 2021-09-26 at 10.52.35.png](Complexity%20Analysis%20&%20Big%20O%20ded85f7996b548c7953055302969348c/Screenshot_2021-09-26_at_10.52.35.png)
 
@@ -192,7 +192,6 @@ Examples:
 
 [Depth First Search or DFS for a Graph - GeeksforGeeks](https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/)
 
-The time complexity of DFS & BFS if the entire tree is traversed is `O(V)` where V is the number of nodes. 
-In the case of a **graph**, the time complexity is where V is the number of vertexes and E is the number of edges.
+The time complexity of DFS & BFS if the entire tree is traversed is `O(V)` where V is the number of nodes. In the case of a **graph**, the time complexity is where V is the number of vertexes and E is the number of edges.
 
 The **Time complexity of BFS** is `O(V+E)` when **Adjacency List** is used and `O(V^2)` when **Adjacency Matrix** is used, where V stands for vertices and E stands for edges.

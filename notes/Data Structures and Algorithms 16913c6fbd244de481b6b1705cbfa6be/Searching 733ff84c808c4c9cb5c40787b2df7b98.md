@@ -429,6 +429,10 @@ Go through each element one by one. When the element you are searching for is fo
 
 # Binary Search
 
+[Binary-search Interview Questions - LeetCode Discuss](https://leetcode.com/discuss/interview-question/313216/Binary-search-Interview-Questions)
+
+[]()
+
 Requires a **sorted array**.
 
 The terminology used in Binary Search:
@@ -2108,6 +2112,8 @@ DFS on an adjacency list
 
 ![https://miro.medium.com/max/3392/1*IRAluXfuPRVLjLDOgf6NPQ.jpeg](https://miro.medium.com/max/3392/1*IRAluXfuPRVLjLDOgf6NPQ.jpeg)
 
+---
+
 # BFS:
 
 [Coding Patterns: Breadth First Search (BFS)](https://emre.me/coding-patterns/breadth-first-search/)
@@ -2308,6 +2314,12 @@ BFS can be used to find a single-source shortest path in an unweighted graph bec
     """
     ```
     
+- [https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/](https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/)
+    
+    [Coding Interview Problem - Shortest Path With Obstacle Elimination](https://youtu.be/TuiCSZwziY0)
+    
+    [Leetcode - Shortest Path in a Grid with Obstacles Elimination (Python)](https://youtu.be/v5qbXehOzBs)
+    
 
 ## Basic BFS (uses queue)
 
@@ -2344,6 +2356,16 @@ Bidirectional search is used to find the shortest path between a source and dest
 ![Screenshot 2021-10-06 at 18.26.53.png](Searching%20733ff84c808c4c9cb5c40787b2df7b98/Screenshot_2021-10-06_at_18.26.53.png)
 
 ![Screenshot 2021-10-06 at 18.27.37.png](Searching%20733ff84c808c4c9cb5c40787b2df7b98/Screenshot_2021-10-06_at_18.27.37.png)
+
+## BFS vs Dijkstra's?
+
+Both are used to find the shortest path 
+
+Dijkstra's is only used on positively weighted graphs
+
+---
+
+---
 
 # Quick Select (used to select index)
 

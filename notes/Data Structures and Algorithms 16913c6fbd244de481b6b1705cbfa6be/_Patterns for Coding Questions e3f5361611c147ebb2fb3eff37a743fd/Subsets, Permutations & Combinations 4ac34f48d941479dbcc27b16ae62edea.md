@@ -347,6 +347,8 @@ def getPermutationsHelper(result, array, pos):
 
 ### Time & Space complexity
 
+![Screenshot 2021-11-08 at 20.53.17.png](Subsets,%20Permutations%20&%20Combinations%204ac34f48d941479dbcc27b16ae62edea/Screenshot_2021-11-08_at_20.53.17.png)
+
 - Time complexity: O(n x n!) as there are n! permutations and n for the cost of list slicing.
     
     ![N * (N-1) * ... * !   ==   3 * 2 * 1   ==   N!](Subsets,%20Permutations%20&%20Combinations%204ac34f48d941479dbcc27b16ae62edea/Untitled.png)

@@ -38,6 +38,8 @@ Array-based problems are the **hardest** problems by far there are way **too man
 
 [Strings](https://emre.me/basic-types/strings/)
 
+[How to solve DP - String? Template and 4 Steps to be followed. - LeetCode Discuss](https://leetcode.com/discuss/study-guide/651719/How-to-solve-DP-String-Template-and-4-Steps-to-be-followed)
+
 ### Examples
 
 - Valid Anagram
@@ -227,6 +229,34 @@ Array-based problems are the **hardest** problems by far there are way **too man
     print(groupAnagrams(['yo', 'act', 'flop', 'tac', 'foo', 'cat', 'oy', 'olfp']))
     print(groupAnagrams2(['yo', 'act', 'flop', 'tac', 'foo', 'cat', 'oy', 'olfp']))
     print(groupAnagrams1(['yo', 'act', 'flop', 'tac', 'foo', 'cat', 'oy', 'olfp']))
+    ```
+    
+- [https://leetcode.com/problems/subdomain-visit-count/](https://leetcode.com/problems/subdomain-visit-count/)
+    
+    ```cpp
+    from collections import defaultdict
+    
+    # O(N) time | O(N) space
+    # assuming the length of a domain is fixed
+    class Solution:
+        def subdomainVisits(self, cpdomains: List[str]) -> List[str]:
+            visited = defaultdict(int)
+            
+            for cp_domain in cpdomains:
+                str_count, domain = cp_domain.split(" ")
+                count = int(str_count)
+                
+                split_domain = domain.split(".")
+                curr = ""
+                for idx in reversed(range(len(split_domain))):
+                    if idx == len(split_domain)-1:
+                        curr += split_domain[idx]
+                    else:
+                        curr = split_domain[idx] + '.' + curr
+                        
+                    visited[curr] += count
+                    
+            return [f"{value} {key}" for key, value in visited.items()]
     ```
     
 - Pattern Matcher *
@@ -1604,9 +1634,9 @@ def sort(self, nums, sort_start):
 - Let `m` be the average/maximum # of characters for the strings in the `str` array
 - Then, calling `Arrays.sort(str)` on this array would have the performance characteristic of `O(m * n log n)`.
 
-The reason it's O(m*n logn) is because the sorting algorithm itself will run `O(n logn)` comparison operations in order to perform the sort. And each comparison operation takes `O(m)` time to finish. 
+The reason it's `O(m*n logn)` is that the sorting algorithm itself will run `O(n logn)` comparison operations in order to perform the sort. And each comparison operation takes `O(m)` time to finish. 
 
-Though that is very much the worst case scenario: Given, say, `Hello` and `World`, even though `m = 5` for those two, the comparison completes after only 1 step; the algorithm compares `H` and `W` and answers immediately, never even looking at `ello` or `orld`. But if the strings are `Hello1`, `Hello2`, `Hello3` and `Hello4`, then that's a guaranteed 5 'steps' for every time 2 strings are compared, and there will be `O(n logn)` comparisons.
+Though that is very much the worst-case scenario: Given, say, `Hello` and `World`, even though `m = 5` for those two, the comparison completes after only 1 step; the algorithm compares `H` and `W` and answers immediately, never even looking at `ello` or `orld`. But if the strings are `Hello1`, `Hello2`, `Hello3` and `Hello4`, then that's a guaranteed 5 'steps' for every time 2 strings are compared, and there will be `O(n logn)` comparisons.
 
 If we use a naive sorting algorithm of `O(N^2)` time,
 then the total will be `O(M * N^2)`
@@ -2012,7 +2042,11 @@ StringBuilder (Java)
 
 - Subarray Sum Equals K *
     
+    Next: [Path sum III](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185.md)
+    
     [LeetCode Subarray Sum Equals K Solution Explained - Java](https://youtu.be/AmlVSNBHzJg)
+    
+    ![Screenshot 2021-11-13 at 19.53.18.png](Strings,%20Arrays%20&%20Linked%20Lists%2081ca9e0553a0494cb8bb74c5c85b89c8/Screenshot_2021-11-13_at_19.53.18.png)
     
     ```python
     """
@@ -2028,6 +2062,9 @@ StringBuilder (Java)
         Output: 2
     
     https://leetcode.com/problems/subarray-sum-equals-k/
+    Do Next: 
+    - https://leetcode.com/problems/path-sum-iii/
+    - https://leetcode.com/problems/continuous-subarray-sum
     """
     
     from collections import defaultdict
@@ -2993,6 +3030,9 @@ Matrices
     Given a 2D integer array board representing the grid of candy, different positive integers board[i][j] represent different types of candies.
     A value of board[i][j] = 0 represents that the cell at position (i, j) is empty.
     The given board represents the state of the game following the player's move.
+    
+    Prerequisite:
+    - https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii
     
     https://leetcode.com/problems/candy-crush/
     """
@@ -4297,12 +4337,15 @@ print(my_tuple)
             return res.next
     ```
     
+- [Flatten a Multilevel Doubly Linked List - LeetCode](https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/)
 
 ## Tips
 
 if it involves returning a new LL it might be easier to have a temp head (hd) then at the end return hd.next
 
 ---
+
+Have a *pseudo head* and *pseudo tail in a Doubly Linked List*, so that we don't need to check the `null` node during the add and remove.
 
 ---
 

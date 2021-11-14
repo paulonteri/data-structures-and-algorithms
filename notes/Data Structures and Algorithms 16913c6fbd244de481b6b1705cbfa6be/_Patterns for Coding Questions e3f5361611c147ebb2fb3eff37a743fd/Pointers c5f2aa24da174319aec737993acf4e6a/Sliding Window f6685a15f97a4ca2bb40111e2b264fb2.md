@@ -291,6 +291,8 @@ https://www.educative.io/courses/grokking-the-coding-interview/7XMlMEQPnnQ
 
 if has negative numbers
 
+Other
+
 Solution 1
 
 ```python
@@ -915,3 +917,9 @@ def dutch_flag_sort(arr):
 ---
 
 # Trapping rain water
+
+# More examples
+
+[Facebook | SWE New Grad | London | January 2019 [Reject] - LeetCode Discuss](https://leetcode.com/discuss/interview-experience/221092/Facebook-or-SWE-New-Grad-or-London-or-January-2019-Reject)
+
+[Max Consecutive Ones III - LeetCode](https://leetcode.com/problems/max-consecutive-ones-iii/)

@@ -12,4 +12,6 @@
 
 [Union find (disjoint set)](Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Union%20find%20(disjoint%20set)%20ebb6361b79834fa6a82d0e410b6af9a2.md)
 
-[[Tree Traversal without Recursion](https://algo.monster/problems/closest_bst_values_ii)](Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Tree%20Traversal%20without%20Recursion%2037c217d535fc48f083bebf1e28312bee.md)
+[**Iterative traversals on Trees**](Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Iterative%20traversals%20on%20Trees%2037c217d535fc48f083bebf1e28312bee.md)
+
+[Segment Trees: **Range queries and Updates**](Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Segment%20Trees%20Range%20queries%20and%20Updates%205aa26961cdbe43f9991cf6bffd440319.md)

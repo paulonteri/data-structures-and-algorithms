@@ -104,7 +104,20 @@ Some of the problems require you to implement your own stack class; for others, 
             return self.min_max_store[-1]['max']
     ```
     
+
+![Screenshot 2021-11-09 at 11.46.34.png](Stacks%20&%20Queues%20c7d2cad790be4a61bac42c8718e031fd/Screenshot_2021-11-09_at_11.46.34.png)
+
 - Decode String *
+    
+    ![Screenshot 2021-11-09 at 11.43.27.png](Stacks%20&%20Queues%20c7d2cad790be4a61bac42c8718e031fd/Screenshot_2021-11-09_at_11.43.27.png)
+    
+    [Similar to what we have done](Stacks%20&%20Queues%20c7d2cad790be4a61bac42c8718e031fd/Screen_Recording_2021-11-09_at_11.43.56.mov)
+    
+    Similar to what we have done
+    
+    ![Screenshot 2021-11-09 at 11.44.53.png](Stacks%20&%20Queues%20c7d2cad790be4a61bac42c8718e031fd/Screenshot_2021-11-09_at_11.44.53.png)
+    
+    ![Screenshot 2021-11-09 at 11.46.44.png](Stacks%20&%20Queues%20c7d2cad790be4a61bac42c8718e031fd/Screenshot_2021-11-09_at_11.46.44.png)
     
     ```python
     """
@@ -1044,11 +1057,222 @@ Some of the problems require you to implement your own stack class; for others, 
     ```
     
 
+- **Candy Crush 1D**
+    
+    ```python
+    """ 
+    1209. Remove All Adjacent Duplicates in String II/Candy Crush 1D
+    
+    You are given a string s and an integer k, a k duplicate removal consists of choosing k adjacent and equal letters from s and removing them, causing the left and the right side of the deleted substring to concatenate together.
+    We repeatedly make k duplicate removals on s until we no longer can.
+    Return the final string after all such duplicate removals have been made. It is guaranteed that the answer is unique.
+    
+    Example 1:
+        Input: s = "abcd", k = 2
+        Output: "abcd"
+        Explanation: There's nothing to delete.
+    Example 2:
+        Input: s = "deeedbbcccbdaa", k = 3
+        Output: "aa"
+        Explanation: 
+        First delete "eee" and "ccc", get "ddbbbdaa"
+        Then delete "bbb", get "dddaa"
+        Finally delete "ddd", get "aa"
+    Example 3:
+        Input: s = "pbbcggttciiippooaais", k = 2
+        Output: "ps"
+     
+    
+    Constraints:
+        1 <= s.length <= 105
+        2 <= k <= 104
+        s only contains lower case English letters.
+        
+        
+    https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii
+    """
+    
+    class Solution:
+        def removeDuplicates(self, s: str, k: int):
+            """
+            Add characters with their frequencies to a stack [(char, freq)]
+            - b4 adding a charcater to the stack, check if the character at the top is similar
+                - if so, let its frequency be that of the stack top + 1
+                - else, add the character to the stack with a freq of 1
+            - after adding, check if the next character is similar to the top of the stack
+                - if so, add all similar characters to the stack to get the whole sequence of similar characters
+    
+            - Try to remove k characters from the stack:
+                - if the top of the stack has a frequency of >= k:
+                    - continue removing k characters from the stack till the above condition is False
+    
+            """
+            stack = []
+            idx = 0
+            while idx < len(s):
+                # add single character to stack
+                self.add_to_stack(stack, s[idx])
+                idx += 1
+                # try to add similar characters to stack b4 crushing
+                while idx < len(s) and stack and s[idx] == stack[-1][0]:
+                    self.add_to_stack(stack, s[idx])
+                    idx += 1
+    
+                # Candy Crush 1D
+                self.remove_duplicates_from_stack(stack, k)
+    
+            # after loop
+            self.remove_duplicates_from_stack(stack, k)
+    
+            return "".join([item[0] for item in stack])
+    
+        def remove_duplicates_from_stack(self, stack, k):
+            """Candy Crush 1D"""
+            while stack and stack[-1][1] >= k:
+                # number_of_ks = stack[-1][1]//k
+                for _ in range(k):
+                    stack.pop()
+    
+        def add_to_stack(self, stack, char):
+            """Add a single character to the stack"""
+            if not stack or stack[-1][0] != char:
+                stack.append((char, 1))
+            else:
+                stack.append((char, stack[-1][1]+1))
+    ```
+    
+    ```python
+    # https://leetcode.com/discuss/interview-question/380650/Bloomberg-or-Phone-or-Candy-Crush-1D/1143991
+    def add_to_stack(stack, char):
+        if not stack or stack[-1][0] != char:
+            stack.append((char, 1))
+        else:
+            stack.append((char, stack[-1][1]+1))
+    
+    def candy_crush_1d(s):
+        stack = []
+        idx = 0
+        while idx < len(s):
+            # add similar characters to stack b4 crushing
+            while idx < len(s) and stack and s[idx] == stack[-1][0]:
+                add_to_stack(stack, s[idx])
+                idx += 1
+    
+            # crush
+            if stack and stack[-1][1] >= 3:
+                char = stack[-1][0]
+                while stack and stack[-1][0] == char:
+                    stack.pop()
+    
+            # add next
+            if idx < len(s):
+                add_to_stack(stack, s[idx])
+                idx += 1
+    
+        return "".join([item[0] for item in stack])
+    
+    S = "aaabbbc"
+    print(candy_crush_1d(S))
+    
+    S = "aabbbacd"
+    print(candy_crush_1d(S))
+    
+    S = "aaabbbacd"
+    print(candy_crush_1d(S))
+    ```
+    
+- Remove All Adjacent Duplicates in String II/Candy Crush 1D
+    
+    ```python
+    """ 
+    1209. Remove All Adjacent Duplicates in String II/Candy Crush 1D
+    
+    You are given a string s and an integer k, a k duplicate removal consists of choosing k adjacent and equal letters from s and removing them, causing the left and the right side of the deleted substring to concatenate together.
+    We repeatedly make k duplicate removals on s until we no longer can.
+    Return the final string after all such duplicate removals have been made. It is guaranteed that the answer is unique.
+    
+    Example 1:
+        Input: s = "abcd", k = 2
+        Output: "abcd"
+        Explanation: There's nothing to delete.
+    Example 2:
+        Input: s = "deeedbbcccbdaa", k = 3
+        Output: "aa"
+        Explanation: 
+        First delete "eee" and "ccc", get "ddbbbdaa"
+        Then delete "bbb", get "dddaa"
+        Finally delete "ddd", get "aa"
+    Example 3:
+        Input: s = "pbbcggttciiippooaais", k = 2
+        Output: "ps"
+     
+    
+    Constraints:
+        1 <= s.length <= 105
+        2 <= k <= 104
+        s only contains lower case English letters.
+        
+        
+    https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii
+    """
+    
+    class Solution:
+        def removeDuplicates(self, s: str, k: int):
+            """
+            Add characters with their frequencies to a stack [(char, freq)]
+            - b4 adding a charcater to the stack, check if the character at the top is similar
+                - if so, let its frequency be that of the stack top + 1
+                - else, add the character to the stack with a freq of 1
+            - after adding, check if the next character is similar to the top of the stack
+                - if so, add all similar characters to the stack to get the whole sequence of similar characters
+    
+            - Try to remove k characters from the stack:
+                - if the top of the stack has a frequency of >= k:
+                    - continue removing k characters from the stack till the above condition is False
+    
+            """
+            stack = []
+            idx = 0
+            while idx < len(s):
+                # add single character to stack
+                self.add_to_stack(stack, s[idx])
+                idx += 1
+                # try to add similar characters to stack b4 crushing
+                while idx < len(s) and stack and s[idx] == stack[-1][0]:
+                    self.add_to_stack(stack, s[idx])
+                    idx += 1
+    
+                # Candy Crush 1D
+                self.remove_duplicates_from_stack(stack, k)
+    
+            # after loop
+            self.remove_duplicates_from_stack(stack, k)
+    
+            return "".join([item[0] for item in stack])
+    
+        def remove_duplicates_from_stack(self, stack, k):
+            """Candy Crush 1D"""
+            while stack and stack[-1][1] >= k:
+                # number_of_ks = stack[-1][1]//k
+                for _ in range(k):
+                    stack.pop()
+    
+        def add_to_stack(self, stack, char):
+            """Add a single character to the stack"""
+            if not stack or stack[-1][0] != char:
+                stack.append((char, 1))
+            else:
+                stack.append((char, stack[-1][1]+1)
+    ```
+    
+
 ---
 
 ---
 
 # Queues
+
+[https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/discuss/204290/Monotonic-Queue-Summary](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/discuss/204290/Monotonic-Queue-Summary)
 
 To implement a queue, we again need two basic operations: `enqueue()` and `dequeue()`
 
