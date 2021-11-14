@@ -8,13 +8,18 @@ Array-based problems are the **hardest** problems by far there are way **too man
 
 - Think of sorting the input array
 - Think of two pointers
+    
+    Notes on this:
+    
+    [Pointers](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Pointers%20c5f2aa24da174319aec737993acf4e6a.md)
+    
     - Fast and slow
     - Same speed
     - Separate ends
     - Both on one end
     - Sliding window
     
-    Examples:
+    Examples: 
     
     - [https://github.com/paulonteri/leetcode/blob/master/Linked Lists/remove_kth_node_from_end.py](https://github.com/paulonteri/leetcode/blob/master/Linked%20Lists/remove_kth_node_from_end.py)
     - [https://github.com/paulonteri/leetcode/blob/master/Arrays/best_time_to_buy_and_sell_stock.py](https://github.com/paulonteri/leetcode/blob/master/Arrays/best_time_to_buy_and_sell_stock.py)
@@ -32,10 +37,6 @@ Array-based problems are the **hardest** problems by far there are way **too man
 [Python Strings](https://www.programiz.com/python-programming/string)
 
 [Strings](https://emre.me/basic-types/strings/)
-
-Most string problems can be solved using the **two or more pointers techniques**.
-
-Whenever you get an integer conversion problem, think of modulo `%` and floor division `//`
 
 ### Examples
 
@@ -498,6 +499,7 @@ Whenever you get an integer conversion problem, think of modulo `%` and floor di
             return False
     ```
     
+
 - Longest Palindromic Substring
     
     ```python
@@ -556,6 +558,7 @@ Whenever you get an integer conversion problem, think of modulo `%` and floor di
             return ((exp_right - exp_left) + 1), exp_left, exp_right
     ```
     
+
 - Break a Palindrome
     
     [LeetCode 1328 - Break a Palindrome](https://youtu.be/MWHz4yjOSKM)
@@ -672,6 +675,8 @@ Whenever you get an integer conversion problem, think of modulo `%` and floor di
     
 - Count and Say
     
+    ![Screenshot 2021-11-01 at 16.59.15.png](Strings,%20Arrays%20&%20Linked%20Lists%2081ca9e0553a0494cb8bb74c5c85b89c8/Screenshot_2021-11-01_at_16.59.15.png)
+    
     ```python
     """ 
     Count and Say:
@@ -727,73 +732,6 @@ Whenever you get an integer conversion problem, think of modulo `%` and floor di
                 res = new_res
     
             return "".join([str(num) for num in res])
-    ```
-    
-- Reverse Integer
-    
-    ```python
-    """
-    Reverse Integer:
-    
-    Given a 32-bit signed integer, reverse digits of an integer.
-    Assume we are dealing with an environment that could only store integers within the 32-bit signed integer range: [−231,  231 − 1].
-    For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.
-    
-    https://leetcode.com/problems/reverse-integer/
-    """
-    
-    class Solution:
-        def reverse(self, x):
-            res = 0
-            
-            num = abs(x)
-            while num > 0:
-                last_digit = num % 10 # get last digit
-                res = (10 * res) + last_digit
-                
-                num //= 10  # remove last digit
-                
-            # confirm 32-bit signed integer
-            if res < -2**31 or res > 2**31-1:
-                return 0
-            
-            #
-            if x < 0:
-                return -res
-            return res
-    
-    class SolutionB:
-        def reverse(self, x: int):
-    
-            # check if negative
-            negative = False
-            if x < 0:
-                negative = True
-    
-            num = list(str(x))
-            rev_num = []
-    
-            # skip the minus sign(for negative values)
-            length = len(num)
-            maximum = length
-            if negative:
-                maximum = length - 1
-    
-            # reverse each character
-            i = 0
-            while i < maximum:
-                rev_num.append(num.pop())
-                i += 1
-    
-            # create new integer
-            res = int("".join(rev_num))
-            if negative:
-                res = -res
-    
-            # confirm 32-bit signed integer
-            if res < -2**31 or res > 2**31-1:
-                return 0
-            return res
     ```
     
 - Interconvert Strings & Integers
@@ -898,7 +836,7 @@ Whenever you get an integer conversion problem, think of modulo `%` and floor di
     """
     
     def caesarCipherEncryptor_(string, key):
-    		key = key % 26  # handle large numbers
+    	 key = key % 26  # handle large numbers
        letters = []
         
         for char in string:
@@ -913,7 +851,7 @@ Whenever you get an integer conversion problem, think of modulo `%` and floor di
     ```
     
 
-- Minimum Window Substring *
+- Minimum Window Substring **
     
     [Minimum Window Substring - Airbnb Interview Question - Leetcode 76](https://youtu.be/jSto0O4AJbM)
     
@@ -1006,13 +944,15 @@ Whenever you get an integer conversion problem, think of modulo `%` and floor di
     
         def minWindow(self, s: str, t: str):
             t_count = collections.Counter(t)
+    
+    				 # # window
             window_val_count = collections.defaultdict(int)  # default 0
+            # add index 0
+    				 num_of_valid_chars = self.increase_window(-1, s, t_count, window_val_count, 0)
     
             res = (0, float("inf"))
+    
             left, right = 0, 0
-            # add index 0
-            num_of_valid_chars = self.increase_window(
-                -1, s, t_count, window_val_count, 0)
             while left <= right and right < len(s):
     
                 # we have all characters - decrease window
@@ -1386,7 +1326,8 @@ Whenever you get an integer conversion problem, think of modulo `%` and floor di
     
     [screencapture-geeksforgeeks-org-largest-lexicographical-string-with-at-most-k-consecutive-elements-2021-10-22-12_21_18.pdf](Strings,%20Arrays%20&%20Linked%20Lists%2081ca9e0553a0494cb8bb74c5c85b89c8/screencapture-geeksforgeeks-org-largest-lexicographical-string-with-at-most-k-consecutive-elements-2021-10-22-12_21_18.pdf)
     
-- Multi String Search
+
+- Multi String Search *
     
     ```python
     """ 
@@ -1497,9 +1438,12 @@ Functions
 
 `.isalnum()` only returns true if a string contains alphanumeric characters, **without symbols**.
 
-It's important to remember that strings are immutable - operations like `s = s[1:]` or `s += ' 123'` imply creating a new array of characters that is then assigned back to s. This implies that concatenating a single character n times to a string in a for loop has `O(n^2)` time complexity
+<aside>
+💡 It's important to remember that strings are immutable - operations like `s = s[1:]` or `s += ' 123'` imply creating a new array of characters that is then assigned back to s. This implies that concatenating a single character n times to a string in a for loop has `O(n^2)` time complexity
 
 Similar to arrays, strings that use `O(n)` space solution, but subtler solutions that use the string itself to reduce space complexity to `O(1)`.
+
+</aside>
 
 Are similar to arrays
 
@@ -1543,7 +1487,10 @@ print string
 
 ### **Reverse**
 
-Note that reverse() doesn't work for string
+<aside>
+💡 Note that reverse() doesn't work for string
+
+</aside>
 
 Need to convert string to list and then reverse().
 
@@ -1640,7 +1587,10 @@ def sort(self, nums, sort_start):
 
 ### Storing alphanumeric characters in a data structure
 
-Storing alphanumeric characters count in a data structure takes constant space
+<aside>
+💡 Storing alphanumeric characters count in a data structure takes constant space
+
+</aside>
 
 - Largest lexicographical string with at most K consecutive elements
     
@@ -1654,13 +1604,12 @@ Storing alphanumeric characters count in a data structure takes constant space
 - Let `m` be the average/maximum # of characters for the strings in the `str` array
 - Then, calling `Arrays.sort(str)` on this array would have the performance characteristic of `O(m * n log n)`.
 
-The reason it's O(m*n logn) is because 
+The reason it's O(m*n logn) is because the sorting algorithm itself will run `O(n logn)` comparison operations in order to perform the sort. And each comparison operation takes `O(m)` time to finish. 
 
-the sorting algorithm itself will run `O(n logn)` comparison operations in order to perform the sort. 
+Though that is very much the worst case scenario: Given, say, `Hello` and `World`, even though `m = 5` for those two, the comparison completes after only 1 step; the algorithm compares `H` and `W` and answers immediately, never even looking at `ello` or `orld`. But if the strings are `Hello1`, `Hello2`, `Hello3` and `Hello4`, then that's a guaranteed 5 'steps' for every time 2 strings are compared, and there will be `O(n logn)` comparisons.
 
-And each comparison operation takes `O(m)` time to finish, 
-
-though that is very much the worst case scenario: Given, say, `Hello` and `World`, even though `m = 5` for those two, the comparison completes after only 1 step; the algorithm compares `H` and `W` and answers immediately, never even looking at `ello` or `orld`. But if the strings are `Hello1`, `Hello2`, `Hello3` and `Hello4`, then that's a guaranteed 5 'steps' for every time 2 strings are compared, and there will be `O(n logn)` comparisons.
+If we use a naive sorting algorithm of `O(N^2)` time,
+then the total will be `O(M * N^2)`
 
 ### Note:
 
@@ -1686,7 +1635,7 @@ Why is it O(xn^2)? Because 1 + 2 + ... + n equals n(n+1)/2, or O(n^2)
 
 **StringBuilder** can help you avoid.this problem. StringBuilder simply creates a resizable array of all the strings, copying them back to a string only when necessary.
 
-![Screenshot 2021-09-26 at 11.25.18.png](Strings,%20Arrays%20&%20Linked%20Lists%2081ca9e0553a0494cb8bb74c5c85b89c8/Screenshot_2021-09-26_at_11.25.18.png)
+![StringBuilder (Java) ](Strings,%20Arrays%20&%20Linked%20Lists%2081ca9e0553a0494cb8bb74c5c85b89c8/Screenshot_2021-09-26_at_11.25.18.png)
 
 StringBuilder (Java) 
 
@@ -1748,9 +1697,13 @@ StringBuilder (Java)
     - **0/1 Knapsack**
     - Equal Subset Sum Partition
 
+---
+
 - Permutations *
 
 - Letter Case Permutations *
+
+---
 
 - Pairs with Specific Difference *
     
@@ -1833,7 +1786,7 @@ StringBuilder (Java)
     
     [4 Sum Problem | Leetcode #18](https://youtu.be/8ViERnSgPKs?t=357)
     
-    ![Screenshot 2021-08-17 at 18.39.25.png](Strings,%20Arrays%20&%20Linked%20Lists%2081ca9e0553a0494cb8bb74c5c85b89c8/Screenshot_2021-08-17_at_18.39.25.png)
+    ![If ignoring duplicates](Strings,%20Arrays%20&%20Linked%20Lists%2081ca9e0553a0494cb8bb74c5c85b89c8/Screenshot_2021-08-17_at_18.39.25.png)
     
     If ignoring duplicates
     
@@ -1911,59 +1864,10 @@ StringBuilder (Java)
             return res
     ```
     
-- Maximum Subarray *
-    
-    ```python
-    """
-    Maximum Subarray:
-    
-    Given an integer array nums, 
-    find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
-    
-    Example 1:
-        Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
-        Output: 6
-        Explanation: [4,-1,2,1] has the largest sum = 6.
-    Example 2:
-        Input: nums = [1]
-        Output: 1
-    Example 3:
-        Input: nums = [5,4,-1,7,8]
-        Output: 23
-    
-    https://leetcode.com/problems/maximum-subarray/
-    """
-    
-    # O(n) time | O(1) space
-    class Solution:
-        def maxSubArray(self, nums):
-            # # # find the maximum subarray per given element:
-            # # check which one is larger:
-            # # adding the element to the current subarray or starting a new subarray at the element
-    
-            # the max subarray we found's sum
-            max_sum = float("-inf")
-    
-            # sum of the current subarray that we are working with
-            curr_subarray = float("-inf")
-            for num in nums:
-    
-                # check if adding the num to the current subarray will be a larger sum than starting a new subarray at the element
-                # then the current subarray should be the longer/larger of the two
-                after_add = curr_subarray + num
-                if after_add > num:
-                    curr_subarray = after_add
-                else:
-                    curr_subarray = num
-    
-                # record the largest (sum) we found
-                max_sum = max(max_sum, curr_subarray)
-    
-            return max_sum
-    ```
-    
 
-- Maximum Product Subarray *
+---
+
+- Maximum Product Subarray **
     
     ![Screenshot 2021-10-16 at 21.03.00.png](Strings,%20Arrays%20&%20Linked%20Lists%2081ca9e0553a0494cb8bb74c5c85b89c8/Screenshot_2021-10-16_at_21.03.00.png)
     
@@ -2054,6 +1958,57 @@ StringBuilder (Java)
     ```
     
 - Maximum Subarray
+    
+    ```python
+    """
+    Maximum Subarray:
+    
+    Given an integer array nums, 
+    find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+    
+    Example 1:
+        Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+        Output: 6
+        Explanation: [4,-1,2,1] has the largest sum = 6.
+    Example 2:
+        Input: nums = [1]
+        Output: 1
+    Example 3:
+        Input: nums = [5,4,-1,7,8]
+        Output: 23
+    
+    https://leetcode.com/problems/maximum-subarray/
+    """
+    
+    # O(n) time | O(1) space
+    class Solution:
+        def maxSubArray(self, nums):
+            # # # find the maximum subarray per given element:
+            # # check which one is larger:
+            # # adding the element to the current subarray or starting a new subarray at the element
+    
+            # the max subarray we found's sum
+            max_sum = float("-inf")
+    
+            # sum of the current subarray that we are working with
+            curr_subarray = float("-inf")
+            for num in nums:
+    
+                # check if adding the num to the current subarray will be a larger sum than starting a new subarray at the element
+                # then the current subarray should be the longer/larger of the two
+                after_add = curr_subarray + num
+                if after_add > num:
+                    curr_subarray = after_add
+                else:
+                    curr_subarray = num
+    
+                # record the largest (sum) we found
+                max_sum = max(max_sum, curr_subarray)
+    
+            return max_sum
+    ```
+    
+- Maximum Subarray *
 
 - Subarray Sum Equals K *
     
@@ -2301,6 +2256,110 @@ StringBuilder (Java)
     ```
     
 
+- Longest Consecutive Sequence *
+    
+    ```python
+    """ 
+    Longest Consecutive Sequence:
+    
+    Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+    You must write an algorithm that runs in O(n) time.
+    
+    Example 1:
+        Input: nums = [100,4,200,1,3,2]
+        Output: 4
+        Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
+    Example 2:
+        Input: nums = [0,3,7,2,5,8,4,6,0,1]
+        Output: 9
+    
+    Constraints:
+        0 <= nums.length <= 105
+        -109 <= nums[i] <= 109
+    
+    https://www.algoexpert.io/questions/Largest%20Range
+    https://leetcode.com/problems/longest-consecutive-sequence/
+    """
+    """ 
+    Largest Range:
+    
+    Write a function that takes in an array of integers and 
+        returns an array of length 2 representing the largest range of integers contained in that array.
+    The first number in the output array should be the first number in the range, 
+        while the second number should be the last number in the range.
+    A range of numbers is defined as a set of numbers that come right after each other in the set of real integers. 
+    For instance, the output array [2, 6] represents the range {2, 3, 4, 5, 6}, which is a range of length 5. 
+    Note that numbers don't need to be sorted or adjacent in the input array in order to form a range.
+    You can assume that there will only be one largest range.
+    Sample Input
+        array = [1, 11, 3, 0, 15, 5, 2, 4, 10, 7, 12, 6]
+    Sample Output
+        [0, 7]
+    """
+    
+    # O(nlog(n)) time
+    def largestRange(nums):
+        if len(nums) < 1:
+            return []
+    
+        nums.sort()
+        res = [0, 0]
+    
+        idx = 0
+        while idx < len(nums) - 1:
+            # check if start of consecutive nums
+            if not (nums[idx]+1 == nums[idx+1] or nums[idx] == nums[idx+1]):
+                idx += 1
+                continue
+    
+            # find the numbers
+            end = idx+1
+            while end < len(nums)-1 and (nums[end]+1 == nums[end+1] or nums[end] == nums[end+1]):
+                end += 1
+    
+            # record
+            res = max(res, [idx, end], key=lambda x: nums[x[1]] - nums[x[0]])
+    
+            # move pointer
+            idx = end
+    
+        return [nums[res[0]], nums[res[1]]]
+    
+    """ 
+    ------------------------------------------------------------------------------------------------------------------------------------------------
+    
+    - for each number try to build the largest number range from the input array
+    - the numbers can be stored in a set to improve lookup time
+    
+    - for each num, if num-1 is in the set:
+        - do not check the num because it will be in num-1's range
+    
+    """
+    
+    # O(n) time
+    class Solution:
+        def longestConsecutive(self, nums):
+            longest = 0
+    
+            store = set(nums)
+    
+            for num in store:
+                if num-1 in store:
+                    # do not check the num because it will be in num-1's range
+                    continue
+    
+                # try to build the largest consecutive sequence from the input array
+                count = 1
+                while num+1 in store:
+                    count += 1
+                    num += 1
+    
+                longest = max(count, longest)
+    
+            return longest
+    ```
+    
+
 - Max Subset Sum No Adjacent *
     
     ```python
@@ -2401,8 +2460,6 @@ StringBuilder (Java)
     ```
     
 - Subarrays with Product Less than a Target *
-- Squaring a Sorted Array
-- Intervals Intersection
 - Array Of Products / Product of Array Except Self
     
     ```python
@@ -2454,6 +2511,64 @@ StringBuilder (Java)
     print(arrayOfProducts(y))
     ```
     
+- Array Of Products / Product of Array Except Self
+    
+    ```python
+    """
+    Array Of Products:
+    Product of Array Except Self:
+    
+    Write a function that takes in a non-empty array of integers and returns an array of the same length,
+     where each element in the output array is equal to the product of every other number in the input array.
+    In other words, the value at output[i] is equal to the product of every number in the input array other than input[i].
+    
+    Note that you're expected to solve this problem without using division.
+    
+    https://www.algoexpert.io/questions/Array%20Of%20Products
+    https://leetcode.com/problems/product-of-array-except-self/
+    """
+    
+    # O(n) time | O(n) space - where n is the length of the input array (O(3n) time)
+    def arrayOfProducts(array):
+        res = array[:]
+    
+        # We know that for each element, the product of all other elements
+        #  will be equal to the the products of the elements to its right and and the products of the elements to its left
+        # we can try to calculate that beforehand
+    
+        # multiply left & right products for each element
+        left_products = [0]*len(array)
+        running_left = 1  # first element will have a product of 1
+        for idx in range(len(array)):
+            left_products[idx] = running_left
+            running_left = array[idx] * running_left
+    
+        # calculate products to the right of elements
+        right_products = [0]*len(array)
+        running_right = 1  # last element will have a product of 1
+        for idx in reversed(range(len(array))):
+            right_products[idx] = running_right
+            running_right = array[idx] * running_right
+    
+        # multiply left & right products for each element
+        for idx in range(len(array)):
+            res[idx] = left_products[idx] * right_products[idx]
+    
+        return res
+    
+    y = [5, 1, 4, 2]
+    x = [1, 2, 3, 4, 5]
+    print(arrayOfProducts(x))
+    print(arrayOfProducts(y))
+    ```
+    
+- Squaring a Sorted Array
+
+---
+
+---
+
+- Intervals Intersection
 - Drone Flight Planner
     
     ```python
@@ -2599,68 +2714,7 @@ StringBuilder (Java)
                 next_none_zero += 1
     ```
     
-- Non-Constructible Change *
-    
-    ```python
-    """
-    Non-Constructible Change:
-    
-    Given an array of positive integers representing the values of coins in your possession, 
-     write a function that returns the minimum amount of change (the minimum sum of money) that you cannot create.
-    The given coins can have any positive integer value and aren't necessarily unique (i.e., you can have multiple coins of the same value).
-    For example, if you're given
-        coins = [1, 2, 5] , 
-        the minimum amount of change that you can't create is 4
-        If you're given no coins, the minimum amount of change that you can't create is 1
-    
-    https://www.algoexpert.io/questions/Non-Constructible%20Change
-    """
-    
-    """  
-    
-    start at idx 0
-    coins = [5, 7, 1, 1, 2, 3, 22]
-    coins = [1, 1, 2, 3, 5, 7, 22]
-    curr,creatable,non-constructible
-    1,  1,[]
-    1,  2,[]
-    2,  4,[]
-    3,  7,[]
-    5, 12,[]
-    7, 19,[]
-    22,41,[20,21]
-    
-    coins = [1, 1, 5]
-    curr,creatable,non-constructible
-    1,1,[]
-    1,2,[]
-    5,7,[3,4]
-    
-    coins = [1, 1, 3]
-    curr,creatable,non-constructible
-    1,1,[]
-    1,2,[]
-    3,5,[]
-     , ,[4]
-    
-    - keep on checking if we can make the prev-constructible + 1
-        - if not, return prev-constructible + 1
-    """
-    
-    # 0(nlog(n)) time | 0(1) space
-    def nonConstructibleChange(coins):
-        coins.sort()
-    
-        creatable = 0
-        for coin in coins:
-            # if C > C+1, we cannot make C+1
-            if coin > creatable + 1:
-                return creatable + 1
-            creatable += coin
-    
-        return creatable + 1
-    ```
-    
+
 - Shortest Unsorted Continuous Subarray *
     
     ```python
@@ -2796,7 +2850,7 @@ StringBuilder (Java)
     ```
     
 
-- Merge Sorted Array
+- Merge Sorted Array *
     
     ```python
     """
@@ -2872,212 +2926,8 @@ StringBuilder (Java)
     """
     ```
     
-- Array Of Products / Product of Array Except Self
-    
-    ```python
-    """
-    Array Of Products:
-    Product of Array Except Self:
-    
-    Write a function that takes in a non-empty array of integers and returns an array of the same length,
-     where each element in the output array is equal to the product of every other number in the input array.
-    In other words, the value at output[i] is equal to the product of every number in the input array other than input[i].
-    
-    Note that you're expected to solve this problem without using division.
-    
-    https://www.algoexpert.io/questions/Array%20Of%20Products
-    https://leetcode.com/problems/product-of-array-except-self/
-    """
-    
-    # O(n) time | O(n) space - where n is the length of the input array (O(3n) time)
-    def arrayOfProducts(array):
-        res = array[:]
-    
-        # We know that for each element, the product of all other elements
-        #  will be equal to the the products of the elements to its right and and the products of the elements to its left
-        # we can try to calculate that beforehand
-    
-        # multiply left & right products for each element
-        left_products = [0]*len(array)
-        running_left = 1  # first element will have a product of 1
-        for idx in range(len(array)):
-            left_products[idx] = running_left
-            running_left = array[idx] * running_left
-    
-        # calculate products to the right of elements
-        right_products = [0]*len(array)
-        running_right = 1  # last element will have a product of 1
-        for idx in reversed(range(len(array))):
-            right_products[idx] = running_right
-            running_right = array[idx] * running_right
-    
-        # multiply left & right products for each element
-        for idx in range(len(array)):
-            res[idx] = left_products[idx] * right_products[idx]
-    
-        return res
-    
-    y = [5, 1, 4, 2]
-    x = [1, 2, 3, 4, 5]
-    print(arrayOfProducts(x))
-    print(arrayOfProducts(y))
-    ```
-    
-- Max Substring Alphabetically
-    
-    ```python
-    """
-    Max Substring Alphabetically
-    Given a string, determine the maximum alphabetically, substring
-    """
-    
-    def maxSubstring(s):
-    
-        if len(s) < 1:
-            return ""
-    
-        # get all characters' indexes
-        # sort characters alphabetically
-        characters = []  # ['a', 'p', 'l', 'e']
-        idx_store = {}  # {'a': [0], 'p': [1, 2], 'l': [3], 'e': [4]}
-        for idx, char in enumerate(s):
-            if char not in idx_store:
-                characters.append(char)
-                idx_store[char] = [idx]
-            else:
-                idx_store[char].append(idx)
-    
-        characters.sort()
-        # handle the last character's (from characters array) substrings only
-        last_char = characters[-1]
-    
-        # get all substrings starting with the last character
-        # sort them
-        substrings = []  # ['p', 'pp', 'ppl', 'pple', 'p', 'pl', 'ple']
-        for idx in idx_store[last_char]:
-            right = idx
-            while right < len(s):
-                substrings.append(s[idx:right+1])
-                right += 1
-    
-        substrings.sort()
-        return substrings[-1]  # pple
-    
-    print(maxSubstring("apple"))
-    print(maxSubstring("apsgsxvbbdbsdbsdknnple"))
-    print(maxSubstring("asazsxs"))
-    print(maxSubstring("as"))
-    print(maxSubstring("applze"))
-    print(maxSubstring("azpple"))
-    print(maxSubstring("apzzple"))
-    
-    # Not on Leetcode
-    ```
-    
 
-- Longest Consecutive Sequence *
-    
-    ```python
-    """ 
-    Longest Consecutive Sequence:
-    
-    Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
-    You must write an algorithm that runs in O(n) time.
-    
-    Example 1:
-        Input: nums = [100,4,200,1,3,2]
-        Output: 4
-        Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
-    Example 2:
-        Input: nums = [0,3,7,2,5,8,4,6,0,1]
-        Output: 9
-    
-    Constraints:
-        0 <= nums.length <= 105
-        -109 <= nums[i] <= 109
-    
-    https://www.algoexpert.io/questions/Largest%20Range
-    https://leetcode.com/problems/longest-consecutive-sequence/
-    """
-    """ 
-    Largest Range:
-    
-    Write a function that takes in an array of integers and 
-        returns an array of length 2 representing the largest range of integers contained in that array.
-    The first number in the output array should be the first number in the range, 
-        while the second number should be the last number in the range.
-    A range of numbers is defined as a set of numbers that come right after each other in the set of real integers. 
-    For instance, the output array [2, 6] represents the range {2, 3, 4, 5, 6}, which is a range of length 5. 
-    Note that numbers don't need to be sorted or adjacent in the input array in order to form a range.
-    You can assume that there will only be one largest range.
-    Sample Input
-        array = [1, 11, 3, 0, 15, 5, 2, 4, 10, 7, 12, 6]
-    Sample Output
-        [0, 7]
-    """
-    
-    # O(nlog(n)) time
-    def largestRange(nums):
-        if len(nums) < 1:
-            return []
-    
-        nums.sort()
-        res = [0, 0]
-    
-        idx = 0
-        while idx < len(nums) - 1:
-            # check if start of consecutive nums
-            if not (nums[idx]+1 == nums[idx+1] or nums[idx] == nums[idx+1]):
-                idx += 1
-                continue
-    
-            # find the numbers
-            end = idx+1
-            while end < len(nums)-1 and (nums[end]+1 == nums[end+1] or nums[end] == nums[end+1]):
-                end += 1
-    
-            # record
-            res = max(res, [idx, end], key=lambda x: nums[x[1]] - nums[x[0]])
-    
-            # move pointer
-            idx = end
-    
-        return [nums[res[0]], nums[res[1]]]
-    
-    """ 
-    ------------------------------------------------------------------------------------------------------------------------------------------------
-    
-    - for each number try to build the largest number range from the input array
-    - the numbers can be stored in a set to improve lookup time
-    
-    - for each num, if num-1 is in the set:
-        - do not check the num because it will be in num-1's range
-    
-    """
-    
-    # O(n) time
-    class Solution:
-        def longestConsecutive(self, nums):
-            longest = 0
-    
-            store = set(nums)
-    
-            for num in store:
-                if num-1 in store:
-                    # do not check the num because it will be in num-1's range
-                    continue
-    
-                # try to build the largest consecutive sequence from the input array
-                count = 1
-                while num+1 in store:
-                    count += 1
-                    num += 1
-    
-                longest = max(count, longest)
-    
-            return longest
-    ```
-    
+---
 
 Matrices
 
@@ -3488,16 +3338,21 @@ Matrices
 
 **Tips:**
 
-- Array problems often have simple brute-force solutions that use O(n) space, but there are subtler solutions that use the array itself to reduce space complexity to O(1).
+- Array problems often have simple brute-force solutions that use O(n) space, but there are subtler solutions that **use the array itself** to reduce space complexity to O(1).
 - Instead of deleting an entry (which requires moving all entries to its right), consider overwriting it.
 - Be comfortable with writing code that operates on subarrays.
-- It’s incredibly easy to make off-by-1 errors when operating on arrays—reading past the last element of an array is a common error that has catastrophic consequences.
+- It’s incredibly easy to make **off-by-1 errors** when operating on arrays—reading past the last element of an array is a common error that has catastrophic consequences.
 - Don’t worry about preserving the integrity of the array (sortedness, keeping equal entries together, etc.) until it is time to return.
-- An array can serve as a good data structure when you know the distribution of the elements in advance. For example, a Boolean array of length W is a good choice for representing a subset of {0, 1, . . . , W − 1}. (When using a Boolean array to represent a subset of {1, 2, 3, . . . , n}, allocate an array of size n + 1 to simplify indexing.) .
+- An array can serve as a good data structure when you know the **distribution of the elements** in advance. For example, a Boolean array of length W is a good choice for representing a subset of {0, 1, . . . , W − 1}. (When using a Boolean array to represent a subset of {1, 2, 3, . . . , n}, allocate an array of size n + 1 to simplify indexing.) .
 - When operating on 2D arrays, use parallel logic for rows and for columns.
 - Sometimes it’s easier to simulate the specification than to analytically solve for the result. For example, rather than writing a formula for the i-th entry in the spiral order for an n × n matrix, just compute the output from the beginning.
-- The basic operations are len(A), A.append(42), A.remove(2), and A.insert(3, 28), A.reverse() (in-place), reversed(A (returns an iterator), A.sort() (in-place), sorted(A) (returns a copy), del A[i] (deletes the i-th element), and del A[i:j] (removes the slice).
-- Understand how copy works, i.e., the difference between B = A and B = list(A). Understand what a deep copy is, and how it differs from a shallow copy, i.e., how copy.copy(A) differs from copy.deepcopy(A).
+- The basic operations are:
+`len(A)`, 
+`A.append(42)`, `A.remove(2)`, and `A.insert(3, 28)`, 
+`A.reverse()` (in-place), `reversed(A)` (returns an iterator), 
+`A.sort()` (in-place), `sorted(A)` (returns a copy), 
+`del A[i]` (deletes the i-th element), and `del A[i:j]` (removes the slice).
+- Understand how copy works, i.e., the difference between `B = A` and `B = list(A)`. Understand what a deep copy is, and how it differs from a shallow copy, i.e., how `copy.copy(A)` differs from `copy.deepcopy(A)`.
 
 Functions
 
@@ -3521,9 +3376,7 @@ Functions
 
 `del list[i]` (deletes the i-th element), and `del list[i:j]` (removes the slice).
 
-Find index
-
-`[1,2,3,4].index(3))` → 2
+Find index `[1,2,3,4].index(3))` → 2 *
 
 [Untitled](Strings,%20Arrays%20&%20Linked%20Lists%2081ca9e0553a0494cb8bb74c5c85b89c8/Untitled%20Database%20a6aee36cf3b9470ea0f88713ab30a9e6.csv)
 
@@ -4328,6 +4181,7 @@ print(my_tuple)
             return head
     ```
     
+
 - Palindrome Linked List
     
     ![Screenshot 2021-09-29 at 08.29.33.png](Strings,%20Arrays%20&%20Linked%20Lists%2081ca9e0553a0494cb8bb74c5c85b89c8/Screenshot_2021-09-29_at_08.29.33.png)
@@ -4455,11 +4309,3 @@ if it involves returning a new LL it might be easier to have a temp head (hd) th
 ---
 
 # Honourable mentions
-
-A set is an unordered collection of items. Every set element is unique (no duplicates) and must be immutable (cannot be changed).
-
-However, a set itself is mutable. We can add or remove items from it.
-
-Sets can also be used to perform mathematical set operations like union, intersection, symmetric difference, etc.
-
-A set is a collection which is both unordered and unindexed.

@@ -27,7 +27,7 @@ at **each** step it did choose the **largest** number and solve the problem 
 
 **7** -> **12** -> **6** -> **9**. Total is: **34**. 
 
-![Greedy%20Algorithms%20b9b0a6dd66c94e7db2cbbd9f2d6b50af/2019-09-11-greedy-search-path.gif](Greedy%20Algorithms%20b9b0a6dd66c94e7db2cbbd9f2d6b50af/2019-09-11-greedy-search-path.gif)
+![This is **not** the optimal solution. Correct solution to this problem is, **7** -> **3** -> **1** -> **99**. Total is: **110**.](Greedy%20Algorithms%20b9b0a6dd66c94e7db2cbbd9f2d6b50af/2019-09-11-greedy-search-path.gif)
 
 This is **not** the optimal solution. Correct solution to this problem is, **7** -> **3** -> **1** -> **99**. Total is: **110**.
 
@@ -392,7 +392,8 @@ A greedy algorithm works if a problem exhibits the following two properties:
     """ 
     Jump Game
     
-    You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.
+    You are given an integer array nums. 
+    You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.
     Return true if you can reach the last index, or false otherwise.
     
     Example 1:
@@ -497,6 +498,8 @@ A greedy algorithm works if a problem exhibits the following two properties:
     ```
     
 - Jump Game II
+    
+    [Jump Game II - Greedy - Leetcode 45 - Python](https://youtu.be/dJ7sWiOoK7g)
     
     [[Java] A general greedy solution to process similar problems - LeetCode Discuss](https://leetcode.com/problems/minimum-number-of-taps-to-open-to-water-a-garden/discuss/506853/Java-A-general-greedy-solution-to-process-similar-problems)
     
@@ -607,7 +610,6 @@ A greedy algorithm works if a problem exhibits the following two properties:
             result = 0
     
             i = 0
-            current_jump_end = 0
             farthest_possible = 0  # furthest jump we made/could have made
             while i < len(nums) - 1:
                 # # create new jump & move to the furthest possible point
@@ -830,7 +832,6 @@ A greedy algorithm works if a problem exhibits the following two properties:
     
             # # Jump Game II
             idx = 0
-            current_jump_end = 0
             furthest_can_reach = -1  # furthest jump we made/could have made
             while idx < n:
     

@@ -44,9 +44,15 @@ There are other words that indicate a heap might be useful:
 
 Whenever a problem statement indicates that you’re looking for some extreme element, it’s worthwhile to think about whether a priority queue would be useful.
 
-Use a heap when all you care about is the largest or smallest elements, and you do not need to support fast lookup, delete, or search operations for arbitrary elements.
+<aside>
+💡 Use a heap when all you care about is the largest or smallest elements, and you do not need to support fast lookup, delete, or search operations for arbitrary elements.
 
-A heap is a good choice when you need to compute the k largest or k smallest elements in acollection. For the former, use a min-heap, for the latter, use a max-heap
+</aside>
+
+<aside>
+💡 A heap is a good choice when you need to compute the k largest or k smallest elements in acollection. For the former, use a min-heap, for the latter, use a max-heap
+
+</aside>
 
 ### Representation as an array
 
@@ -349,7 +355,7 @@ Delete* O(log n) **O(log n)**     O(n)      O(n)
     ```
     
 
-- Task Scheduler
+- Task Scheduler *
     
     ```python
     """

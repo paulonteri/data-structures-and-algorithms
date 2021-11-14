@@ -1,6 +1,6 @@
 # Levenshtein Distance *
 
-# Levenshtein Distance
+## Levenshtein Distance
 
 [Edit Distance | Dynamic Programming | LeetCode 72 | C++, Java, Python](https://youtu.be/ZkgBinDx9Kg)
 
@@ -49,7 +49,7 @@ https://www.notion.so/paulonteri/Levenshtein-Distance-6eee820d93bb4de8a4be93cd42
 
 ### Recursion (Brute force)
 
-![Screenshot 2021-08-26 at 17.18.20.png](Levenshtein%20Distance%206eee820d93bb4de8a4be93cd42abd596/Screenshot_2021-08-26_at_17.18.20.png)
+![x to y [https://youtu.be/ZkgBinDx9Kg](https://youtu.be/ZkgBinDx9Kg)](Levenshtein%20Distance%206eee820d93bb4de8a4be93cd42abd596/Screenshot_2021-08-26_at_17.18.20.png)
 
 x to y [https://youtu.be/ZkgBinDx9Kg](https://youtu.be/ZkgBinDx9Kg)
 
@@ -161,13 +161,13 @@ class Solution:
 
 ### Tabulation (Bottom Up Dynamic programming)
 
-![Screenshot 2021-08-26 at 17.43.26.png](Levenshtein%20Distance%206eee820d93bb4de8a4be93cd42abd596/Screenshot_2021-08-26_at_17.43.26.png)
+![arrows show how to get results of certain actions](Levenshtein%20Distance%206eee820d93bb4de8a4be93cd42abd596/Screenshot_2021-08-26_at_17.43.26.png)
 
 arrows show how to get results of certain actions
 
 ![Screenshot 2021-08-26 at 17.32.14.png](Levenshtein%20Distance%206eee820d93bb4de8a4be93cd42abd596/Screenshot_2021-08-26_at_17.32.14.png)
 
-![Screenshot 2021-08-26 at 17.33.48.png](Levenshtein%20Distance%206eee820d93bb4de8a4be93cd42abd596/Screenshot_2021-08-26_at_17.33.48.png)
+![x to y](Levenshtein%20Distance%206eee820d93bb4de8a4be93cd42abd596/Screenshot_2021-08-26_at_17.33.48.png)
 
 x to y
 

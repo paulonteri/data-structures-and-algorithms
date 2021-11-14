@@ -1,6 +1,76 @@
 # Math Tricks
 
+Whenever you get an integer conversion problem, think of modulo `%` and floor division `//`
+
 6.2 epi
+
+- Reverse Integer
+    
+    ```python
+    """
+    Reverse Integer:
+    
+    Given a 32-bit signed integer, reverse digits of an integer.
+    Assume we are dealing with an environment that could only store integers within the 32-bit signed integer range: [−231,  231 − 1].
+    For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.
+    
+    https://leetcode.com/problems/reverse-integer/
+    """
+    
+    class Solution:
+        def reverse(self, x):
+            res = 0
+            
+            num = abs(x)
+            while num > 0:
+                last_digit = num % 10 # get last digit
+                res = (10 * res) + last_digit
+                
+                num //= 10  # remove last digit
+                
+            # confirm 32-bit signed integer
+            if res < -2**31 or res > 2**31-1:
+                return 0
+            
+            #
+            if x < 0:
+                return -res
+            return res
+    
+    class SolutionB:
+        def reverse(self, x: int):
+    
+            # check if negative
+            negative = False
+            if x < 0:
+                negative = True
+    
+            num = list(str(x))
+            rev_num = []
+    
+            # skip the minus sign(for negative values)
+            length = len(num)
+            maximum = length
+            if negative:
+                maximum = length - 1
+    
+            # reverse each character
+            i = 0
+            while i < maximum:
+                rev_num.append(num.pop())
+                i += 1
+    
+            # create new integer
+            res = int("".join(rev_num))
+            if negative:
+                res = -res
+    
+            # confirm 32-bit signed integer
+            if res < -2**31 or res > 2**31-1:
+                return 0
+            return res
+    ```
+    
 
 - Valid Number
     
@@ -271,7 +341,7 @@
     """
     
     # use two pointers
-    class Solution:
+    class Solution_:
         def maximumSwap(self, num: int):
             """ 
             Ensure the largest value is as left as possible
@@ -291,10 +361,42 @@
                     return int("".join(num_arr))
     
             return num
+    
+    """ 
+    
+    """
+    
+    class Solution:
+        def maximumSwap(self, num: int):
+            """ 
+            Ensure the largest values are as left as possible
+            """
+            num_arr = list(str(num))
+            largest_idx_arr = list(range(len(num_arr)))
+    
+            # fill in the largest values to the right for each index in the array
+            largest = len(num_arr)-1
+            for idx in reversed(range(len(num_arr))):
+                if int(num_arr[idx]) > int(num_arr[largest]):
+                    largest = idx
+                largest_idx_arr[idx] = largest
+    
+            # swap left most
+            for idx in range(len(num_arr)):
+                largest_idx = largest_idx_arr[idx]
+                # ignore same size numbers
+                if num_arr[idx] == num_arr[largest_idx]:
+                    continue
+    
+                # swap and return
+                num_arr[largest_idx], num_arr[idx] = num_arr[idx], num_arr[largest_idx]
+                return int("".join(num_arr))
+    
+            return num
     ```
     
 
-- Next Permutation
+- Next Permutation **
     
     ![Screenshot 2021-10-15 at 06.47.46.png](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screenshot_2021-10-15_at_06.47.46.png)
     
@@ -347,8 +449,8 @@
             """
             1. look for peak that has its larger & smaller number furthest to the right
                 - Note: peak => num[right] > num[left]
-                - find first smaller number (furthest to the right)
-                - then find the number furthest to the right that is larger than it
+                - find **first smaller number** (furthest to the right)
+                - then **find the number furthest to the right that is larger than it**
                 - swap the smaller and larger
             2. if no peak was found srt the whole array and return
             3. sort the array to the right of where the larger number was placed 
@@ -586,7 +688,7 @@
     """
     ```
     
-- Multiply Strings
+- Multiply Strings *
     
     ![Screenshot 2021-10-15 at 15.13.21.png](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screenshot_2021-10-15_at_15.13.21.png)
     
@@ -1136,6 +1238,18 @@
     ```
     
 - Count Primes *
+    
+    ![Screenshot 2021-11-04 at 07.59.39.png](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screenshot_2021-11-04_at_07.59.39.png)
+    
+    ![Screenshot 2021-11-04 at 07.56.56.png](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screenshot_2021-11-04_at_07.56.56.png)
+    
+    ![Screenshot 2021-11-04 at 07.57.29.png](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screenshot_2021-11-04_at_07.57.29.png)
+    
+    ![Screenshot 2021-11-04 at 07.57.46.png](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screenshot_2021-11-04_at_07.57.46.png)
+    
+    ![Screenshot 2021-11-04 at 07.58.49.png](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screenshot_2021-11-04_at_07.58.49.png)
+    
+    ![Screenshot 2021-11-04 at 07.59.20.png](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screenshot_2021-11-04_at_07.59.20.png)
     
     ```python
     """

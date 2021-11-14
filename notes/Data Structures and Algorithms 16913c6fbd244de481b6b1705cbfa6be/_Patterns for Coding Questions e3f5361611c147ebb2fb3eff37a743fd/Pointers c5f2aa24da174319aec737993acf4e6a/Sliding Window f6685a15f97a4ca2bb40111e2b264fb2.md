@@ -36,7 +36,7 @@ Do you see any inefficiency? The inefficiency is that for any two consecutive su
 
 ![Sliding%20Window%20f6685a15f97a4ca2bb40111e2b264fb2/Screenshot_2021-08-06_at_02.03.16.png](Sliding%20Window%20f6685a15f97a4ca2bb40111e2b264fb2/Screenshot_2021-08-06_at_02.03.16.png)
 
-![Sliding%20Window%20f6685a15f97a4ca2bb40111e2b264fb2/Screenshot_2021-08-06_at_02.05.59.png](Sliding%20Window%20f6685a15f97a4ca2bb40111e2b264fb2/Screenshot_2021-08-06_at_02.05.59.png)
+![Can we somehow reuse the `sum` we have calculated for the overlapping elements?](Sliding%20Window%20f6685a15f97a4ca2bb40111e2b264fb2/Screenshot_2021-08-06_at_02.05.59.png)
 
 Can we somehow reuse the `sum` we have calculated for the overlapping elements?
 
@@ -54,7 +54,10 @@ There are some common giveaways:
 - You are looking for some **subrange** in that array/string, like a **longest, shortest or target value**.
 - There is an apparent naive or brute force solution that runs in **O(N²)**, **O(2^N)** or some other large time complexity.
 
-The biggest giveaway is that the thing you are looking for is often some kind of optimal, like the **longest sequence** or **shortest sequence** of something that **satisfies a given condition exactly**.
+<aside>
+💡 The biggest giveaway is that the thing you are looking for is often some kind of optimal, like the **longest sequence** or **shortest sequence** of something that **satisfies a given condition exactly**.
+
+</aside>
 
 ---
 
@@ -88,11 +91,14 @@ This is really inefficient and runs in **O(N²)** time. And what’s happening i
 
 **You’re throwing out a lot of good work, and you’re redoing a lot of useless work.**
 
-This is where the idea of a **window** comes in.
+<aside>
+💡 This is where the idea of a **window** comes in.
 
 Your window represents the current section of the string/array that you are “looking at” and usually there is some information stored along with it in the form of constants. At the very least it will have **2 pointers**, one indicating the index corresponding **beginning of the window**, and one indicating the **end of the window**.
 
 But once you have what variables you want to store figured out, all you have to think about then are two things: **When do I grow this window? And when do I shrink it?**
+
+</aside>
 
 ## Different Kinds of Windows
 

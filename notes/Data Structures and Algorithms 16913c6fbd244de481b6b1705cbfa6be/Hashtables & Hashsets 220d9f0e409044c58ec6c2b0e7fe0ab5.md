@@ -242,7 +242,10 @@ An **OrderedDict** is a dictionary subclass that remembers the order that keys
 
 OrderedDict **preserves the order** in which the keys are inserted. A regular dict doesn’t track the insertion order, and iterating it gives the values in an arbitrary order. By contrast, the order the items are inserted is remembered by OrderedDict.
 
-`collections.OrderedDict()` can be used as a `stack` with the help of `.popitem()` and a queue with `.popitem(last=False)`
+<aside>
+💡 `collections.OrderedDict()` can be used as a `stack` with the help of `.popitem()` and a queue with `.popitem(last=False)`
+
+</aside>
 
 ```python
 from collections import OrderedDict
@@ -266,7 +269,7 @@ However, a set itself is mutable. We can add or remove items from it.
 
 Sets can also be used to perform mathematical set operations like union, intersection, symmetric difference, etc.
 
-A set is a collection that is both unordered and unindexed.
+A set is a collection that is both **unordered** and **unindexed**.
 
 ***Simple operations***
 

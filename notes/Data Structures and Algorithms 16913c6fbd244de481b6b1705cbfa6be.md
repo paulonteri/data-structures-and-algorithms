@@ -2,7 +2,7 @@
 
 # SubPages
 
-[_Python basics](Data%20Structures%20and%20Algorithms%2016913c6fbd244de481b6b1705cbfa6be/_Python%20basics%20991f9d98be1d40c6b9c50b859df13aba.md)
+[Python basics](Data%20Structures%20and%20Algorithms%2016913c6fbd244de481b6b1705cbfa6be/Python%20basics%20991f9d98be1d40c6b9c50b859df13aba.md)
 
 [**Complexity Analysis &** Big O](Data%20Structures%20and%20Algorithms%2016913c6fbd244de481b6b1705cbfa6be/Complexity%20Analysis%20&%20Big%20O%20ded85f7996b548c7953055302969348c.md)
 
@@ -31,6 +31,8 @@
 [Math Tricks](Data%20Structures%20and%20Algorithms%2016913c6fbd244de481b6b1705cbfa6be/Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362.md)
 
 [One of those](Data%20Structures%20and%20Algorithms%2016913c6fbd244de481b6b1705cbfa6be/One%20of%20those%205919e7e3ca2645f692d371354177d774.md)
+
+[Quick Tips](Data%20Structures%20and%20Algorithms%2016913c6fbd244de481b6b1705cbfa6be/Quick%20Tips%206964b0e274cd43639f66a67f9d63017c.md)
 
 [_Patterns for Coding Questions](Data%20Structures%20and%20Algorithms%2016913c6fbd244de481b6b1705cbfa6be/_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd.md)
 
@@ -111,3 +113,5 @@ Data structures in 5 min:
 # More reading
 
 [Interview Cake Slides](https://docs.google.com/presentation/d/1UznxAiUTh9uUPG8bLL1_q1LNPuRChrpOd3IwzFmUA1Y/edit?usp=drivesdk)
+
+[TODO](Data%20Structures%20and%20Algorithms%2016913c6fbd244de481b6b1705cbfa6be/TODO%2046bfd466486941bca71ed05487bc49ac.md)

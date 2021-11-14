@@ -27,11 +27,17 @@ Note that in the context of coding interviews, Big O notation is usually underst
 
 A mathematical concept that's widely used in Computer Science and that's defined by the following equation:
 
-**logb(x) = y** if and only if **b^y = x**
+<aside>
+💡 **logb(x) = y** if and only if **b^y = x**
+
+</aside>
 
 In the context of coding interviews, the logarithm is used to describe the complexity analysis of algorithms, and its usage always implies a logarithm of base **2**. In other words, the logarithm used in the context of coding interviews is defined by the following equation:
 
-**log(n) = y** if and only if **2y = n**
+<aside>
+💡 **log(n) = y** if and only if **2y = n**
+
+</aside>
 
 In plain English, if an algorithm has a logarithmic time complexity (**O(log(n))**, where n is the size of the input), then **whenever the algorithm's input doubles in size** (i.e., whenever **n** doubles), **the number of operations needed to complete the algorithm only increases by one unit**. Conversely, an algorithm with a linear time complexity would see its number of operations double if its input size doubled.
 
@@ -123,7 +129,10 @@ Some examples include:
 - **Binary Tree Node** getleftChild(), getrightChild()
 - **Graph Node** getAdjacentNodes(node), connectNodes(node1, node2)
 
-The thing all these operations have in common is they pretty much just do **one thing**, taking **one step**, or performing **one action**.
+<aside>
+💡 The thing all these operations have in common is they pretty much just do **one thing**, taking **one step**, or performing **one action**.
+
+</aside>
 
 A lot of engineers get tripped up by O(1) space, but all this means the amount of memory you use doesn’t scale with the input size.
 
@@ -180,6 +189,8 @@ Examples:
 ## Common
 
 ### Graph DFS & BFS
+
+[Depth First Search or DFS for a Graph - GeeksforGeeks](https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/)
 
 The time complexity of DFS & BFS if the entire tree is traversed is `O(V)` where V is the number of nodes. 
 In the case of a **graph**, the time complexity is where V is the number of vertexes and E is the number of edges.

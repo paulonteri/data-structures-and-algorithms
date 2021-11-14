@@ -27,14 +27,6 @@ To generate all possible *subsets*, we can use the Breadth First Search (BFS) 
 
 ![Screenshot 2021-10-30 at 22.25.43.png](Subsets,%20Permutations%20&%20Combinations%204ac34f48d941479dbcc27b16ae62edea/Screenshot_2021-10-30_at_22.25.43.png)
 
-**Time Complexity**: **O(2^N)** since, in each step, number of subsets doubles.
-
-> Each number can eitther be in a previous subsets or not.
-If we had an array of len 10, the number of subtrees at each level of the recursive tree will be: $2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 == 2 pow 10$
-> 
-
-**Space Complexity**: **O(2^N)**
-
 ![Screenshot 2021-08-21 at 21.53.45.png](Subsets,%20Permutations%20&%20Combinations%204ac34f48d941479dbcc27b16ae62edea/Screenshot_2021-08-21_at_21.53.45.png)
 
 ```python
@@ -66,6 +58,14 @@ class Solution:
                 
         return powerset
 ```
+
+**Time Complexity**: **O(2^N)** since, in each step, number of subsets doubles.
+
+> Each number can eitther be in a previous subsets or not.
+If we had an array of len 10, the number of subtrees at each level of the recursive tree will be: $1 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 == 2 pow 10$
+> 
+
+**Space Complexity**: **O(2^N)**
 
 Since, in each step, the **number of subsets doubles** as we add each element to all the existing subsets, therefore, we will have a total of `**O(2^N)**` subsets, where ‘N’ is the total number of elements in the input set. And since we construct a new subset from an existing set, therefore, the time complexity of the above algorithm will be **`O(N*2^N)`**
 
@@ -311,22 +311,22 @@ Try to get all possible arrangements of nums
 
 """
 
-def ____getPermutations(array):
+def getPermutations(array):
     if len(array) < 1:
         return array
 
     result = []
-    ____getPermutationsHelper(result, array, 0)
+    getPermutationsHelper(result, array, 0)
 
     return result
 
-def ____getPermutationsHelper(result, array, pos):
+def getPermutationsHelper(result, array, pos):
     if pos == len(array):
         result.append(array[:]) # found one arrangement
         return
 
     for i in range(pos, len(array)):
-        # add the number(array[i]) to the permutation
+        # # add the number(array[i]) to the permutation
         # place the element of interest at the first position (pos)
         #  Example: for getPermutationsHelper([1,2,3,4], 0), while in this for loop
         #       when at value 1 (i=0), we want 1 to be at pos(0), so that we can iterate through [2,3,4] next without adding 1 again
@@ -339,7 +339,7 @@ def ____getPermutationsHelper(result, array, pos):
         # place the num at pos because it will be ignored down the recursive tree
         array[i], array[pos] = array[pos], array[i]
 
-        ____getPermutationsHelper(result, array, pos+1)
+        getPermutationsHelper(result, array, pos+1)
 
         # return num to its original position
         array[i], array[pos] = array[pos], array[i]
@@ -349,7 +349,7 @@ def ____getPermutationsHelper(result, array, pos):
 
 - Time complexity: O(n x n!) as there are n! permutations and n for the cost of list slicing.
     
-    ![Untitled](Subsets,%20Permutations%20&%20Combinations%204ac34f48d941479dbcc27b16ae62edea/Untitled.png)
+    ![N * (N-1) * ... * !   ==   3 * 2 * 1   ==   N!](Subsets,%20Permutations%20&%20Combinations%204ac34f48d941479dbcc27b16ae62edea/Untitled.png)
     
     N * (N-1) * ... * !   ==   3 * 2 * 1   ==   N!
     
@@ -442,6 +442,8 @@ class Solution:
         return result
 ```
 
+## More examples
+
 # Combinations
 
-**Combination Sum**
+## Combination Sum

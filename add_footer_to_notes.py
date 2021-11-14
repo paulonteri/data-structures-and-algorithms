@@ -19,7 +19,15 @@ class AddFooterToNotes:
                     continue
 
                 file_path = subdir + os.sep + file
-                self.add_footer_to_file(file_path)
+                print("add_footer_to_file: ", file_path)
+                try:
+                    self.add_footer_to_file(file_path)
+                except Exception as e:
+                    print("Failed!")
+                    print(e)
+                else:
+                    print("Completed successfully!")
+                print("add_footer_to_file done \n ---------------------------------")
 
     @staticmethod
     def add_footer_to_file(file_path: str):
@@ -37,7 +45,6 @@ class AddFooterToNotes:
                 f" [here](https://paulonteri.notion.site/{url_path}). \n\n"
                 "--- \n"
             )
-
             file_object.write(footer)
 
 

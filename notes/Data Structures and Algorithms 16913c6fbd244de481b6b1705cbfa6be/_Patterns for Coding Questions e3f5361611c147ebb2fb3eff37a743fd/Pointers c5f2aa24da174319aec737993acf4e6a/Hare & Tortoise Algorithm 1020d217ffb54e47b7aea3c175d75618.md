@@ -282,7 +282,7 @@ As we know, finding the cycle in a LinkedList with ‘N’ nodes and also findin
 
 ## Problem
 
-![Screenshot 2021-08-15 at 09.16.17.png](Hare%20&%20Tortoise%20Algorithm%201020d217ffb54e47b7aea3c175d75618/Screenshot_2021-08-15_at_09.16.17.png)
+![Try doing it in constant space](Hare%20&%20Tortoise%20Algorithm%201020d217ffb54e47b7aea3c175d75618/Screenshot_2021-08-15_at_09.16.17.png)
 
 Try doing it in constant space
 

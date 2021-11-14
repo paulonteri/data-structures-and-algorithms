@@ -590,6 +590,10 @@ Some of the problems require you to implement your own stack class; for others, 
 
 - Minimum Remove to Make Valid Parentheses
     
+    ![Screenshot 2021-11-03 at 13.55.19.png](Stacks%20&%20Queues%20c7d2cad790be4a61bac42c8718e031fd/Screenshot_2021-11-03_at_13.55.19.png)
+    
+    [Screen Recording 2021-11-03 at 13.53.53.mov](Stacks%20&%20Queues%20c7d2cad790be4a61bac42c8718e031fd/Screen_Recording_2021-11-03_at_13.53.53.mov)
+    
     ```python
     """ 
     Minimum Remove to Make Valid Parentheses:
@@ -1016,11 +1020,13 @@ Some of the problems require you to implement your own stack class; for others, 
     
                 if kind == "start":
                     # place last job
+                    # record how long the prev job ran (prev job should have continued running from next_placement)
                     if stack:
                         prev_job = stack[-1]
                         result[prev_job] += time-next_placement
     
                     # place current job
+                    # start the current job with one run
                     result[job] += 1
                     next_placement = time+1
     
@@ -1028,8 +1034,9 @@ Some of the problems require you to implement your own stack class; for others, 
                     stack.append(job)
     
                 elif kind == "end":
-                    # place last job == current job
+                    # place prev/last job == current job that has ended
                     stack.pop()
+                    # record how long the prev job ran
                     result[job] += time-next_placement+1
                     next_placement = time+1
     
