@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+
+jobs:
+  update-notes:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+        
+      - name: Download and update notes
+        run: python update_notes.py
+        env:
+          NOTES_ZIP_URL: ${{ secrets.NOTES_ZIP_URL }}
+        
+      - name: Add & commit changes
+        uses: EndBug/add-and-commit@v7.4.0
