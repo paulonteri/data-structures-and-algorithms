@@ -1,9 +1,7 @@
-name: CI
+name: Download and update notes
 
 on:
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
 
 jobs:
   update-notes:
@@ -22,10 +20,14 @@ jobs:
         env:
           NOTES_ZIP_URL: ${{ secrets.NOTES_ZIP_URL }}
           
-      - name: Set current date as env variable
-        run: echo "NOW::$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+      - name: Get current time
+        uses: 1466587594/get-current-time@v2
+        id: current-time
+        with:
+          format: YYYYMMDD-HH
+          utcOffset: "+08:00"
         
       - name: Add & commit changes
         uses: EndBug/add-and-commit@v7.4.0
         with:
-          message: Update notes $NOW
+          message: Update notes ${{ steps.current-time.outputs.readableTime }}
