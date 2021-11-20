@@ -1,14 +1,30 @@
 # _Object-Oriented Analysis and Design
 
-[Grokking the Object Oriented Design Interview - Learn Interactively](https://www.educative.io/courses/grokking-the-object-oriented-design-interview)
+[GitHub - knightsj/object-oriented-design: 面向对象设计的设计原则和设计模式](https://github.com/knightsj/object-oriented-design)
+
+[Python Design Patterns](https://python-patterns.guide/)
 
 [Python Object Oriented Programming](https://www.programiz.com/python-programming/object-oriented-programming)
 
+[How to Ace Object-Oriented Design Interviews](https://thinksoftware.medium.com/how-to-ace-object-oriented-design-interviews-4f9a667e0780)
+
 [GitHub - tssovi/grokking-the-object-oriented-design-interview](https://github.com/tssovi/grokking-the-object-oriented-design-interview)
+
+[Grokking the Object Oriented Design Interview - Learn Interactively](https://www.educative.io/courses/grokking-the-object-oriented-design-interview)
+
+[One Stop OOP Guide | Useful and Short topics for interviews | Object Oriented Programming (C++) - LeetCode Discuss](https://leetcode.com/discuss/study-guide/1389824/One-Stop-OOP-Guide-or-Useful-and-Short-topics-for-interviews-or-Object-Oriented-Programming-(C%2B%2B))
 
 # Introduction
 
 ## Examples
+
+[GitHub - tuvo1106/ctci_6th_edition: Practice problems and solutions for Cracking the Coding Interview](https://github.com/tuvo1106/ctci_6th_edition)
+
+[GitHub - w-hat/ctci-solutions: Python solutions to Cracking the Coding Interview (6th edition)](https://github.com/w-hat/ctci-solutions)
+
+use botom up design - design smallest components to the largest
+
+### Simple Examples
 
 - Design Underground System
     
@@ -218,6 +234,8 @@
     # obj = OrderedStream(n)
     # param_1 = obj.insert(idKey,value)
     ```
+    
+    Thought it was related to this:
     
 - Count Unhappy Friends
     
@@ -1015,6 +1033,674 @@
     ```
     
 
+### Deck of cards
+
+[Design Interview Question: Design a Deck of Cards [Logicmojo.com]](https://youtu.be/lDa8I7iA5FA)
+
+[Deck of Cards | Object Oriented Designs](https://youtu.be/yENwNPu2Obo)
+
+[Python OOP - Deck of Cards](https://youtu.be/t8YkjDH86Y4)
+
+```python
+# PROBLEM --------------------------------------------------------
+""" 
+Deck of Cards: 
+Design the data structures for a generic deck of cards. 
+Explain how you would subclass the data structures to implement blackjack.
+"""
+from enum import Enum
+import random
+
+# SOLUTION --------------------------------------------------------
+""" 
+# Gather requirements ---------------------------------------
+
+First, we need to recognize that a "generic" deck of cards can mean many things. 
+Generic could mean a standard deck of cards that can play a poker-like game, or it could even stretch to Uno or Baseball cards. 
+It is important to ask your interviewer what she means by generic.
+Let's assume that your interviewer clarifies that the deck is a standard 52-card set, like you might see used in a blackjack or poker game. 
+
+The game might also have a player
+
+# High level design ---------------------------------------
+
+- Card: we have cards:
+    - We have 4 groups (suit) of cards:
+        - Clubs
+        - Diamonds
+        - Hearts
+        - Spades
+    - The cards also have a label (face value):
+        - (2-10)
+        - Jack
+        - Queen
+        - King
+        - Ace
+        # - Jokers
+- Deck: We have a deck of cards that is comprised of all of the above groups of cards:
+    - cards # will have a list of 54 cards
+    - shuffle() => None
+    - draw() => Card
+- Player: We can have a player that has a hand of cards:
+    - name: string
+    - hand: have a list of cards
+    - draw(deck) => None
+    - show_hand() => None
+    - discard() => Card
+
+"""
+
+# Constants & Enums ----------------------------------------------------
+
+class Suit(Enum):
+    # name = value
+    CLUBS = "Clubs"
+    DIAMONDS = "Diamonds"
+    HEARTS = "Hearts"
+    SPADES = "Spades"
+
+class FaceValue(Enum):
+    ACE = 1
+    TWO = 2
+    THREE = 3
+    FOUR = 4
+    FIVE = 5
+    SIX = 6
+    SEVEN = 7
+    EIGHT = 8
+    NINE = 9
+    TEN = 10
+    JACK = 11
+    QUEEN = 12
+    KING = 13
+
+# Classes ----------------------------------------------------
+
+class Card:
+    def __init__(self, suit, face_value):
+        self.suit = suit
+        self.face_value = face_value
+
+    def __str__(self):
+        return f"{self.face_value.name} of {self.suit.name}"
+
+    def get_value(self):
+        return self.face_value.value
+
+class Deck:
+    def __init__(self):
+        self.cards = []
+        self._create_deck()
+
+    def draw(self):
+        """Return the top card"""
+        return self.cards.pop()
+
+    def shuffle(self, num=1):
+        """Shuffle the deck"""
+        length = len(self.cards)
+        for _ in range(num):
+            # This is the fisher yates shuffle algorithm
+            for i in range(length-1, 0, -1):
+                randi = random.randint(0, i)
+                if i == randi:
+                    continue
+                self.cards[i], self.cards[randi] = self.cards[randi], self.cards[i]
+
+    def show_cards(self):
+        for card in self.cards:
+            print(card)
+
+    def _create_deck(self):
+        """Generate 52 cards"""
+        for suit in Suit:
+            for face_value in FaceValue:
+                self.cards.append(Card(suit, face_value))
+
+class Player:
+    def __init__(self, name):
+        self.name = name
+        self.hand = []
+
+    def draw(self, deck):
+        """Pick card from the deck"""
+        self.hand.append(deck.draw())
+
+    def show_hand(self):
+        for card in self.hand:
+            print(card)
+
+    def discard(self):
+        return self.hand.pop()
+
+# Test making a Deck
+deck = Deck()
+deck.shuffle()
+deck.show_cards()
+
+bob = Player("Bob")
+print(bob.name)
+bob.draw(deck)
+bob.draw(deck)
+bob.draw(deck)
+bob.show_hand()
+```
+
+### **Movie Ticket Booking System**
+
+[Movie Ticket Booking System || Object Oriented Design || Case Study - LeetCode Discuss](https://leetcode.com/discuss/general-discussion/1112242/Movie-Ticket-Booking-System-oror-Object-Oriented-Design-oror-Case-Study)
+
+### Parking lot
+
+[Parking Lot Design | Object Oriented Design Interview Question](https://youtu.be/tVRyb4HaHgw)
+
+[Object Oriented Design Interview Question Design a Car Parking Lot](https://youtu.be/YRlRGi2pCRM)
+
+[System Design Interview Question: DESIGN A PARKING LOT - asked at Google, Facebook](https://youtu.be/DSGsa0pu8-k)
+
+```python
+""" 
+Parking Lot: Design a parking lot using object-oriented principles.
+
+https://youtu.be/tVRyb4HaHgw
+"""
+from datetime import datetime
+from typing import List
+from abc import ABC, abstractmethod
+
+""" 
+
+# Gather requirements ---------------------------------------
+
+The wording of this question is vague, just as it would be in an actual interview. 
+- Can have 10000 - 3000 parking lots
+- Will have 4 entries and 4 exits
+    - will print ticket
+- Parking spot is assigned at the gate
+    - Should be the closest to the gate
+- Will have a limit on capacity
+- Diffrent parking spots
+    - Handicap
+    - Compact
+    - Large
+    - Motorcycle
+- Will have hourly rates
+- Can pay via Cash or Credit Card
+- Will have monitoring system
+- Should be able to be used on diffrent parking lot systems
+
+# High level design ---------------------------------------
+
+## ParkingSpot:
+- id: int
+- location: int[2]
+- reserved: bool
+- is_reserved: bool
+
+    ### HandicapParkingSpot:
+    ### CompactParkingSpot:
+    ### LargeParkingSpot:
+    ### MotorcycleParkingSpot:
+- type: Enum(Handicap, Compact, Large, Motorcycle) not used as it will violate the open/closed principle - adding new types will require changes to the code
+
+## ParkingTicket:
+- id: int
+- parking_spot: ParkingSpot (has type and id)
+- issued_at: datetime
+
+## RateCalculator:
+- rate_per_hour: float
+
+## ParkingSpotAssigner: # https://youtu.be/tVRyb4HaHgw?t=996
+- assign_spot(Terminal): ParkingSpot 
+
+## PaymentCalculator:
+- calculate_payment(ParkingTicket): int
+
+## PaymentProcessor:
+    - process_payment(amount:float): None
+    ### CashPaymentProcessor:
+    ### CreditCardPaymentProcessor:
+
+## Terminal:
+- id: int
+- location: int[2]
+- get_id(): => int
+
+    ### EntryTerminal:
+    - closest_spots: ParkingSpot[] <-- will actually be a priority list/ mean heap
+    - enter(Vehicle): ParkingTicket
+        assign spot using ParkingSpotAssigner
+        _create_ticket(ParkingSpot)
+    - _create_ticket(ParkingSpot): ParkingTicket
+    - remove_parking_spot_from_closest_spots(ParkingSpot): None
+    - add_parking_spot_to_closest_spots(ParkingSpot): None
+    ### ExitTerminal:
+    - exit(ParkingTicket): bool
+        calculate payment using PaymentCalculator
+        charge payment using PaymentProcessor
+        free ParkingSpot
+
+## Monitor/Logger:
+## ParkingLotSystem: <- will be singleton
+- entry_terminals: EntryTerminals[]
+- exit_terminals: ExitTerminals[]
+- available_spots: ParkingSpot[]
+- reserved_spots: ParkingSpot[]
+- _create_parking_spots(n:int): None
+- _create_terminals(number_of_entry_terminals: int, number_of_exit_terminals: int): None
+- park_vehicle(terminal:EntryTerminal): ParkingTicket
+- remove_vehicle(terminal:ExitTerminal): ParkingTicket
+- get_entry_terminals(): EntryTerminal[]
+- is_full(): bool
+
+## Vehicle:? - no need to use it
+-> not needed
+-> is an actor
+-> not needed as this is not a simulation
+
+"""
+
+# TODO: remove vehicle
+
+# ParkingSpot
+
+class ParkingSpot(ABC):
+    def __init__(self, id, x_location, y_location):
+        self.id = id
+        self.reserved = False
+        self.location = [x_location, y_location]
+
+    def is_reserved(self):
+        return self.reserved
+
+    @abstractmethod
+    def occupy_spot(self):
+        pass
+
+class HandicapParkingSpot(ParkingSpot):
+    def __init_(self, id, x_location, y_location):
+        return super().__init__(id, x_location, y_location)
+
+    def occupy_spot(self):
+        pass
+
+class CompactParkingSpot(ParkingSpot):
+    def __init_(self, id, x_location, y_location):
+        return super().__init__(id, x_location, y_location)
+
+    def occupy_spot(self):
+        pass
+
+class LargeParkingSpot(ParkingSpot):
+    def __init_(self, id, x_location, y_location):
+        return super().__init__(id, x_location, y_location)
+
+    def occupy_spot(self):
+        pass
+
+class MotorcycleParkingSpot(ParkingSpot):
+    def __init_(self, id, x_location, y_location):
+        return super().__init__(id, x_location, y_location)
+
+    def occupy_spot(self):
+        pass
+
+# ParkingTicket
+
+class ParkingTicket:
+    def __init__(self, id, parking_spot: 'ParkingSpot'):
+        self.id = id
+        self.parking_spot = parking_spot
+        self.issued_at = datetime.now()
+
+# RateCalculator
+
+class RateCalculator:
+    def __init__(self, rate_per_hour):
+        self.rate_per_hour = rate_per_hour
+
+    def calculate_rate(self, parking_ticket: 'ParkingTicket'):
+        pass
+
+# ParkingSpotAssigner
+
+class ParkingSpotAssigner:
+    def __init__(self):
+        pass
+
+    def assign_spot(self, terminal: 'Terminal'):
+        pass
+
+# PaymentCalculator
+
+class PaymentCalculator:
+
+    def calculate_payment(self, parking_ticket: 'ParkingTicket'):
+        pass
+
+# PaymentProcessor
+
+class PaymentProcessor(ABC):
+    def __init__(self, amount: float):
+        self.amount = amount
+
+    @abstractmethod
+    def process_payment(self, amount: float):
+        pass
+
+class CashPaymentProcessor(PaymentProcessor):
+    def __init__(self, amount: float):
+        super().__init__(amount)
+
+    def process_payment(self, amount: float):
+        pass
+
+class CreditCardPaymentProcessor(PaymentProcessor):
+    def __init__(self, amount: float):
+        super().__init__(amount)
+
+    def process_payment(self, amount: float):
+        pass
+
+# Terminal
+
+class Terminal(ABC):
+    def __init__(self, id: int, location: List[int],):
+        self.id = id
+        self.location = location
+
+    def get_id(self):
+        return self.id
+
+class EntryTerminal(Terminal):
+    def __init__(self, id: int, location: List[int], parking_spots: 'List[ParkingSpot]'):
+        super().__init__(id, location)
+        self.closest_spots = []  # should be a priority queue
+
+    def enter(self):
+        pass
+
+    def _create_ticket(self, parking_spot: 'ParkingSpot'):
+        pass
+
+    def remove_parking_spot_from_closest_spots(self, parking_spot: 'ParkingSpot'):
+        pass
+
+    def add_parking_spot_to_closest_spots(self, parking_spot: 'ParkingSpot'):
+        pass
+
+class ExitTerminal(Terminal):
+    def __init__(self, id: int, location: List[int], parking_spots: 'List[ParkingSpot]'):
+        super().__init__(id, location)
+
+    def exit(self):
+        pass
+
+# Monitor/Logger
+
+class Logger:
+    pass
+
+# ParkingLotSystem
+
+class ParkingLotSystem:
+    def __init__(self, number_of_parking_spots: int, number_of_entry_terminals: int, number_of_exit_terminals: int):
+        self.available_spots = []
+        self.reserved_spots = []
+        self._create_parking_spots(number_of_parking_spots)
+        self.entry_terminals = []
+        self.exit_terminals = []
+        self._create_terminals(number_of_entry_terminals,
+                               number_of_exit_terminals)
+
+    def park_vehicle(self, terminal: 'EntryTerminal'):
+        pass
+
+    def remove_vehicle(self, terminal: 'ExitTerminal'):
+        pass
+
+    def is_full(self):
+        pass
+
+    def get_entry_terminals(self):
+        pass
+
+    def _create_parking_spots(self, number_of_parking_spots: int):
+        pass
+
+    def _create_terminals(self, number_of_entry_terminals: int, number_of_exit_terminals: int):
+        pass
+```
+
+### Design file system
+
+```python
+"""
+# Gather requirements ---------------------------------------
+
+- Have files
+- Have folders
+	- can contain files and folders
+- Files and folders have
+	- name
+	- time_last_accessed
+	- time_created
+	- time_last_modified
+	- path
+	- delete()
+
+- Can delete file & folder
+- Can change name
+
+# High level design ---------------------------------------
+
+## FileAndFolderStructure
+- name
+- parent
+- time_last_accessed
+- time_created
+- time_last_modified
+- path(): str
+- size(): float
+- change_name(): str
+- delete(): None
+- get_time_last_accessed(): str
+- get_time_created(): str
+- get_time_last_modified(): str
+
+	### File
+	- file_size
+	### Folder
+	- children{,}
+	- delete_child()
+	- add_child(FileAndFolderStructure): bool
+    - is_empty(): bool
+
+"""
+
+from abc import ABC, abstractmethod
+from datetime import datetime
+
+class FileAndFolderStructure(ABC):
+    def __init__(self, name: str, parent: 'Folder|None'):
+        self.name = name
+        self.parent = parent
+        self.time_last_accessed = datetime.now()
+        self.time_created = datetime.now()
+        self.time_last_modified = datetime.now()
+
+    @abstractmethod
+    def size(self):
+        pass
+
+    @abstractmethod
+    def delete(self):
+        pass
+
+    @property
+    def path(self):
+        if not self.parent:
+            return ""  # root dir
+        else:
+            return self.parent.path + "/" + self.name
+
+    def change_name(self, name):
+        self.name = name
+        return self.name
+
+    def get_time_last_accessed(self):
+        return self.time_last_accessed
+
+    def get_time_created(self):
+        return self.time_created
+
+    def get_time_last_modified(self):
+        return self.time_last_modified
+
+class File(FileAndFolderStructure):
+
+    def __init__(self, name: str, parent: 'Folder', file_size):
+        super().__init__(name, parent)
+        self.file_size = file_size
+
+    def size(self):
+        return self.file_size
+
+    def delete(self):
+        self.parent.delete_child(self)
+
+class Folder(FileAndFolderStructure):
+    def __init__(self, name: str, parent: 'Folder|None'):
+        super().__init__(name, parent)
+        self.children = set()
+
+    def size(self):
+        total_size = 0
+        for child in self.children:
+            total_size += child.size()
+        return total_size
+
+    def delete(self):
+        for child in self.children:
+            child.delete()
+        if self.parent:
+            self.parent.delete_child(self)
+
+    def add_child(self, child: 'FileAndFolderStructure'):
+        self.children.add(child)
+        return True
+
+    def delete_child(self, child: 'FileAndFolderStructure'):
+        if child in self.children:
+            self.children.remove(child)
+            return True
+        return False
+
+    def is_empty(self):
+        return len(self.children) == 0
+
+root = Folder("root", None)
+
+pictures = Folder("pictures", root)
+
+paul_png = File("paul.png", pictures, 22)
+
+print(root.path)  #
+print(pictures.path)  # /pictures/paul.png
+print(paul_png.name)  # paul.png
+print(paul_png.path)  # /pictures/paul.png
+```
+
+### Design elevator
+
+```python
+""" 
+# Design an elevator
+https://youtu.be/siqiJAJWUVg
+https://thinksoftware.medium.com/elevator-system-design-a-tricky-technical-interview-question-116f396f2b1c
+"""
+
+"""
+## Requirements collection ------------------------------------------------------------
+
+- elevator system
+    - can have around 200 floors
+    - with 50 elevator cars
+    - minimise wait time of system/passenger
+    - high throughput
+    - reduce power usage / cost
+    - can have operational zones: like floor 20-30
+        - we will assume that this system we are building will work for one specific zone only
+            it can then be replicated for the other zones
+- elevator cars
+    - has three states: UP, DOWN & IDLE
+    - can transfer passengers from one floor to another
+    - can only open door whn idle
+    - max_load
+    - max_speed
+- emergency alarms
+- VIP
+- monitoring systems
+
+## Use cases  ------------------------------------------------------------------s
+
+1. Calling the elevator
+2. Move/Stop elevators
+3. Directions
+4. Floor
+5. Emergency call
+5. Emergency floor
+
+## High level design ------------------------------------------------------------------
+
+### Door
+- is_open
+- open()
+- close()
+
+### ElevatorCarMotion
+- move(floor: int)
+- stop()
+
+### ElevatorCar
+- door: Door
+
+### Floor
+- button_panel: ButttonPanel
+
+### Button
+- is_pressed()
+- press()
+    
+    #### HallButton
+    - press()
+    #### ElevatorButton
+    - press()
+
+### ButttonPanel
+- botton: HallButton
+
+### Dispatcher https://www.youtube.com/watch?v=siqiJAJWUVg&t=1205s
+=> can use first-come-first-serve with queue
+    send nearest (idle) or (moving in same direction towards passenger) elevator to passenger
+=> shortest seek time first
+    - use pq or array of floors
+    - find closest passengers
+=> scan
+
+### Monitor/Logger
+
+### ElevatorSystem
+
+### Passenger?
+=> not needed
+=> is an actor
+=> not needed as this is not a simulation
+
+"""
+```
+
 Object-oriented programming (OOP) is a style of programming that focuses on using objects to design and build applications. Contrary to procedure-oriented programming where programs are designed as blocks of statements to manipulate data, OOP organises the program to **combine data and functionality** and wrap it inside something called an “Object”.
 
 Basic concepts of OOP:
@@ -1032,6 +1718,8 @@ The four principles of object-oriented programming are encapsulation, abstractio
 - **[Polymorphism]():** Polymorphism (from Greek, meaning “many forms”) is the ability of an object to take **different forms and thus, depending upon the context, to respond to the same message in different ways**. Take the example of a chess game; a chess piece can take many forms, like bishop, castle, or knight and all these pieces will respond differently to the ‘move’ message
 
 # Theory
+
+[GitHub - knightsj/object-oriented-design: 面向对象设计的设计原则和设计模式](https://github.com/knightsj/object-oriented-design)
 
 ## Constructors in Python
 
@@ -1219,6 +1907,67 @@ We used `__init__()` method to store the maximum selling price of the `Comput
 ## Abstraction
 
 **Abstraction:** Abstraction can be thought of as the natural extension of encapsulation. It means **hiding all but the relevant data** about an object in order to reduce the complexity of the system. In a large system, objects talk to each other, which makes it difficult to maintain a large codebase; abstraction helps by hiding internal implementation details of objects and **only revealing operations that are relevant to other objects**.
+
+### Abstract Classes
+
+[Python Abstract Class](https://www.pythontutorial.net/python-oop/python-abstract-class/)
+
+[Beginner's guide to abstract base class in Python](https://dev.to/dollardhingra/understanding-the-abstract-base-class-in-python-k7h)
+
+In object-oriented programming, an abstract class is a [class](https://www.pythontutorial.net/python-oop/python-class/) that **cannot be instantiated**. However, you can create classes that inherit from an abstract class. Typically, you use an abstract class to create a **blueprint for other classes**.
+
+Similarly, an **abstract method** is an method without an implementation. An abstract class may or may not include abstract methods.
+
+Python doesn’t directly support abstract classes. But it does offer a [module](https://www.pythontutorial.net/python-basics/python-module/) that allows you to define abstract classes.
+
+To define an abstract class, you use the `abc` (abstract base class) module.
+
+The `abc` module provides you with the infrastructure for defining abstract base classes.
+
+```python
+from abc import ABC, abstractmethod
+
+class AbstractClassName(ABC):
+    @abstractmethod
+    def abstract_method_name(self):
+        pass
+```
+
+Example
+
+```python
+from abc import ABC, abstractmethod
+
+class Employee(ABC):
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
+    @abstractmethod
+    def get_salary(self):
+        pass
+
+class FulltimeEmployee(Employee):
+    def __init__(self, first_name, last_name, salary):
+        super().__init__(first_name, last_name)
+        self.salary = salary
+
+    def get_salary(self):
+        return self.salary
+
+class HourlyEmployee(Employee):
+    def __init__(self, first_name, last_name, worked_hours, rate):
+        super().__init__(first_name, last_name)
+        self.worked_hours = worked_hours
+        self.rate = rate
+
+    def get_salary(self):
+        return self.worked_hours * self.rate
+```
 
 ## Polymorphism *
 
@@ -1410,6 +2159,34 @@ print(p1<p3) # False
 
 [Python Design Patterns - Singleton](https://www.tutorialspoint.com/python_design_patterns/python_design_patterns_singleton.htm)
 
+```python
+class Singleton:
+   __instance = None
+
+   @staticmethod 
+   def getInstance():
+      """ Static access method. """
+      if Singleton.__instance == None:
+         Singleton()
+      return Singleton.__instance
+
+   def __init__(self):
+      """ Virtually private constructor. """
+      if Singleton.__instance != None:
+         raise Exception("This class is a singleton!")
+      else:
+         Singleton.__instance = self
+
+s = Singleton()
+print s
+
+s = Singleton.getInstance()
+print s
+
+s = Singleton.getInstance()
+print s
+```
+
 # Quick tips
 
 ### __hash__
@@ -1552,6 +2329,8 @@ class Node:
 
 ## nonlocal
 
+[Python Global, Local and Nonlocal variables](https://www.programiz.com/python-programming/global-local-nonlocal-variables)
+
 The `nonlocal` keyword is used to work with variables inside nested functions, where the variable should not belong to the inner function.
 
 Use the keyword `nonlocal` to declare that the variable is not local.
@@ -1566,6 +2345,27 @@ class Solution:
             nonlocal preorder_pos
 ```
 
+## Enum
+
+```python
+>>> from enum import Enum
+>>> class Suit(Enum):
+...     CLUBS = "Clubs"
+...     DIAMONDS = "Diamonds"
+...     HEARTS = "Hearts"
+...     SPADES = "Spades"
+... 
+
+>>> for i in Suit.__members__:
+...     print(i)
+... 
+CLUBS
+DIAMONDS
+HEARTS
+SPADES
+>>>
+```
+
 ## Python Operator Overloading
 
 ## TODO: Abstract Base Class *
@@ -1573,6 +2373,191 @@ class Solution:
 [Abstract Base Class (abc) in Python - GeeksforGeeks](https://www.geeksforgeeks.org/abstract-base-class-abc-in-python/)
 
 ---
+
+# Object Oriented Design
+
+A class is an encapsulation of data and methods that operate on that data. Classes match the way we think about computation. They provide *encapsulation*, which reduces the conceptual burden of writing code, and enable code reuse, through the use of *inheritance* and *polymorphism*. However, naive use of object-oriented constructs can result in code that is hard to maintain. 
+
+A **design pattern** is a general repeatable solution to a commonly occurring problem. It is not a complete design that can be coded up directly—rather, it is a description of how to solve a problem that arises in many different situations. In the context of object-oriented programming, design patterns address both reuse and maintainability. In essence, design patterns make some parts of a system vary independently from the other parts.
+
+**Adnan’s Design Pattern course material**, available freely online, contains lecture notes, homeworks, and labs that may serve as a good resource on the material in this chapter.
+
+## Design patterns
+
+### 1. Template method vs Strategy
+
+Explain the difference between the template method pattern and the strategy pattern with a concrete example. 
+
+**Solution:**
+
+Both the template method and strategy pattems are similar in that:
+
+- both are behavioral pattems,
+- both are used to make algorithms reusable,
+- and both are general and very widely used.
+
+However, they differ in the following key way:
+
+- In the template method, a skeleton algorithm is provided in a superclass. Subclasses can override methods to specialize the algorithm.
+- The strategy pattern is typically applied when a family of algorithms implements a common interface. These algorithms can then be selected by clients.
+
+As a concrete example, consider a sorting algorithm like quicksort. TWo of the key steps in quicksort are pivot selection and partitioning. Quicksort is a good example of a template method - subclasses can implement their own pivot selection algorithm, e.g., using randomized median finding or selecting an element at random, and their own partitioning method, e.t.c
+
+Since there may be multiple ways in which to sort elements, e.g., student objects may be compared by GPA, major, name, and combinations thereof, it's natural to make the comparison operation used by the sorting algorithm an argument to quicksort. One way to do this is to pass quicksort an object that implements a compare method. These objects constitute an example of the strategy pattem, as do the objects implementing pivot selection and partitioning.
+
+There are some other smaller differences between the two pattems. For example, in the template method pattern, the superclass algorithm may have "hooks" - calls to placeholder methods that can be overridden by subclasses to provide additional functionality. Sometimes a hook is not implemented, thereby forcing the subclasses to implement that functionality; some times it offers a "no-operation" or some baseline functionality. There is no analog to a hook in a strategy pattern.
+
+### 2. Observer pattern
+
+The observer pattem defines a one-to-many dependency between objects so that when one object changes state all its dependents are notified and updated automatically.
+
+The observed object must implement the following methods.
+
+- Register an observer.
+- Remove an observer.
+- Notify all currently registered observers.
+
+The observer object must implement the following method.
+
+- Update the observer. (Update is sometimes refeffed to as notify.)
+
+As a concrete example, consider a service that logs user requests, and keeps track of the 10 most visited pages. There may be multiple client applications that use this information, e.g., a leaderboard display, ad placement algorithms, recorunendation system, etc. Instead of having the clients poll the service, the service, which is the observed object, provides clients with register and remove capabilities. As soon as its state changes, the service enumerates through registered observers, calling each observer's update method.
+
+Though most readily understood in the context of a single program, where the observed and observer are objects, the observer pattern is also applicable to distributed computing.
+
+### 3. Push vs Pull Observer pattern
+
+In the observer pattem, subjects push information to their observers. There is another way to update data - the observers may "pull" the information they need from the subject. Compare and contrast these two approaches.
+
+Solution: Both push and pull observer designs are valid and have tradeoffr depending on the needs of the project. With the push design, the subject notifies the observer that its data is ready and includes the relevant information that the observer is subscribing to, whereas with the pull design, it is the observer's job to retrieve that information from the subject.
+The pull design places a heavier load on the observers, but it also allows the observer to query the subject only as often as is needed. One important consideration is that by the time the observer retrieves the information from the subject, the data could have changed. This could be a positive or negative result depending on the application. The pull design places less responsibility on the subject for tracking exactly which information the observer needs, as long as the subject knows
+when to notify the observer. This design also requires that the subject make its data publicly accessible by the observers. This design would likely work better when the observers are running with varied frequency and it suits them best to get the data they need on demand.
+The push design leaves all of the information transfer in the subject's control. The subject calls update for each observer and passes the relevant information along with this call. This design seems more object-oriented, because the subject is pushing its own data out, rather than making its data accessible for the observers to pull. It is also somewhat simpler and safer in that the subject always knows when the data is being pushed out to observers, so you don't have to worry about an observer pulling data in the middle of an update to the data, which would require synchronization.
+
+### 4. Sigletons and Flyweights
+
+The singleton pattern ensures a class has only one instance, and provides a global point of access to it. The flyweight pattern minimizes memory use by sharing as much data as possible with other similar objects. It is a way to use objects in large numbers when a simple repeated representation would use an unacceptable amount of memory.
+
+A common example of a singleton is a logger. There may be many clients who want to listen to
+the logged data (console, hle, messaging service, etc.), so all code should log to a single place.
+
+A common example of a flyweight is string inteming-a method of storing only one copy of
+each distinct string value. Inteming strings makes some string processing tasks more time- or
+space-efficient at the cost of requiring more time when the string is created or intemed. The distinct
+values are usually stored in a hash table. Since multiple clients may refer to the same flyweight
+object for safety flyweights should be immutable.
+
+There is a superficial similarity between singleton and flyweight both keep a single copy of an
+object. There are several key differences between the two:
+
+o Flyweights are used to save memory. Singletons are used to ensure all clients see the same
+object.
+
+o A singleton is used where there is a single shared object, e.g., a database corurection, server
+configurations, a logger, etc. A flyweight is used where there is a family of shared objects,
+e.g., objects describing character fonts, or nodes shared across multiple binary search trees.
+
+o Flyweight objects are invariable immutable. Singleton objects are usually not immutablll e.g,
+requests can be added to the database connection object.
+
+o The singleton pattem is a creational pattern, whereas the flyweight is a structural pattem.
+In summary a singleton is like a global variable, whereas a flyweight is like a pointer to a canonical
+representation.
+
+Sometimes, but not always, a singleton object is used to meate flyweights---dients ask the
+singleton for an object with specified fields, and the singleton checks its intemal pool of flyweights
+to see if one exists. If such an object already exists, it returns that, otherwise it creates a new
+flyweight, add it to its pool, and then retums it. (L:r essence the singleton serves as a gateway to a
+static factory.)
+
+### 5. Adapters
+
+The adapter pattern allows the interface of an existing class to be used from another interface. It is often used to make existing classes work with others without modifying their source code.
+
+There are two ways to build an adapter: via subclassing (the class adapter pattern) and composition (the object adapter pattern). In the class adapter pattem, the adapter inherits both the interface that is expected and the interface that is pre-existing. In the object adapter pattern, the adapter contains an instance of the class it wraps and the adapter makes calls to the instance of the wrapped object.
+
+Here are some remarks on the class adapter pattem.
+o The class adapter pattern allows re-use of implementation code in both the target and adaptee.
+
+This is an advantage in that the adapter doesn't have to contain boilerplate pass-throughs or
+
+cut-and-paste reimplementation of code in either the target or the adaptee.
+o The class adapter pattem has the disadvantages of inheritance (changes in base class may
+cause unforeseen misbehaviors in derived classes, etc.). The disadvantages of inheritance are
+made worse by the use of two base classes, which also precludes its use in languages like Java
+
+(prior to |ava 1.8) that do not support multiple inheritance.
+o The class adapter can be used in place of either the target or the adaptee. This can be advantage
+
+if there is a need for a two-way adapter. The ability to substitute the adapter for adaptee can
+be a disadvantage otherwise as it dilutes the purpose of the adapter and may lead to incorrect
+behavior if the adapter is used in an unexpected manner.
+
+o The class adapter allows details of the behavior of the adaptee to be changed by overriding
+the adaptee's methods. Class adapters, as members of the class hierarchy, are tied to specific
+adaptee and target concrete classes.
+
+As a concrete example of an object adapter, suppose we have legacy code that returns objects of
+type stack. Newer code expects inputs of type deque, which is more general than stack (but does not
+subclass stack). We could create a new type, stack-adapter, which implements the deque methods,
+and can be used anywhere deque is required. The stack-adapter class has a field of type stack-this
+is referred to as object composition. It implements the deque methods with code that uses methods
+on the composed stack object. Deque methods that are not supported by the underlying stack throw
+unsupported operation exceptions. Lr this scenario, the stack-adapter is an example of an object
+adapter.
+
+Here are some conunents on the object adapter pattem.
+o The object adapter pattern is "purer" in its approach to the purpose of making the adaptee
+
+behave like the target. By implementing the interface of the target only, the object adapter is
+
+only useful as a target.
+o Use of an interface for the target allows the adaptee to be used in place of any prospective
+
+target that is referenced by clients using that interface.
+o Use of composition for the adaptee similarly allows flexibility in the choice of the concrete
+
+classes. If adaptee is a concrete class, any subclass of adaptee will work equally well within
+the object adapter pattem, If adaptee is an interface, any concrete class implementing that
+interface will work.
+
+o A disadvantage is that if target is not based on an interface, target and all its clients may need to change to allow the object adapter to be substituted.
+
+### 6. Creational patterns
+
+Explain what each of these creational pattems is: builder, static factory, factory method, and abstract factory.
+Solution: The idea behind the builder pattem is to build a complex object in phases. It avoids mutability and inconsistent state by using an mutable inner class that has a build method that retums the desired object, Its key benefits are that it breaks down the construction process/ and can give names to steps. Compared to a constructor, it deals far better with optional parameters and
+when the parameter list is very long.
+
+A static factory is a function for construction of objects. Its key benefits are as follow: the
+function's niune c€u:r make what it's doing much clearer compared to a call to a constructor. The
+function is not obliged to create a new object-in particulaq, it can retum a flyweight. It can also
+return a subtype that's more optimized, e.g., it can choose to construct an object that uses an integer
+in place of a Boolean array if the array size is not more than the integer word size.
+
+A factory method defines interface for creating an object, but lets subclasses decide which class
+to instantiate. The classic example is a maze game with two modes-one with regular rooms, and
+one with magic rooms. The program below uses a template method, as described in Problem 22.1
+on Page 333, to combine the logic common to the two versions of the game.
+
+ 
+
+A drawback of the factory method pattern is that it makes subclassing challenging.
+An abstract factory provides an interface for creating families of related objects without sPecify-
+ing their concrete classes. For example, a class DocumentCreator could provide interfaces to create
+
+anumberof products,suchascreateletterO andcreateResumeO. Concreteimplementationsof
+this class could choose to irnplement these products in different ways, e.9., with modern or classic
+fonts, right-flush or right-ragged layout, etc. Client code gets a DocumentCreator object and calls
+its factory methods. Use of this pattem makes it possible to interchange concrete implementations
+without changing the code that uses them, even at runtime. The price for this flexibility is more
+
+planning and upfront coding, as well as and code that may be harder to understand, because of the
+added indirections.
+
+## SOLID
+
+[Python Open-closed Principle](https://www.pythontutorial.net/python-oop/python-open-closed-principle/)
 
 # **OO Analysis and Design**
 
@@ -1587,11 +2572,29 @@ The process of OO analysis and design can be described as:
 
 We need a standard method/tool to document all this information; for this purpose we use `UML`. UML can be considered as the successor of object-oriented (OO) analysis and design. UML is powerful enough to represent all the concepts that exist in object-oriented analysis and design. UML diagrams are a representation of object-oriented concepts only.
 
+### **Tips for OOD Interview**
+
+**Clarify the scenario, write out user cases**
+
+Use case is a description of sequences of events that, taken together, lead to a system doing something useful. Who is going to use it and how they are going to use it. The system may be very simple or very complicated.
+
+Special system requirements such as multi-threading, read or write oriented.
+
+**Define objects**
+
+Map identity to class: one scenario for one class, each core object in this scenario for one class.
+
+Consider the relationships among classes: certain class must have unique instance, one object has many other objects (composition), one object is another object (inheritance).
+
+Identify attributes for each class: change noun to variable and action to methods.
+
+Use design patterns such that it can be reused in multiple applications.
+
 ## UML
 
 ![Screenshot 2021-11-08 at 05.31.51.png](_Object-Oriented%20Analysis%20and%20Design%201a01887a9271475da7b3cd3f4efc9e0d/Screenshot_2021-11-08_at_05.31.51.png)
 
-UML stands for Unified Modeling Language and is used to model the Object-Oriented Analysis of a software system. UML is a way of visualizing and documenting a software system by using a collection of diagrams, which helps engineers, businesspeople, and system architects understand the behavior and structure of the system being designed.
+UML stands for **Unified Modeling Language** and is used to model the Object-Oriented Analysis of a software system. UML is a way of visualizing and documenting a software system by using a collection of diagrams, which helps engineers, businesspeople, and system architects understand the behavior and structure of the system being designed.
 
 Benefits of using UML:
 

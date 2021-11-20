@@ -266,9 +266,9 @@ print(sorted(store, key=lambda x: store[x])) # ['Honey Badger', 'Zebra', 'Apple'
 
 ## hashtable vs hashset vs hashmap python
 
-Hashtable == HashMap == dictionary
+HashTable == HashMap == Dictionary
 
-Hashset == set
+Hashset == Set
 
 ## You can compare hashtables
 

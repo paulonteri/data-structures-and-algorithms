@@ -8,7 +8,7 @@
 
 ![Stacks%20&%20Queues%20c7d2cad790be4a61bac42c8718e031fd/Isaac_Computer_Science_2_Data_Structures_Project_OUTLINE_V6_23.png](Stacks%20&%20Queues%20c7d2cad790be4a61bac42c8718e031fd/Isaac_Computer_Science_2_Data_Structures_Project_OUTLINE_V6_23.png)
 
-Stack is a linear data structure which follows a particular order in which the operations are performed. The order may be LIFO(Last In First Out).
+Stack is a linear data structure that follows a particular order in which the operations are performed. The order may be LIFO(Last In First Out).
 
 Mainly the following three basic operations are performed in the stack:
 
@@ -19,13 +19,13 @@ Mainly the following three basic operations are performed in the stack:
 
 Often implemented as a linked list to give the above operations a time complexity of O(1)
 
-> The last-in, first-out semantics of a stack make it very useful for creating **reverse iterators** for sequences which are **stored in a way that would make it difficult or impossible to step back from a given element**.
+> The last-in, first-out semantics of a stack makes it very useful for creating **reverse iterators** for sequences that are **stored in a way that would make it difficult or impossible to step back from a given element**.
 > 
 
 Some of the problems require you to implement your own stack class; for others, use the built-in list-type.
 
 - s.append(e) pushes an element onto the stack. Not much can go wrong with a call to push.
-- s[-1] will retrieve, but does not remove, the element at the top of the stack.
+- s[-1] will retrieve but does not remove, the element at the top of the stack.
 - s.pop(0) will remove and return the element at the top of the stack.
 - len(s) == 0 tests if the stack is empty.
 
@@ -500,6 +500,7 @@ Some of the problems require you to implement your own stack class; for others, 
             return "/" + "/".join(stack)
     ```
     
+
 - Largest Rectangle in Histogram/Largest Rectangle Under Skyline *
     
     ```python
@@ -528,6 +529,8 @@ Some of the problems require you to implement your own stack class; for others, 
           | | |_| | | | |_
          _| | | | |_| | | |
         |_|_|_|_|_|_|_|_|_|
+    
+    https://leetcode.com/problems/largest-rectangle-in-histogram
     """
     
     #
@@ -585,8 +588,9 @@ Some of the problems require you to implement your own stack class; for others, 
                 # remove invalid buildings (that cannot be expanded to the right)
                 while stack and height < stack[-1].height:
                     removed = stack.pop()
-                    # calculate the area from when the removed was lat valid (using the last valid index)
+                    # calculate the area from when the removed was last valid (using the last valid index)
                     max_area = max(max_area, removed.get_area(idx-1))
+    
                     # our current rectangle can start from there
                     start_idx = removed.start_idx
     
@@ -1474,6 +1478,117 @@ To implement a queue, we again need two basic operations: `enqueue()` and `de
     
     ![Screenshot 2021-10-02 at 13.38.12.png](Stacks%20&%20Queues%20c7d2cad790be4a61bac42c8718e031fd/Screenshot_2021-10-02_at_13.38.12.png)
     
+
+---
+
+# `collections.deque()`
+
+[How to use a deque in Python](https://www.educative.io/edpresso/how-to-use-a-deque-in-python)
+
+Can be used as both a stack and a queue:
+
+- Stack: `pop()`
+- Queue: `popleft()`
+
+Here’s a summary of the main characteristics of `deque`:
+
+- Stores items of any [data type](https://realpython.com/python-data-types/)
+- Is a [mutable](https://docs.python.org/3/glossary.html#term-mutable) data type
+- Supports [membership operations](https://realpython.com/python-boolean/#the-in-operator) with the `in` operator
+- Supports [indexing](https://realpython.com/python-lists-tuples/#list-elements-can-be-accessed-by-index), like in `a_deque[i]`
+- Doesn’t support slicing, like in `a_deque[0:2]`
+- Supports built-in functions that operate on sequences and iterables, such as `[len()](https://docs.python.org/3/library/functions.html#len)`, `[sorted()](https://realpython.com/python-sort/)`, `[reversed()](https://realpython.com/python-reverse-list/)`, and more
+- Doesn’t support [in-place](https://en.wikipedia.org/wiki/In-place_algorithm) sorting
+- Supports normal and reverse iteration
+- Supports pickling with `[pickle](https://realpython.com/python-pickle-module/)`
+- Ensures fast, memory-efficient, and thread-safe pop and append operations on both ends
+
+Creating `deque` instances is a straightforward process. You just need to import `deque` from `collections` and call it with an optional `iterable` as an argument:
+
+```python
+>>> from collections import deque
+
+>>> # Create an empty deque
+>>> deque()
+deque([])
+
+>>> # Use different iterables to create deques
+>>> deque((1, 2, 3, 4))
+deque([1, 2, 3, 4])
+
+>>> deque([1, 2, 3, 4])
+deque([1, 2, 3, 4])
+
+>>> deque(range(1, 5))
+deque([1, 2, 3, 4])
+
+>>> deque("abcd")
+deque(['a', 'b', 'c', 'd'])
+
+>>> numbers = {"one": 1, "two": 2, "three": 3, "four": 4}
+>>> deque(numbers.keys())
+deque(['one', 'two', 'three', 'four'])
+
+>>> deque(numbers.values())
+deque([1, 2, 3, 4])
+
+>>> deque(numbers.items())
+deque([('one', 1), ('two', 2), ('three', 3), ('four', 4)])
+```
+
+```python
+import collections
+
+# Create a deque
+DoubleEnded = collections.deque(["Mon","Tue","Wed"])
+print(DoubleEnded)
+
+# Append to the right
+print("Adding to the right: ")
+DoubleEnded.append("Thu")
+print(DoubleEnded)
+
+# append to the left
+print("Adding to the left: ")
+DoubleEnded.appendleft("Sun")
+print(DoubleEnded)
+
+# Remove from the right
+print("Removing from the right: ")
+DoubleEnded.pop()
+print(DoubleEnded)
+
+# Remove from the left
+print("Removing from the left: ")
+DoubleEnded.popleft()
+print(DoubleEnded)
+
+# Reverse the dequeue
+print("Reversing the deque: ")
+DoubleEnded.reverse()
+print(DoubleEnded)
+
+""" 
+deque(['Mon', 'Tue', 'Wed'])
+
+Adding to the right: 
+deque(['Mon', 'Tue', 'Wed', 'Thu'])
+
+Adding to the left: 
+deque(['Sun', 'Mon', 'Tue', 'Wed', 'Thu'])
+
+Removing from the right: 
+deque(['Sun', 'Mon', 'Tue', 'Wed'])
+
+Removing from the left: 
+deque(['Mon', 'Tue', 'Wed'])
+
+Reversing the deque: 
+deque(['Wed', 'Tue', 'Mon'])
+"""
+```
+
+If you instantiate `deque` without providing an `iterable` as an argument, then you get an empty deque. If you
 
 ---
 

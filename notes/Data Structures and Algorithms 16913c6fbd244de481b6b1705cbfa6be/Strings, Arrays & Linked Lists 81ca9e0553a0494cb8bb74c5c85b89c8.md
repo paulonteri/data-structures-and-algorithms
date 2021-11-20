@@ -62,7 +62,7 @@ Array-based problems are the **hardest** problems by far there are way **too man
     https://leetcode.com/problems/valid-anagram/
     """
     
-    # 0(n) time | O(1) space
+    # 0(n) time | O(n) space
     class Solution:
         def isAnagram(self, s: str, t: str):
     
@@ -1310,6 +1310,7 @@ Array-based problems are the **hardest** problems by far there are way **too man
         return "".join(words)
     ```
     
+- [https://leetcode.com/explore/interview/card/bloomberg/68/array-and-strings/402/](https://leetcode.com/explore/interview/card/bloomberg/68/array-and-strings/402/) string compression
 
 - Strobogrammatic Number
     
@@ -1444,17 +1445,17 @@ Try iterating form the end
 
 Functions
 
-.`count(str)` returns how many times the str substring appears in the given string.
+`.count(str)` returns how many times the str substring appears in the given string.
 
-.`upper()` converts the string to uppercase.
+`.upper()` converts the string to uppercase.
 
-.`lower()` converts the string to lowercase.
+`.lower()` converts the string to lowercase.
 
 `.swapcase()`
 
-`replace(old, new)` replaces all occurrences of old with new.
+`.replace(old, new)` replaces all occurrences of old with new.
 
-.`find(str)`
+`.find(str)`
 
 `.split()`
 
@@ -1606,7 +1607,7 @@ print(word[::-2]) # 97531
 print(word[::-1]) # 9876543210
 ```
 
-### Sort section of array using slicing
+### Sort section of an array using slicing
 
 ```python
 def sort(self, nums, sort_start):
@@ -1618,7 +1619,7 @@ def sort(self, nums, sort_start):
 ### Storing alphanumeric characters in a data structure
 
 <aside>
-💡 Storing alphanumeric characters count in a data structure takes constant space
+💡 Storing alphanumeric character count in a data structure takes constant space
 
 </aside>
 
@@ -2042,7 +2043,7 @@ StringBuilder (Java)
 
 - Subarray Sum Equals K *
     
-    Next: [Path sum III](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185.md)
+    Next: [Path sum III](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185.md), [Segment trees]()
     
     [LeetCode Subarray Sum Equals K Solution Explained - Java](https://youtu.be/AmlVSNBHzJg)
     
@@ -2146,7 +2147,7 @@ StringBuilder (Java)
     ```
     
 
-- Continuous Subarray Sum **
+- Continuous Subarray Sum ***
     
     [](https://leetcode.com/problems/continuous-subarray-sum/discuss/688125/Lehman-explanation-of-the-math)
     
@@ -2215,7 +2216,7 @@ StringBuilder (Java)
     eg: [15,10,10], k = 10
         15%10 = 5
         25%10 = 5
-        35%10 =5
+        35%10 = 5
     
     Did you realize something? No
     Let's see- the sums 15 and 25 are giving the remainder 5 when divided by 10 and the difference between 15 and 25 i.;e. 10 is divisible by 10.

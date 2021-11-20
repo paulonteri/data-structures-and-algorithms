@@ -173,7 +173,7 @@ Bidirectional Search
 
 ---
 
-# Graphs
+# Graphs/Networks
 
 [Graphs](https://emre.me/data-structures/graphs/)
 
@@ -1371,7 +1371,7 @@ It can be helpful to go through [2D array problems](Strings,%20Arrays%20&%20Link
         Input: points = [[0,0],[2,2],[3,10],[5,2],[7,0]]
         Output: 20
     Explanation:
-        We can connect the points as sown above to get the minimum cost of 20.
+        We can connect the points as shown above to get the minimum cost of 20.
         Notice that there is a unique path between every pair of points.
     Example 2:
         Input: points = [[3,12],[-2,5],[-4,1]]
@@ -1398,7 +1398,7 @@ It can be helpful to go through [2D array problems](Strings,%20Arrays%20&%20Link
     https://youtu.be/f7JOBJIC-NA
     """
     
-    class Solution:
+    class Solution_:
         def minCostConnectPoints(self, points):
             total = 0
     
@@ -1409,7 +1409,69 @@ It can be helpful to go through [2D array problems](Strings,%20Arrays%20&%20Link
                 x1, y1 = points[idx]
                 for idx2 in range(idx + 1, len(points)):
                     x2, y2 = points[idx2]
-              
+                    cost = abs(x1 - x2) + abs(y1 - y2)
+    
+                    graph[str(x1)+str(y1)].append([cost, str(x2)+str(y2)])
+                    graph[str(x2)+str(y2)].append([cost, str(x1)+str(y1)])
+    
+            # # Prim's Minimum Spanning Tree Algorithm
+            visited = set()
+            priority_queue = []
+            first_node = str(points[0][0])+str(points[0][1])
+            heapq.heappush(priority_queue, (0, first_node))  # start from node 0
+            while len(visited) < len(graph):
+                cost, node = heapq.heappop(priority_queue)
+                # skip visited
+                if node in visited:
+                    continue
+                visited.add(node)
+    
+                # record cost
+                total += cost
+                # add neighbours
+                for neighbour in graph[node]:
+                    if neighbour[1] not in visited:
+                        heapq.heappush(priority_queue, neighbour)
+    
+            return total
+    
+    class Solution:
+        def minCostConnectPoints(self, points):
+    
+            total = 0
+    
+            # # Create adjacency list
+            # Will use the array indices as id's
+            # Will store  nodes in the form => `parent: [[cost_to_1, node_1], [cost_to_2, node_2], ...]`
+            graph = collections.defaultdict(list)
+            for idx in range(len(points)):
+                x1, y1 = points[idx]
+                for idx2 in range(idx + 1, len(points)):
+                    x2, y2 = points[idx2]
+                    cost = abs(x1 - x2) + abs(y1 - y2)
+    
+                    graph[idx].append([cost, idx2])
+                    graph[idx2].append([cost, idx])
+    
+            # # Prim's Minimum Spanning Tree Algorithm
+            visited = set()
+            priority_queue = []
+            heapq.heappush(priority_queue, (0, 0))  # start from node 0
+            while len(visited) < len(graph):
+                cost, node = heapq.heappop(priority_queue)
+                # skip visited
+                if node in visited:
+                    continue
+                visited.add(node)
+    
+                # record cost
+                total += cost
+                # add neighbours
+                for neighbour in graph[node]:
+                    if neighbour[1] not in visited:
+                        heapq.heappush(priority_queue, neighbour)
+    
+            return total
     ```
     
 - Connecting Cities With Minimum Cost
@@ -1537,14 +1599,14 @@ More generally, consider using a graph when you need to analyze any binary relat
 </aside>
 
 <aside>
-💡 Some graph problems entail analyzing structure, e.g., looking for cycles or connected components. ***[DFS](Searching%20733ff84c808c4c9cb5c40787b2df7b98.md)*** works particularly well for these applications
+💡 Some graph problems entail analysing structure, e.g., looking for cycles or connected components. ***[DFS](Searching%20733ff84c808c4c9cb5c40787b2df7b98.md)*** works particularly well for these applications
 
-DFS is often preferred if we want to visit every node in the graph. Both will work just fine, but the depth-first search is a bit simpler.
+DFS is often preferred **if we want to visit every node in the graph**. Both will work just fine, but the depth-first search is a bit simpler.
 
 </aside>
 
 <aside>
-💡 Some graph problems are related to **optimization**, e.g., finding the shortest path from one vertex to another. **[BFS](Searching%20733ff84c808c4c9cb5c40787b2df7b98.md), Dijkstra’s shortest path algorithm,** and **minimum spanning tree** are examples of graph algorithms appropriate for optimization problems.
+💡 Some graph problems are related to **optimisation**, e.g., finding the shortest path from one vertex to another. **[BFS](Searching%20733ff84c808c4c9cb5c40787b2df7b98.md), Dijkstra’s shortest path algorithm,** and **minimum spanning tree** are examples of graph algorithms appropriate for optimisation problems.
 
 all shortest path problems == BFS
 
@@ -1591,7 +1653,7 @@ A connected component is a maximal set of vertices C such that each pair of vert
 
 [Topological Sort (for graphs) *](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Topological%20Sort%20(for%20graphs)%20e35d20a5223f4c50b4a73c0f71dc2c07.md)
 
-A ***directed acyclic graph*** (DAG) is a directed graph in which there are no cycles, i.e., paths which contain one or more edges and which begin and end at the same vertex.
+A ***directed acyclic graph*** (DAG) is a directed graph in which there are no cycles, i.e., paths that contain one or more edges and which begin and end at the same vertex.
 
 Vertices in a directed acyclic graph that have no incoming edges are referred to as ***sources**.*
 
@@ -1655,7 +1717,7 @@ Cons:
 
 ### **Adjacency Matrix ***
 
-A matrix of **0** and **1** indicating whether node *x* connects to node *y* (**0** means *no*, **1** means *yes*).
+A matrix of **0** and **1** indicates whether node *x* connects to node *y* (**0** means *no*, **1** means *yes*).
 
 Since node **4** has edges to nodes **2** and **5**, `graph[4][2]` and `graph[4][5]` have value **1**.
 
@@ -1685,7 +1747,7 @@ Adjacency matrices perform strongly with **edge lookups**, with a **constant
 
 ---
 
-### Bipartite graph/Look for even cycle using graph coloring
+### Bipartite graph/Look for even cycle using graph colouring
 
 [Possible Bipartition | Bipartite graph | Graph coloring | Leetcode #886](https://youtu.be/0ACfAqs8mm0)
 
@@ -1765,11 +1827,11 @@ A Bipartite Graph is a graph whose vertices can be divided into two independent 
 
 Equivalently, a bipartite graph is a graph that does not contain any odd-length cycles.
 
-![Graph coloring:
+![Graph colouring:
 - the graph on the left has an even cycle
 - the graph on the right failed to make an even cycle (at 4/5)](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-10_at_07.45.57.png)
 
-Graph coloring:
+Graph colouring:
 - the graph on the left has an even cycle
 - the graph on the right failed to make an even cycle (at 4/5)
 
@@ -7422,7 +7484,7 @@ Once we have found the node containing the key we want to *delete*, there are 
         Input: points = [[0,0],[2,2],[3,10],[5,2],[7,0]]
         Output: 20
     Explanation:
-        We can connect the points as sown above to get the minimum cost of 20.
+        We can connect the points as shown above to get the minimum cost of 20.
         Notice that there is a unique path between every pair of points.
     Example 2:
         Input: points = [[3,12],[-2,5],[-4,1]]
@@ -7449,7 +7511,7 @@ Once we have found the node containing the key we want to *delete*, there are 
     https://youtu.be/f7JOBJIC-NA
     """
     
-    class Solution:
+    class Solution_:
         def minCostConnectPoints(self, points):
             total = 0
     
@@ -7460,7 +7522,69 @@ Once we have found the node containing the key we want to *delete*, there are 
                 x1, y1 = points[idx]
                 for idx2 in range(idx + 1, len(points)):
                     x2, y2 = points[idx2]
-              
+                    cost = abs(x1 - x2) + abs(y1 - y2)
+    
+                    graph[str(x1)+str(y1)].append([cost, str(x2)+str(y2)])
+                    graph[str(x2)+str(y2)].append([cost, str(x1)+str(y1)])
+    
+            # # Prim's Minimum Spanning Tree Algorithm
+            visited = set()
+            priority_queue = []
+            first_node = str(points[0][0])+str(points[0][1])
+            heapq.heappush(priority_queue, (0, first_node))  # start from node 0
+            while len(visited) < len(graph):
+                cost, node = heapq.heappop(priority_queue)
+                # skip visited
+                if node in visited:
+                    continue
+                visited.add(node)
+    
+                # record cost
+                total += cost
+                # add neighbours
+                for neighbour in graph[node]:
+                    if neighbour[1] not in visited:
+                        heapq.heappush(priority_queue, neighbour)
+    
+            return total
+    
+    class Solution:
+        def minCostConnectPoints(self, points):
+    
+            total = 0
+    
+            # # Create adjacency list
+            # Will use the array indices as id's
+            # Will store  nodes in the form => `parent: [[cost_to_1, node_1], [cost_to_2, node_2], ...]`
+            graph = collections.defaultdict(list)
+            for idx in range(len(points)):
+                x1, y1 = points[idx]
+                for idx2 in range(idx + 1, len(points)):
+                    x2, y2 = points[idx2]
+                    cost = abs(x1 - x2) + abs(y1 - y2)
+    
+                    graph[idx].append([cost, idx2])
+                    graph[idx2].append([cost, idx])
+    
+            # # Prim's Minimum Spanning Tree Algorithm
+            visited = set()
+            priority_queue = []
+            heapq.heappush(priority_queue, (0, 0))  # start from node 0
+            while len(visited) < len(graph):
+                cost, node = heapq.heappop(priority_queue)
+                # skip visited
+                if node in visited:
+                    continue
+                visited.add(node)
+    
+                # record cost
+                total += cost
+                # add neighbours
+                for neighbour in graph[node]:
+                    if neighbour[1] not in visited:
+                        heapq.heappush(priority_queue, neighbour)
+    
+            return total
     ```
     
 - Connecting Cities With Minimum Cost
@@ -7583,7 +7707,7 @@ Once we have found the node containing the key we want to *delete*, there are 
 
 ## Minimum Spanning Tree
 
-A ***minimum spanning tree*** (or ***MST*** *for* short) is a tree which spans the whole graph **connecting all nodes** together *while* **minimizing the total edge cost**. It's important to note that your spanning tree cannot contain any cycles, otherwise it's not a tree.
+A ***minimum spanning tree*** (or ***MST*** *for* short) is a tree that spans the whole graph **connecting all nodes** together *while* **minimising the total edge cost**. It's important to note that your spanning tree cannot contain any cycles, otherwise it's not a tree.
 
 ![Screenshot 2021-10-19 at 06.00.31.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.00.31.png)
 
@@ -7597,7 +7721,7 @@ Given a connected and undirected graph, a spanning tree of that graph is a subgr
 
 ---
 
-By nature its a greedy algorithm which always selects the next best edge to add to the MST and it works very well on dense graphs with lots of edges.
+By nature, it's a greedy algorithm that always selects the next best edge to add to the MST and it works very well on dense graphs with lots of edges.
 
 ## Prim's Minimum Spanning Tree Algorithm
 
@@ -7605,7 +7729,7 @@ By nature its a greedy algorithm which always selects the next best edge to add 
 
 ### Lazy Prim's Minimum Spanning Tree Algorithm
 
-Maintain a ***Priority Queue*** that sorts edges based on minimum edge cost. This PQ is used to **tell you which node to go to next** and **what edge was used to get there**. Then the algorithm begins and we start on any starting node s and mark s as visited and iterate over all its edges and add them to the PQ. From this point on, while the PQ is not empty and a MST has not been formed, dequeue the next best edge from the PQ. If the dequeued edge is not outdatedwhich it could be if we visit the node it points to via another path before getting to this edge then mark the current node as visited and add the selectededge to the PQ. If you selected a stale outdated edge simply poll again.Then repeat the process of iterating over the current node's edges and adding them to the PQ. While doing this care not to add edges which point to alreadyvisited nodes, this will reduce the number of outdated edges in the PQ.
+Maintain a ***Priority Queue*** that sorts edges based on minimum edge cost. This PQ is used to **tell you which node to go to next** and **what edge was used to get there**. Then the algorithm begins and we start on any starting node s and mark s as visited and iterate over all its edges and add them to the PQ. From this point on, while the PQ is not empty and an MST has not been formed, dequeue the next best edge from the PQ. If the dequeued edge is not outdated which it could be if we visit the node it points to via another path before getting to this edge then mark the current node as visited and add the selected edge to the PQ. If you selected a stale outdated edge simply poll again. Then repeat the process of iterating over the current node's edges and adding them to the PQ. While doing this care not to add edges that point to already visited nodes, this will reduce the number of outdated edges in the PQ.
 
 [Screen Recording 2021-10-19 at 06.15.29.mov](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screen_Recording_2021-10-19_at_06.15.29.mov)
 
@@ -7613,9 +7737,9 @@ Maintain a ***Priority Queue*** that sorts edges based on minimum edge cost. Thi
 
 [Eager Prim's Minimum Spanning Tree Algorithm | Graph Theory](https://youtu.be/xq3ABa-px_g)
 
-The lazy implementation of Prim’s inserts `E` edges into the PQ. This results in each poll operation on the PQ to be `O(log(E))`. In the eager version, we maintain the idea that instead of adding edges to the PQ which could later become stale, that instead we should track `(node, edge)` key-value pairs that can easily be  updated and polled to determine the next best edge to add to the MST.
+The lazy implementation of Prim’s inserts `E` edges into the PQ. This results in each poll operation on the PQ to be `O(log(E))`. In the eager version, we maintain the idea that instead of adding edges to the PQ which could later become stale, that instead, we should track `(node, edge)` key-value pairs that can easily be updated and polled to determine the next best edge to add to the MST.
 
-For this all to make sense there's a **key realization** that needs to happen and that is: for any MST with directed edges, each node is **paired with exactly one of its incoming edges** (except for the start node). One way to see this is on a MST with possibly multiple edges leaving a node, but only ever one edge entering a node.
+For this all to make sense there's a **key realisation** that needs to happen and that is: for any MST with directed edges, each node is **paired with exactly one of its incoming edges** (except for the start node). One way to see this is on an MST with possibly multiple edges leaving a node, but only ever one edge entering a node.
 
 ![Screenshot 2021-10-19 at 06.34.57.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-19_at_06.34.57.png)
 
@@ -7653,7 +7777,7 @@ Examples (do not add more here, add above)
         Input: points = [[0,0],[2,2],[3,10],[5,2],[7,0]]
         Output: 20
     Explanation:
-        We can connect the points as sown above to get the minimum cost of 20.
+        We can connect the points as shown above to get the minimum cost of 20.
         Notice that there is a unique path between every pair of points.
     Example 2:
         Input: points = [[3,12],[-2,5],[-4,1]]
@@ -7680,7 +7804,7 @@ Examples (do not add more here, add above)
     https://youtu.be/f7JOBJIC-NA
     """
     
-    class Solution:
+    class Solution_:
         def minCostConnectPoints(self, points):
             total = 0
     
@@ -7691,7 +7815,69 @@ Examples (do not add more here, add above)
                 x1, y1 = points[idx]
                 for idx2 in range(idx + 1, len(points)):
                     x2, y2 = points[idx2]
-              
+                    cost = abs(x1 - x2) + abs(y1 - y2)
+    
+                    graph[str(x1)+str(y1)].append([cost, str(x2)+str(y2)])
+                    graph[str(x2)+str(y2)].append([cost, str(x1)+str(y1)])
+    
+            # # Prim's Minimum Spanning Tree Algorithm
+            visited = set()
+            priority_queue = []
+            first_node = str(points[0][0])+str(points[0][1])
+            heapq.heappush(priority_queue, (0, first_node))  # start from node 0
+            while len(visited) < len(graph):
+                cost, node = heapq.heappop(priority_queue)
+                # skip visited
+                if node in visited:
+                    continue
+                visited.add(node)
+    
+                # record cost
+                total += cost
+                # add neighbours
+                for neighbour in graph[node]:
+                    if neighbour[1] not in visited:
+                        heapq.heappush(priority_queue, neighbour)
+    
+            return total
+    
+    class Solution:
+        def minCostConnectPoints(self, points):
+    
+            total = 0
+    
+            # # Create adjacency list
+            # Will use the array indices as id's
+            # Will store  nodes in the form => `parent: [[cost_to_1, node_1], [cost_to_2, node_2], ...]`
+            graph = collections.defaultdict(list)
+            for idx in range(len(points)):
+                x1, y1 = points[idx]
+                for idx2 in range(idx + 1, len(points)):
+                    x2, y2 = points[idx2]
+                    cost = abs(x1 - x2) + abs(y1 - y2)
+    
+                    graph[idx].append([cost, idx2])
+                    graph[idx2].append([cost, idx])
+    
+            # # Prim's Minimum Spanning Tree Algorithm
+            visited = set()
+            priority_queue = []
+            heapq.heappush(priority_queue, (0, 0))  # start from node 0
+            while len(visited) < len(graph):
+                cost, node = heapq.heappop(priority_queue)
+                # skip visited
+                if node in visited:
+                    continue
+                visited.add(node)
+    
+                # record cost
+                total += cost
+                # add neighbours
+                for neighbour in graph[node]:
+                    if neighbour[1] not in visited:
+                        heapq.heappush(priority_queue, neighbour)
+    
+            return total
     ```
     
 - Connecting Cities With Minimum Cost
@@ -8389,7 +8575,7 @@ int range_min_query(int node, int st, int end, int l, int r)
 }
 ```
 
-**Time Complexity:** Since, at any level at most 4 nodes will be visited and the total number of levels in the tree is log(N). The upper bound of the all the visited nodes would be 4*log(N). Hence, the time complexity of each query would be **O(log(N).**
+**Time Complexity:** Since at any level at most 4 nodes will be visited and the total number of levels in the tree is log(N). The upper bound of all the visited nodes would be 4*log(N). Hence, the time complexity of each query would be **O(log(N).**
 
 ## **Range Sum Query - Mutable**
 

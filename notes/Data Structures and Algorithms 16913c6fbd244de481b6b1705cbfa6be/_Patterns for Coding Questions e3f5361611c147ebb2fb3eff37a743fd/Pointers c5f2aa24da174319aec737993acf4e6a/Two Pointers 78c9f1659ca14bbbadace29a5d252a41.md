@@ -153,7 +153,7 @@ Given a sorted array, create a new array containing squares of all the numbers o
 (arrange from largest to smallest then reverse)
 - beacause our input array contains negative numbers, 
     the largest square can be either on the far right or far left
-- so we need tto iterate inwards (from outward):
+- so we need to iterate inwards (from outward):
     - have a left & right pointer at both ends of the array and consider the largest square 
 
 Use two pointers starting at both ends of the input array. 
@@ -590,6 +590,8 @@ class Solution_:
 
 - Container With Most Water *
     
+    Trapping Rain Water (but not considering the water lost by the area/volume of bars)
+    
     ![Screenshot 2021-10-16 at 19.42.02.png](Two%20Pointers%2078c9f1659ca14bbbadace29a5d252a41/Screenshot_2021-10-16_at_19.42.02.png)
     
     [Screen Recording 2021-09-21 at 18.50.42.mov](Two%20Pointers%2078c9f1659ca14bbbadace29a5d252a41/Screen_Recording_2021-09-21_at_18.50.42.mov)
@@ -606,6 +608,8 @@ class Solution_:
     Notice that you may not slant the container.
     
     https://leetcode.com/problems/container-with-most-water/
+    
+    Trapping Rain Water (but not considering the water lost by the area/volume of bars)
     """
     
     class SolutionBF:
@@ -771,7 +775,7 @@ class Solution_:
         def maxProfit(self, prices):
             """
             If we analyze the graph, we notice that the points of interest are the consecutive valleys and peaks.
-            Add every upward slope(valley->peak)
+            Add every upward slope (valley->peak)
             https://www.notion.so/paulonteri/Two-Pointers-78c9f1659ca14bbbadace29a5d252a41#ca35efcb515445a091c0a0dfcefed057
             """
             result = 0
@@ -821,6 +825,8 @@ class Solution_:
     
     [Trapping Rainwater Problem | Leetcode #42](https://youtu.be/C8UjlJZsHBw?t=1413)
     
+    Container With Most Water (but considering the water lost by the area/volume of bars)
+    
     [Screen Recording 2021-10-27 at 14.33.50.mov](Two%20Pointers%2078c9f1659ca14bbbadace29a5d252a41/Screen_Recording_2021-10-27_at_14.33.50.mov)
     
     ```python
@@ -839,6 +845,8 @@ class Solution_:
         Output: 9
     
     https://leetcode.com/problems/trapping-rain-water
+    
+    Container With Most Water (but considering the water lost by the area/volume of bars)
     """
     from typing import List
     
@@ -863,7 +871,7 @@ class Solution_:
         def trap(self, height: List[int]):
             """
             - the water stored at a particular height is
-                - min(max_left, max_height) - height  # negatives are ignored
+                - min(max_left, max_right) - height  # negatives are ignored
             - the max of the furthest ends are the furthest ends heights
             """
             total_water = 0

@@ -2047,7 +2047,7 @@ For me this revelation was pure bliss. Take a moment to celebrate the history of
 DFS → diving as deep as possible before coming back to take a dive again: can use stack
 
 <aside>
-💡 DFS is suitable for **game or puzzle problems**. We make a decision, then explore all paths through this decision. And if this decision leads to winning situation, we stop.
+💡 DFS is suitable for **game or puzzle problems**. We make a decision, then explore all paths through this decision. And if this decision leads to a winning situation, we stop.
 
 </aside>
 

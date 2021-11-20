@@ -2211,6 +2211,8 @@ The majority of the Dynamic Programming problems can be categorized into two typ
 
 - Longest Increasing Subsequence *
     
+    [Longest Increasing Subsequence - Dynamic Programming - Leetcode 300](https://youtu.be/cjWnW0hdF1Y)
+    
     ![Tabulation_2](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-12_at_12.20.04.png)
     
     Tabulation_2
@@ -2522,6 +2524,7 @@ The majority of the Dynamic Programming problems can be categorized into two typ
     
     You are climbing a staircase. It takes n steps to reach the top.
     Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+    
     https://leetcode.com/problems/climbing-stairs/
     """
     
@@ -3491,13 +3494,19 @@ In recursion for example for Fibonacci calculation, if the root node (in the rec
 [Screen Recording 2021-10-25 at 18.50.53.mov](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screen_Recording_2021-10-25_at_18.50.53.mov)
 
 [Backtracking](https://en.wikipedia.org/wiki/Backtracking) is an algorithmic technique that involves trying possibilities along a "search path" and cutting off paths of search that will no longer yield a solution.
-Backtracking is an algorithmic-technique for solving problems recursively by trying to build a solution incrementally, one piece at a time, removing those solutions that fail to satisfy the constraints of the problem at any point of time (by time, here, is referred to the time elapsed till reaching any level of the search tree).
+Backtracking is an algorithmic technique for solving problems recursively by trying to build a solution incrementally, one piece at a time, removing those solutions that fail to satisfy the constraints of the problem at any point of time (by time, here, is referred to the time elapsed till reaching any level of the search tree).
 
 ![Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Untitled%201.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Untitled%201.png)
 
+<aside>
+💡 How to identify Backtracking:
+It is a general dfs algorithm for **finding all (or some) solutions to some problems with constraints**.
+
+</aside>
+
 Backtracking is an algorithmic technique that considers searching in every possible combination for solving a computational problem.
 
-It is known for solving problems recursively one step at a time and removing those solutions that that do not satisfy the problem constraints at any point of time.
+It is known for solving problems recursively one step at a time and removing those solutions that do not satisfy the problem constraints at any point in time.
 It is a **refined brute force** approach that tries out all the possible solutions and chooses the best possible ones out of them.
 
 ### Examples:
@@ -3599,6 +3608,20 @@ It is a **refined brute force** approach that tries out all the possible solut
     
 
 - Permutations II **
+    
+    ![Screenshot 2021-11-15 at 13.11.30.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-15_at_13.11.30.png)
+    
+    ![Screenshot 2021-11-15 at 13.15.00.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-15_at_13.15.00.png)
+    
+    ![Screenshot 2021-11-15 at 13.15.26.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-15_at_13.15.26.png)
+    
+    ![Screenshot 2021-11-15 at 13.15.44.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-15_at_13.15.44.png)
+    
+    ![Screenshot 2021-11-15 at 13.16.07.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-15_at_13.16.07.png)
+    
+    ![Screenshot 2021-11-15 at 13.16.46.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-15_at_13.16.46.png)
+    
+    ![Screenshot 2021-11-15 at 13.17.02.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-15_at_13.17.02.png)
     
     ![Screenshot 2021-10-13 at 14.57.32.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-13_at_14.57.32.png)
     
@@ -4006,6 +4029,8 @@ It is a **refined brute force** approach that tries out all the possible solut
     ![with caching](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-26_at_14.16.45.png)
     
     with caching
+    
+    ![Screenshot 2021-11-14 at 18.49.48.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-14_at_18.49.48.png)
     
     ```python
     """ 

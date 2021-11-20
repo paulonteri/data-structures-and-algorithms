@@ -21,35 +21,7 @@ Note that in the context of coding interviews, Big O notation is usually underst
 
 ---
 
-### Logarithm
-
 ![Screenshot 2021-09-21 at 16.57.00.png](Complexity%20Analysis%20&%20Big%20O%20ded85f7996b548c7953055302969348c/Screenshot_2021-09-21_at_16.57.00.png)
-
-A mathematical concept that's widely used in Computer Science and that's defined by the following equation:
-
-<aside>
-💡 **log b(x) = y** if and only if **b^y = x**
-
-</aside>
-
-In the context of coding interviews, the logarithm is used to describe the complexity analysis of algorithms, and its usage always implies a **logarithm of base 2**. In other words, the logarithm used in the context of coding interviews is defined by the following equation:
-
-<aside>
-💡 **log(n) = y** if and only if **2y = n**
-
-</aside>
-
-In plain English, if an algorithm has a logarithmic time complexity **`O(log(n)`**, where `n` is the size of the input), then **whenever the algorithm's input doubles in size** (i.e., whenever **n** doubles), **the number of operations needed to complete the algorithm only increases by one unit**. Conversely, an algorithm with a linear time complexity would see its number of operations double if its input size doubled.
-
-As an example, a linear-time-complexity algorithm with an input of size 1,000 might take roughly 1,000 operations to complete, whereas a logarithmic-time-complexity algorithm with the same input would take roughly 10 operations to complete, since **210 ~= 1,000**.
-
-## 2**n (2^n)
-
-If n is the size of the input), then **whenever the algorithm's input increases in size** (i.e., **n+1**), **the number of operations needed to complete the algorithm doubles**.
-
-### example
-
-![Screenshot 2021-10-11 at 16.44.02.png](Complexity%20Analysis%20&%20Big%20O%20ded85f7996b548c7953055302969348c/Screenshot_2021-10-11_at_16.44.02.png)
 
 ---
 
@@ -150,7 +122,33 @@ But what about **space complexity**? We’re using a few variables, but the obvi
 
 But the reality is that it’s actually **O(1)** 🤯 because you are only dealing with a **finite character set.** Sometimes see this big-O notation written as **O(C)**. It’s used to express the fact that constant time/space isn’t just limited to one step or one unit of memory usage. There can be some amount of scaling up in runtime or memory usage, as long as it’s to some **fixed, finite upper limit**.
 
-## Example
+## Examples
+
+### Logarithm
+
+A mathematical concept that's widely used in Computer Science and that's defined by the following equation:
+
+<aside>
+💡 **log b(x) = y** if and only if **b^y = x**
+
+</aside>
+
+In the context of coding interviews, the logarithm is used to describe the complexity analysis of algorithms, and its usage always implies a **logarithm of base 2**. In other words, the logarithm used in the context of coding interviews is defined by the following equation:
+
+<aside>
+💡 **log(n) = y** if and only if **2y = n**
+
+</aside>
+
+In plain English, if an algorithm has a logarithmic time complexity **`O(log(n)`**, where `n` is the size of the input), then **whenever the algorithm's input doubles in size** (i.e., whenever **n** doubles), **the number of operations needed to complete the algorithm only increases by one unit**. Conversely, an algorithm with a linear time complexity would see its number of operations double if its input size doubled.
+
+As an example, a linear-time-complexity algorithm with an input of size 1,000 might take roughly 1,000 operations to complete, whereas a logarithmic-time-complexity algorithm with the same input would take roughly 10 operations to complete, since **210 ~= 1,000**.
+
+### 2**n (2^n) - **whenever the algorithm's input increases in size**, **the number of operations needed to complete the algorithm doubles**.
+
+If n is the size of the input), then **whenever the algorithm's input increases in size** (i.e., **n+1**), **the number of operations needed to complete the algorithm doubles**.
+
+![Screenshot 2021-10-11 at 16.44.02.png](Complexity%20Analysis%20&%20Big%20O%20ded85f7996b548c7953055302969348c/Screenshot_2021-10-11_at_16.44.02.png)
 
 ### Factorial - N * (N-1) * (N-2) * (N-3) * ... * 2 * 1  ==  N!
 
@@ -194,4 +192,5 @@ Examples:
 
 The time complexity of DFS & BFS if the entire tree is traversed is `O(V)` where V is the number of nodes. In the case of a **graph**, the time complexity is where V is the number of vertexes and E is the number of edges.
 
-The **Time complexity of BFS** is `O(V+E)` when **Adjacency List** is used and `O(V^2)` when **Adjacency Matrix** is used, where V stands for vertices and E stands for edges.
+> The **Time complexity of BFS** is `O(V+E)` when **Adjacency List** is used and `O(V^2)` when **Adjacency Matrix** is used, where V stands for vertices and E stands for edges.
+>

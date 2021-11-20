@@ -19,7 +19,7 @@ print(x**2) # 4
 print(x*x) # 4
 ```
 
-### Square root
+### Square root *
 
 ```python
 import math
@@ -30,9 +30,9 @@ math.sqrt(49)
 
 ### Modulus(%) vs Floor(//)
 
-M**odulus:** The modulus-function computes the remainder of a division, which is the "leftover" of an integral division.
+**Modulus:** The modulus-function computes the remainder of a division, which is the "leftover" of an integral division.
 
-F**loor:** The floor-function provides the lower-bound of an integral division. The upper-bound is computed by the ceil function. (Basically speaking, the floor-function cuts off all decimals).
+**Floor:** The floor-function provides the lower-bound of an integral division. The upper-bound is computed by the ceil function. (Basically speaking, the floor-function cuts off all decimals).
 
 ```python
 # modulus
@@ -196,3 +196,13 @@ import random
 ## [heapq](Heaps%20&%20Priority%20Queues%20bb4a8de1dbe54089854d8d03c833126c.md)
 
 [Heaps & Priority Queues](Heaps%20&%20Priority%20Queues%20bb4a8de1dbe54089854d8d03c833126c.md)
+
+## collections
+
+### `collections.deque()` *
+
+### `collections.defaultdict`
+
+### `collections.OrderedDict`
+
+## `sortedcontainers.SortedDict`
