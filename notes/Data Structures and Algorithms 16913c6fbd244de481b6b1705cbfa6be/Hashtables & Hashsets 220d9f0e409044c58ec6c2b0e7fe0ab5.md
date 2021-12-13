@@ -182,7 +182,8 @@ foo.discard(41) # -> **no error .discard()**
     # ans = v1.dotProduct(v2)
     ```
     
-- Random Pick Index
+
+- Random Pick Index *
     
     ```python
     """ 
@@ -210,6 +211,7 @@ foo.discard(41) # -> **no error .discard()**
     https://leetcode.com/problems/random-pick-index
     """
     
+    from typing import List
     import collections
     import random
     
@@ -229,6 +231,25 @@ foo.discard(41) # -> **no error .discard()**
     # param_1 = obj.pick(target)
     
     # Other solution https://leetcode.com/problems/random-pick-index/discuss/88153/Python-reservoir-sampling-solution.
+    
+    class Solution:
+    
+        def __init__(self, nums: List[int]):
+            self.nums = nums
+    
+        def pick(self, target: int):
+            """ 
+            Reservoir sampling
+            - at every valid index, try to see whether the current index can be picked
+            """
+            count = 0
+            idx = 0
+            for i in range(len(self.nums)):
+                if self.nums[i] == target:
+                    count += 1
+                    if random.randint(0, count - 1) == 0:
+                        idx = i
+            return idx
     ```
     
 
@@ -319,6 +340,30 @@ for key in list_dict:
 ```
 
 when it comes to build hash's hash's hash kind of jobs, [`defaultdict` is really handy](https://leetcode.com/problems/invalid-transactions/discuss/1570056/Using-HashTableHashMap-or-Comments-added).
+
+The behavior of `defaultdict` can be easily mimicked using `dict.setdefault` instead of `d[key]` in every call. 
+
+In other words, the code:
+
+```python
+from collections import defaultdict
+
+d = defaultdict(list)
+
+print(d['key'])                        # empty list []
+d['key'].append(1)                     # adding constant 1 to the list
+print(d['key'])                        # list containing the constant [1]
+```
+
+is equivalent to:
+
+```python
+d = dict()
+
+print(d.setdefault('key', list()))     # empty list []
+d.setdefault('key', list()).append(1)  # adding constant 1 to the list
+print(d.setdefault('key', list()))     # list containing the constant [1]
+```
 
 - Invalid Transactions **
     - Record all transactions done at a particular time. Recording the person and the location.Example:

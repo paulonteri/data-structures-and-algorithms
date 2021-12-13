@@ -1033,6 +1033,255 @@ use botom up design - design smallest components to the largest
     ```
     
 
+---
+
+- Read N Characters Given Read4
+    
+    ```python
+    """ 
+    157. Read N Characters Given Read4
+    
+    Given a file and assume that you can only read the file using a given method read4, 
+    implement a method to read n characters.
+    
+    Method read4:
+        The API read4 reads four consecutive characters from file, then writes those characters into the buffer array buf4.
+        The return value is the number of actual characters read.
+        Note that read4() has its own file pointer, much like FILE *fp in C.
+    
+    Definition of read4
+        Parameter:  char[] buf4
+        Returns:    int
+    
+    buf4[] is a destination, not a source. The results from read4 will be copied to buf4[].
+    
+    Below is a high-level example of how read4 works:
+    
+        File file("abcde"); // File is "abcde", initially file pointer (fp) points to 'a'
+        char[] buf4 = new char[4]; // Create buffer with enough space to store characters
+        read4(buf4); // read4 returns 4. Now buf4 = "abcd", fp points to 'e'
+        read4(buf4); // read4 returns 1. Now buf4 = "e", fp points to end of file
+        read4(buf4); // read4 returns 0. Now buf4 = "", fp points to end of file
+     
+    
+    Method read:
+        By using the read4 method, implement the method read that reads n characters from file and store it in the buffer array buf. 
+        Consider that you cannot manipulate file directly.
+        The return value is the number of actual characters read.
+    
+    Definition of read:
+        Parameters:	char[] buf, int n
+        Returns:	int
+    
+    buf[] is a destination, not a source. You will need to write the results to buf[].
+    
+    Note:
+        Consider that you cannot manipulate the file directly. The file is only accessible for read4 but not for read.
+        The read function will only be called once for each test case.
+        You may assume the destination buffer array, buf, is guaranteed to have enough space for storing n characters.
+     
+    
+    Example 1:
+        Input: file = "abc", n = 4
+        Output: 3
+        Explanation: 
+            After calling your read method, buf should contain "abc". We read a total of 3 characters from the file, so return 3.
+        Note that "abc" is the file's content, not buf. buf is the destination buffer that you will have to write the results to.
+    Example 2:
+        Input: file = "abcde", n = 5
+        Output: 5
+        Explanation: 
+            After calling your read method, buf should contain "abcde". We read a total of 5 characters from the file, so return 5.
+    Example 3:
+        Input: file = "abcdABCD1234", n = 12
+        Output: 12
+        Explanation: 
+            After calling your read method, buf should contain "abcdABCD1234". We read a total of 12 characters from the file, so return 12.
+    Example 4:
+        Input: file = "leetcode", n = 5
+        Output: 5
+        Explanation: 
+            After calling your read method, buf should contain "leetc". We read a total of 5 characters from the file, so return 5.
+    """
+    import math
+    
+    def read4(buf4): return -1
+    
+    """
+    The read4 API is already defined for you.
+    
+        @param buf4, a list of characters
+        @return an integer
+        def read4(buf4):
+    
+    # Below is an example of how the read4 API can be called.
+    file = File("abcdefghijk") # File is "abcdefghijk", initially file pointer (fp) points to 'a'
+    buf4 = [' '] * 4 # Create buffer with enough space to store characters
+    read4(buf4) # read4 returns 4. Now buf = ['a','b','c','d'], fp points to 'e'
+    read4(buf4) # read4 returns 4. Now buf = ['e','f','g','h'], fp points to 'i'
+    read4(buf4) # read4 returns 3. Now buf = ['i','j','k',...], fp points to end of file
+    """
+    
+    class Solution:
+        def read(self, buf, n):
+            """
+            :type buf: Destination buffer (List[str])
+            :type n: Number of characters to read (int)
+            :rtype: The number of actual characters read (int)
+            """
+    
+            buf4 = [""] * 4
+            idx = 0
+            for _ in range(math.ceil(n/4)):
+                # # read characters
+                num_read = read4(buf4)
+    
+                max_read = num_read
+                # ensure we do not read more than required
+                # if (idx + num_read - 1) > (n - 1):  # -1 to use indices
+                if idx + num_read > n:
+                    max_read = n-idx
+    
+                # # add the read characters to buf
+                for num in range(max_read):
+                    buf[idx] = buf4[num]
+                    idx += 1
+    
+            return idx
+    ```
+    
+- Read N Characters Given Read4 II - Call multiple times
+    
+    ```python
+    """ 
+    Read N Characters Given Read4 II - Call multiple times:
+    
+    Given a file and assume that you can only read the file using a given method read4, 
+    implement a method read to read n characters. Your method read may be called multiple times.
+    
+    Method read4:
+        The API read4 reads four consecutive characters from file, then writes those characters into the buffer array buf4.
+        The return value is the number of actual characters read.
+        Note that read4() has its own file pointer, much like FILE *fp in C.
+    
+    Definition of read4:
+        Parameter:  char[] buf4
+        Returns:    int
+    
+    buf4[] is a destination, not a source. The results from read4 will be copied to buf4[].
+    
+    Below is a high-level example of how read4 works:
+        File file("abcde"); // File is "abcde", initially file pointer (fp) points to 'a'
+        char[] buf4 = new char[4]; // Create buffer with enough space to store characters
+        read4(buf4); // read4 returns 4. Now buf4 = "abcd", fp points to 'e'
+        read4(buf4); // read4 returns 1. Now buf4 = "e", fp points to end of file
+        read4(buf4); // read4 returns 0. Now buf4 = "", fp points to end of file
+     
+    
+    Method read:
+        By using the read4 method, implement the method read that reads n characters from file and store it in the buffer array buf. Consider that you cannot manipulate file directly.
+        The return value is the number of actual characters read.
+    
+    Definition of read:
+        Parameters:	char[] buf, int n
+        Returns:	int
+    
+    buf[] is a destination, not a source. You will need to write the results to buf[].
+    
+    Note:
+        Consider that you cannot manipulate the file directly. The file is only accessible for read4 but not for read.
+        The read function may be called multiple times.
+        Please remember to RESET your class variables declared in Solution, as static/class variables are persisted across multiple test cases. Please see here for more details.
+        You may assume the destination buffer array, buf, is guaranteed to have enough space for storing n characters.
+        It is guaranteed that in a given test case the same buffer buf is called by read.
+     
+    
+    Example 1:
+        Input: file = "abc", queries = [1,2,1]
+        Output: [1,2,0]
+        Explanation: The test case represents the following scenario:
+        File file("abc");
+        Solution sol;
+        sol.read(buf, 1); // After calling your read method, buf should contain "a". We read a total of 1 character from the file, so return 1.
+        sol.read(buf, 2); // Now buf should contain "bc". We read a total of 2 characters from the file, so return 2.
+        sol.read(buf, 1); // We have reached the end of file, no more characters can be read. So return 0.
+        Assume buf is allocated and guaranteed to have enough space for storing all characters from the file.
+    Example 2:
+        Input: file = "abc", queries = [4,1]
+        Output: [3,0]
+        Explanation: The test case represents the following scenario:
+        File file("abc");
+        Solution sol;
+        sol.read(buf, 4); // After calling your read method, buf should contain "abc". We read a total of 3 characters from the file, so return 3.
+        sol.read(buf, 1); // We have reached the end of file, no more characters can be read. So return 0.
+    
+    https://leetcode.com/problems/read-n-characters-given-read4-ii-call-multiple-times
+    # https://leetcode.com/problems/read-n-characters-given-read4-ii-call-multiple-times/discuss/49607/The-missing-clarification-you-wish-the-question-provided
+    # https://leetcode.com/problems/read-n-characters-given-read4-ii-call-multiple-times/discuss/49601/What-is-the-difference-between-call-once-and-call-multiple-times
+    """
+    from collections import deque
+    
+    # The read4 API is already defined for you.
+    def read4(buf4): return -1
+    
+    class Solution:
+        def __init__(self):
+            self.read_items_queue = deque()
+            self.buf4 = [""] * 4
+    
+        def read(self, buf, n):
+    
+            prev_read_count = 4
+            idx = 0
+            # # if we haven't read all the characters yet there are more to be read
+            #   more to be read: have items in queue or did not reach end of file (read4)
+            while idx < n and (self.read_items_queue or prev_read_count):
+    
+                # we have prev characters
+                if self.read_items_queue:
+                    buf[idx] = self.read_items_queue.popleft()
+                    idx += 1
+    
+                # add more characters to the queue
+                prev_read_count = read4(self.buf4)
+                self.read_items_queue += self.buf4[:prev_read_count]
+    
+            return idx
+    
+    """ 
+    
+    """
+    
+    class Solution_:
+        def __init__(self):
+            self.queue = []
+            self.buf4 = [""] * 4
+    
+        def read(self, buf, n):
+    
+            num_read = 4
+            idx = 0
+    
+            while idx < n:
+    
+                # we have prev characters
+                if self.queue:
+                    buf[idx] = self.queue.pop(0)
+                    idx += 1
+    
+                # the last time we read we found that we have no more characters
+                elif num_read < 4:
+                    return idx
+    
+                # add more characters to the queue
+                else:
+                    num_read = read4(self.buf4)
+                    self.queue += self.buf4[:num_read]
+    
+            return idx
+    ```
+    
+
 ### Deck of cards
 
 [Design Interview Question: Design a Deck of Cards [Logicmojo.com]](https://youtu.be/lDa8I7iA5FA)
@@ -1612,6 +1861,404 @@ print(paul_png.name)  # paul.png
 print(paul_png.path)  # /pictures/paul.png
 ```
 
+### Design Unix File Search API / Linux Find Command
+
+```python
+# Design Unix File Search API / Linux Find Command
+""" 
+As for what I would expect (not necessarily all of these):
+    - Obviously coming straight to the right design (encapsulating the Filtering logic into its own interface etc...), with an explanation on why this approach is good. I'm obviously open to alternate approaches as long as they are as flexible and elegant.
+    - Implement boolean logic: AND/OR/NOT, here I want to see if the candidate understands object composition
+    - Support for symlinks. Rather than seeing the implementation (which I don't really care about) I want to understand the tradeoffs of adding yet another parameter to the find method VS other options (eg. Constructor). Keep adding params to a method is usually bad.
+    - How to handle the case where the result is really big (millions of files), and you may not be able to put all of them into a List.
+"""
+from abc import ABC, abstractmethod
+from collections import deque
+from typing import List
+
+# File
+# - no need to implement different files & directories as that will not be used in this system
+
+class File:
+    def __init__(self, name, size):
+        self.name = name
+        self.size = size
+        self.children = []
+        self.is_directory = False if '.' in name else True
+        self.children = []
+        self.extension = name.split(".")[1] if '.' in name else ""
+
+    def __repr__(self):
+        return "{"+self.name+"}"
+
+# Filters
+
+class Filter(ABC):
+    def __init__(self):
+        pass
+
+    @abstractmethod
+    def apply(self, file):
+        pass
+
+class MinSizeFilter(Filter):
+    def __init__(self, size):
+        self.size = size
+
+    def apply(self, file):
+        return file.size > self.size
+
+class ExtensionFilter(Filter):
+    def __init__(self, extension):
+        self.extension = extension
+
+    def apply(self, file):
+        return file.extension == self.extension
+
+# LinuxFindCommand
+
+class LinuxFind():
+    def __init__(self):
+        self.filters: List[Filter] = []
+
+    def add_filter(self, given_filter):
+        # validate given_filter is a filter
+        if isinstance(given_filter, Filter):
+            self.filters.append(given_filter)
+
+    def apply_OR_filtering(self, root):
+        found_files = []
+
+        # bfs
+        queue = deque()
+        queue.append(root)
+        while queue:
+            # print(queue)
+            curr_root = queue.popleft()
+            if curr_root.is_directory:
+                for child in curr_root.children:
+                    queue.append(child)
+            else:
+                for filter in self.filters:
+                    if filter.apply(curr_root):
+                        found_files.append(curr_root)
+                        print(curr_root)
+                        break
+        return found_files
+
+    def apply_AND_filtering(self, root):
+        found_files = []
+
+        # bfs
+        queue = deque()
+        queue.append(root)
+        while queue:
+            curr_root = queue.popleft()
+            if curr_root.is_directory:
+                for child in curr_root.children:
+                    queue.append(child)
+            else:
+                is_valid = True
+                for filter in self.filters:
+                    if not filter.apply(curr_root):
+                        is_valid = False
+                        break
+                if is_valid:
+                    found_files.append(curr_root)
+                    print(curr_root)
+
+        return found_files
+
+f1 = File("root_300", 300)
+
+f2 = File("fiction_100", 100)
+f3 = File("action_100", 100)
+f4 = File("comedy_100", 100)
+f1.children = [f2, f3, f4]
+
+f5 = File("StarTrek_4.txt", 4)
+f6 = File("StarWars_10.xml", 10)
+f7 = File("JusticeLeague_15.txt", 15)
+f8 = File("Spock_1.jpg", 1)
+f2.children = [f5, f6, f7, f8]
+
+f9 = File("IronMan_9.txt", 9)
+f10 = File("MissionImpossible_10.rar", 10)
+f11 = File("TheLordOfRings_3.zip", 3)
+f3.children = [f9, f10, f11]
+
+f11 = File("BigBangTheory_4.txt", 4)
+f12 = File("AmericanPie_6.mp3", 6)
+f4.children = [f11, f12]
+
+greater5_filter = MinSizeFilter(5)
+txt_filter = ExtensionFilter("txt")
+
+my_linux_find = LinuxFind()
+my_linux_find.add_filter(greater5_filter)
+my_linux_find.add_filter(txt_filter)
+
+print(my_linux_find.apply_OR_filtering(f1))
+print(my_linux_find.apply_AND_filtering(f1))
+```
+
+```java
+package linux_find_command;
+
+// https://www.programmersought.com/article/31817103996/
+
+/*
+As for what I would expect (not necessarily all of these):
+    - Obviously coming straight to the right design (encapsulating the Filtering logic into its own interface etc...), with an explanation on why this approach is good. I'm obviously open to alternate approaches as long as they are as flexible and elegant.
+    - Implement boolean logic: AND/OR/NOT, here I want to see if the candidate understands object composition
+    - Support for symlinks. Rather than seeing the implementation (which I don't really care about) I want to understand the tradeoffs of adding yet another parameter to the find method VS other options (eg. Constructor). Keep adding params to a method is usually bad.
+    - How to handle the case where the result is really big (millions of files), and you may not be able to put all of them into a List.
+*/
+
+// "static void main" must be defined in a public class.
+public class LinuxFindCommand {
+    public static void main(String[] args) {
+      new LinuxFindCommand().test();
+    }
+    
+    private void test() {
+      SearchParams params = new SearchParams();
+      params.extension = "xml";
+      params.minSize = 2;
+      params.maxSize = 100;
+   
+      File xmlFile = new File();
+      xmlFile.setContent("aaa.xml".getBytes());
+      xmlFile.name = "aaa.xml";
+   
+      File txtFile = new File();
+      txtFile.setContent("bbb.txt".getBytes());
+      txtFile.name = "bbb.txt";
+   
+      File jsonFile = new File();
+      jsonFile.setContent("ccc.json".getBytes());
+      jsonFile.name = "ccc.json";
+   
+      Directory dir1 = new Directory();
+      dir1.addEntry(txtFile);
+      dir1.addEntry(xmlFile);
+   
+      Directory dir0 = new Directory();
+      dir0.addEntry(jsonFile);
+      dir0.addEntry(dir1);
+   
+      FileSearcher searcher = new FileSearcher();
+      System.out.println(searcher.search(dir0, params));
+    }
+
+    // Files
+   
+    public interface IEntry {
+   
+      String getName();
+   
+      void setName(String name);
+   
+      int getSize();
+   
+      boolean isDirectory();
+    }
+
+   
+    private abstract class Entry implements IEntry {
+      protected String name;
+   
+      @Override
+      public String getName() {
+        return name;
+      }
+   
+      @Override
+      public void setName(String name) {
+        this.name = name;
+      }
+      
+    }
+   
+
+    public class File extends Entry {
+      private byte[] content;
+   
+      public String getExtension() {
+        return name.substring(name.indexOf(".") + 1);
+      }
+   
+      public void setContent(byte[] content) {
+        this.content = content;
+      }
+   
+      public byte[] getContent() {
+        return content;
+      }
+   
+      @Override
+      public int getSize() {
+        return content.length;
+      }
+   
+      @Override
+      public boolean isDirectory() {
+        return false;
+      }
+      
+      @Override
+      public String toString() {
+        return "File{" +
+          "name='" + name + '\'' +
+          '}';
+      }
+    }
+   
+    public class Directory extends Entry {
+        private List<Entry> entries = new ArrayList<>();
+   
+      @Override
+      public int getSize() {
+        int size = 0;
+        for (Entry entry  : entries) {
+          size += entry.getSize();
+        }
+   
+        return size;
+      }
+   
+      @Override
+      public boolean isDirectory() {
+        return true;
+      }
+   
+      public void addEntry(Entry entry) {
+        this.entries.add(entry);
+      }
+    }
+
+    //  Filters
+   
+    public class SearchParams {
+      String extension;
+      Integer minSize;
+      Integer maxSize;
+      String name;
+    }
+   
+    public interface IFilter {
+   
+        boolean isValid(SearchParams params, File file);
+   
+    }
+   
+    public class ExtensionFilter implements IFilter {
+   
+      @Override
+      public boolean isValid(SearchParams params, File file) {
+        if (params.extension == null) {
+          return true;
+        }
+   
+        return file.getExtension().equals(params.extension);
+      }
+   
+    }
+   
+    public class MinSizeFilter implements IFilter {
+   
+      @Override
+      public boolean isValid(SearchParams params, File file) {
+        if (params.minSize == null) {
+          return true;
+        }
+   
+        return file.getSize() >= params.minSize;
+      }
+   
+    }
+   
+    public class MaxSizeFilter implements IFilter {
+   
+      @Override
+      public boolean isValid(SearchParams params, File file) {
+        if (params.maxSize == null) {
+          return true;
+        }
+   
+        return file.getSize() <= params.maxSize;
+      }
+   
+    }
+   
+    public class NameFilter implements IFilter {
+   
+      @Override
+      public boolean isValid(SearchParams params, File file) {
+        if (params.name == null) {
+        return true;
+        }
+   
+        return file.getName().equals(params.name);
+      }
+   
+    }
+   
+    public class FileFilter {
+      private final List<IFilter> filters = new ArrayList<>();
+   
+      public FileFilter() {
+        filters.add(new NameFilter());
+        filters.add(new MaxSizeFilter());
+        filters.add(new MinSizeFilter());
+        filters.add(new ExtensionFilter());
+      }
+   
+      public boolean isValid(SearchParams params, File file) {
+        for (IFilter filter : filters) {
+          if (!filter.isValid(params, file)) {
+            return false;
+          }
+        }
+   
+        return true;
+      }
+   
+    }
+
+    // Searcher
+   
+    public class FileSearcher {
+      private FileFilter filter = new FileFilter();
+   
+      public List<File> search(Directory dir, SearchParams params) {
+        List<File> files = new ArrayList<>();
+   
+        Queue<Directory> queue = new LinkedList<>();
+        queue.add(dir);
+   
+        while (!queue.isEmpty()) {
+          Directory folder = queue.poll();
+   
+          for (IEntry entry : folder.entries) {
+            if (entry.isDirectory()) {
+            queue.add((Directory) entry);
+            } else {
+            File file = (File) entry;
+            if (filter.isValid(params, file)) {
+              files.add(file);
+            }
+            }
+          }
+        }
+   
+        return files;
+        }
+    }
+      
+  }
+```
+
 ### Design elevator
 
 ```python
@@ -1701,6 +2348,25 @@ https://thinksoftware.medium.com/elevator-system-design-a-tricky-technical-inter
 """
 ```
 
+### Design hashtable
+
+[Data Structures: Hash Tables](https://youtu.be/shs0KM3wKv8)
+
+[Hash Tables - Beau teaches JavaScript](https://youtu.be/F95z5Wxd9ks)
+
+```
+- use a hashfunction to tranform key to an index in array
+	-  hashfunction
+		- convert string to interger?
+- the array has a linked list at each index
+	- each node can point back to the original list
+	- wehn we run out of space in the array, we implement resizing
+
+## Collision handling
+- Chaining
+	- store in linked list
+```
+
 Object-oriented programming (OOP) is a style of programming that focuses on using objects to design and build applications. Contrary to procedure-oriented programming where programs are designed as blocks of statements to manipulate data, OOP organises the program to **combine data and functionality** and wrap it inside something called an “Object”.
 
 Basic concepts of OOP:
@@ -1712,10 +2378,10 @@ Basic concepts of OOP:
 
 The four principles of object-oriented programming are encapsulation, abstraction, inheritance, and polymorphism.
 
-- **[Encapsulation]():** Encapsulation is the mechanism of binding the data together and **hiding it from the outside world**. Encapsulation is achieved when each object keeps its state private so that other objects don’t have direct access to its state. Instead, they can access this state only through a set of public functions.
-- **[Abstraction]():** Abstraction can be thought of as the natural extension of encapsulation. It means **hiding all but the relevant data** about an object in order to reduce the complexity of the system. In a large system, objects talk to each other, which makes it difficult to maintain a large codebase; abstraction helps by hiding internal implementation details of objects and **only revealing operations that are relevant to other objects**.
-- **[Inheritance]():** Inheritance is the mechanism of creating new classes from existing ones.
-- **[Polymorphism]():** Polymorphism (from Greek, meaning “many forms”) is the ability of an object to take **different forms and thus, depending upon the context, to respond to the same message in different ways**. Take the example of a chess game; a chess piece can take many forms, like bishop, castle, or knight and all these pieces will respond differently to the ‘move’ message
+- **[Encapsulation](_Object-Oriented%20Analysis%20and%20Design%201a01887a9271475da7b3cd3f4efc9e0d.md):** Encapsulation is the mechanism of binding the data together and **hiding it from the outside world**. Encapsulation is achieved when each object keeps its state private so that other objects don’t have direct access to its state. Instead, they can access this state only through a set of public functions.
+- **[Abstraction](_Object-Oriented%20Analysis%20and%20Design%201a01887a9271475da7b3cd3f4efc9e0d.md):** Abstraction can be thought of as the natural extension of encapsulation. It means **hiding all but the relevant data** about an object in order to reduce the complexity of the system. In a large system, objects talk to each other, which makes it difficult to maintain a large codebase; abstraction helps by hiding internal implementation details of objects and **only revealing operations that are relevant to other objects**.
+- **[Inheritance](_Object-Oriented%20Analysis%20and%20Design%201a01887a9271475da7b3cd3f4efc9e0d.md):** Inheritance is the mechanism of creating new classes from existing ones.
+- **[Polymorphism](_Object-Oriented%20Analysis%20and%20Design%201a01887a9271475da7b3cd3f4efc9e0d.md):** Polymorphism (from Greek, meaning “many forms”) is the ability of an object to take **different forms and thus, depending upon the context, to respond to the same message in different ways**. Take the example of a chess game; a chess piece can take many forms, like bishop, castle, or knight and all these pieces will respond differently to the ‘move’ message
 
 # Theory
 
@@ -2331,7 +2997,7 @@ class Node:
 
 [Python Global, Local and Nonlocal variables](https://www.programiz.com/python-programming/global-local-nonlocal-variables)
 
-The `nonlocal` keyword is used to work with variables inside nested functions, where the variable should not belong to the inner function.
+The `nonlocal` keyword is used to work with variables **inside nested functions**, where the variable should not belong to the inner function.
 
 Use the keyword `nonlocal` to declare that the variable is not local.
 
@@ -2730,6 +3396,32 @@ Sample activity diagram for online shopping
 **What is the difference between Activity diagram and Sequence diagram?**
 
 **Activity diagram** captures the process flow. It is used for functional modeling. A functional model represents the flow of values from external inputs, through operations and internal data stores, to external outputs.**Sequence diagram** tracks the interaction between the objects. It is used for dynamic modeling, which is represented by tracking states, transitions between states, and the events that trigger these transitions.
+
+---
+
+# Design patterns
+
+[Design Patterns and Refactoring](https://sourcemaking.com/design_patterns)
+
+[The 3 Types of Design Patterns All Developers Should Know (with code examples of each)](https://www.freecodecamp.org/news/the-basic-design-patterns-all-developers-need-to-know/)
+
+[The 7 Most Important Software Design Patterns](https://medium.com/educative/the-7-most-important-software-design-patterns-d60e546afb0e)
+
+[5 Design Patterns Every Engineer Should Know](https://youtu.be/FLmBqI3IKMA)
+
+Examples:
+
+- Singleton
+- Observer Pattern (Pub/Sub)
+- Facade
+- Bridge/Adapter Pattern
+- Strategy Pattern
+
+## **Creational Patterns**
+
+## **Structural Patterns**
+
+## **Behavioral Patterns**
 
 ---
 

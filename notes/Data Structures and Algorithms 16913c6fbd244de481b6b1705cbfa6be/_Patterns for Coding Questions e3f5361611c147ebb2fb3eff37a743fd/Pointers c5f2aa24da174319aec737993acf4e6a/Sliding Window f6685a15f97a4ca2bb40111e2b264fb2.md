@@ -522,7 +522,7 @@ https://www.educative.io/courses/grokking-the-coding-interview/Bn2KLlOR0lQ
 
 ## Solution
 
-Very similar to [Longest Substring with K Distinct Characters]()
+Very similar to [Longest Substring with K Distinct Characters](Sliding%20Window%20f6685a15f97a4ca2bb40111e2b264fb2.md)
 
 ```python
 """ 
@@ -917,6 +917,8 @@ def dutch_flag_sort(arr):
 ---
 
 # Trapping rain water
+
+# **Sliding Window Maximum**
 
 # More examples
 

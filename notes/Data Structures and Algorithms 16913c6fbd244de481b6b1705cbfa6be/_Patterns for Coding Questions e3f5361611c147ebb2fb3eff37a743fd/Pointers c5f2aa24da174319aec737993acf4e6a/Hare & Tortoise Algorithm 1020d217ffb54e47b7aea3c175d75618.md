@@ -126,7 +126,7 @@ If we know the length of the **LinkedList** cycle, we can find the start of th
 
 1. Take two pointers. Let’s call them `pointer1` and `pointer2`.
 2. Initialize both pointers to point to the start of the LinkedList.
-3. We can find the length of the LinkedList cycle using the approach discussed in [Length of LinkedList Cycle](). Let’s assume that the length of the cycle is ‘K’ nodes.
+3. We can find the length of the LinkedList cycle using the approach discussed in [Length of LinkedList Cycle](Hare%20&%20Tortoise%20Algorithm%201020d217ffb54e47b7aea3c175d75618.md). Let’s assume that the length of the cycle is ‘K’ nodes.
 4. Move `pointer2` ahead by ‘K’ nodes.
 5. Now, keep incrementing `pointer1` and `pointer2` until they both meet.
 6. Imagine the cycle as a circular track: As `pointer2` is ‘K’ nodes ahead of `pointer1`, which means, `pointer2` must have completed one loop in the cycle when both pointers meet. Their meeting point will be the start of the cycle.  
@@ -321,7 +321,7 @@ Example 4:
 
 The process, defined above, to find out if a number is a happy number or not, always ends in a cycle. If the number is a happy number, the process will be stuck in a cycle on number ‘1,’ and if the number is not a happy number then the process will be stuck in a cycle with a set of numbers.
 
-We saw in the [LinkedList Cycle]() problem that we can use the Fast & Slow pointers method to find a cycle among a set of elements. As we have described above, each number will definitely have a cycle. Therefore, we will use the same fast & slow pointer strategy to find the cycle and once the cycle is found, we will see if the cycle is stuck on number ‘1’ to find out if the number is happy or not.
+We saw in the [LinkedList Cycle](Hare%20&%20Tortoise%20Algorithm%201020d217ffb54e47b7aea3c175d75618.md) problem that we can use the Fast & Slow pointers method to find a cycle among a set of elements. As we have described above, each number will definitely have a cycle. Therefore, we will use the same fast & slow pointer strategy to find the cycle and once the cycle is found, we will see if the cycle is stuck on number ‘1’ to find out if the number is happy or not.
 
 ### Brute force
 

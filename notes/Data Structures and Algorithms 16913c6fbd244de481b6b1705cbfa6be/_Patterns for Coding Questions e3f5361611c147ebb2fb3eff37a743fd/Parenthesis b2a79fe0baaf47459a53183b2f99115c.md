@@ -141,8 +141,11 @@
     https://paulonteri.notion.site/Parenthesis-b2a79fe0baaf47459a53183b2f99115c
     """
     
+    from collections import deque
+    
     class Solution:
         def longestValidParentheses(self, s: str):
+            """Store the longest streak we had so far at each index so that we can look back"""
             if not s:
                 return 0
     
@@ -197,14 +200,14 @@
     class Solution__:
         def longestValidParentheses(self, s: str):
             """ 
-            Whenever we see a new open parenthesis, we push the current longest streak to the prev_streak_stack.
+            Whenever we see a new open parenthesis, reset the streak
+                we push the current longest streak to the prev_streak_stack.
                 and reset the current length
-            Whenever we see a close parenthesis, 
+            Whenever we see a close parenthesis, extend the streak
                 If there is no matching open parenthesis for a close parenthesis, 
                     reset the current count.
                 else:
-                    we pop the top value, and add the value (which was the previous longest streak up to that point) 
-                    to the current one (because they are now contiguous) 
+                    we pop the top value, and add the value (which was the previous longest streak up to that point) to the current one (because they are now contiguous) 
                     and add 2 to count for the matching open and close parenthesis. 
     
             Use this example to understand `"(()())"`
@@ -239,12 +242,12 @@
         def longestValidParentheses(self, s: str):
             """ 
             use stack to store left most invalid positions (followed by opening brackets)
-            note that an unclosed opening brackets is also invalid
+                note that an unclosed opening brackets is also invalid
             """
             result = 0
     
             # stack contains left most invalid positions
-            stack = [-1]
+            stack = deque([-1])
     
             for idx, bracket in enumerate(s):
                 if bracket == "(":

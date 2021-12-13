@@ -90,7 +90,7 @@ Recursive strategy:
     
     Once we have solved our base cases, and we know our ordering, then solving the general case is as simple as reducing the problem in such a way that the degree of the data we’re operating on moves towards the base cases.
     
-    find a [general case]()
+    find a [general case](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753.md)
     
 - Solve the **Big Cases** - General (recursive) case
     
@@ -531,7 +531,6 @@ recursion stack:
     
     def interweavingStringsMEMO(one, two, three):
         if len(three) != len(one) + len(two):
-    
             return False
         cache = [[None for _ in range(len(two)+1)] for _ in range(len(one)+1)]
         return interweavingStringsHelperMEMO(one, two, three, cache, 0, 0)
@@ -546,12 +545,10 @@ recursion stack:
         one_res = False
         two_res = False
         if one_idx < len(one) and one[one_idx] == three[three_idx]:
-            one_res = interweavingStringsHelperMEMO(
-                one, two, three, cache, one_idx+1, two_idx)
+            one_res = interweavingStringsHelperMEMO(one, two, three, cache, one_idx+1, two_idx)
     
         if two_idx < len(two) and two[two_idx] == three[three_idx]:
-            two_res = interweavingStringsHelperMEMO(
-                one, two, three, cache, one_idx, two_idx+1)
+            two_res = interweavingStringsHelperMEMO(one, two, three, cache, one_idx, two_idx+1)
     
         cache[one_idx][two_idx] = one_res or two_res
         return cache[one_idx][two_idx]
@@ -1053,7 +1050,7 @@ There are many ways you might divide a problem into subproblems. Three of the mo
 
 The top-down approach can be more complex since it's less concrete. But sometimes, it's the best way to think about the problem. In these problems, we think about how we can **divide the problem for case N into subproblems**. Be careful of overlap between the cases.
 
-**Top-down with [Memoization]():**
+**Top-down with [Memoization](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753.md):**
 
 In this approach, we try to solve the bigger problem by recursively finding the solution to smaller sub-problems. Whenever we solve a sub-problem, we cache its result so that we don’t end up solving it repeatedly if it’s called multiple times. Instead, we can just return the saved result. This technique of storing the results of already solved subproblems is called **Memoization**.
 
@@ -1061,7 +1058,7 @@ In this approach, we try to solve the bigger problem by recursively finding the 
 
 The bottom-up approach is often the most intuitive. We **start with knowing how to solve the problem for a simple case**, like a list with only one element. Then we figure out how to solve the problem for two elements, then for three elements, and so on. The key here is to think about how you can build the solution for one case off of the previous case (or multiple previous cases).
 
-**Bottom-up with [Tabulation]():**
+**Bottom-up with [Tabulation](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753.md):**
 
 **Tabulation** is the opposite of the top-down approach and avoids recursion. In this approach, we solve the problem “bottom-up” (i.e. by **solving all the related sub-problems first**). This is typically done by filling up an n-dimensional table. Based on the results in the table, the solution to the top/original problem is then computed.
 
@@ -1315,8 +1312,12 @@ Suppose we are given some actual data of some data type, call it `dₒ`. The ide
                 There are no other valid combinations.
         
         https://leetcode.com/problems/combination-sum-iii/
+        
+        Do after:
+        - https://leetcode.com/problems/combination-sum
         """
         
+        # O(9! * K) time
         class Solution(object):
             def combinationSum3(self, k, n):
                 res = []
@@ -1377,6 +1378,9 @@ Suppose we are given some actual data of some data type, call it `dₒ`. The ide
             Output: [[1,1]]
         
         https://leetcode.com/problems/combination-sum
+        
+        Prerequisite:
+        - https://leetcode.com/problems/combination-sum-iii
         """
         
         """
@@ -1419,7 +1423,18 @@ Suppose we are given some actual data of some data type, call it `dₒ`. The ide
                 return result
         
         """ 
+        Let N be the number of candidates, T be the target value, and M be the minimal value among the candidates.
         
+        Time Complexity: O(N ^ T/M)
+        Space Complexity: O(T/M)
+        
+            The execution of the backtracking is unfolded as a DFS traversal in a n-ary tree. The total number of steps during the backtracking would be the number of nodes in the tree.
+            At each node, it takes a constant time to process, except the leaf nodes which could take a linear time to make a copy of combination. So we can say that the time complexity is linear to the number of nodes of the execution tree.
+            Here we provide a loose upper bound on the number of nodes:
+                First of all, the fan-out of each node would be bounded to N, i.e. the total number of candidates.
+                The maximal depth of the tree, would be T/M, where we keep on adding the smallest element to the combination.
+                As we know, the maximal number of nodes in N-ary tree of T/M, height would be : O(N ^ (T/M + 1))
+            Note that, the actual number of nodes in the execution tree would be much smaller than the upper bound, since the fan-out of the nodes are decreasing level by level.
         """
         
         class Solution_:
@@ -2269,7 +2284,7 @@ The majority of the Dynamic Programming problems can be categorized into two typ
             if cache[idx] is not None:
                 return cache[idx]
     
-            result = 1 # smallest subsequence for each number
+            result = 1  # smallest subsequence for each number
             # next larger may be any larger element to the right
             for i in range(idx+1, len(nums)):
                 if nums[i] > nums[idx]:
@@ -2283,6 +2298,50 @@ The majority of the Dynamic Programming problems can be categorized into two typ
         #     for idx in range(len(nums)):
         #         self.helper(nums, idx, cache)
         #     return max(cache)
+    
+    class Solution_Tabulation_2:
+        """ 
+        1. Initialize an array dp with length nums.length and all elements equal to 1. 
+            - dp[i] represents the length of the longest increasing subsequence that ends with the element at index i.
+    
+        2. Iterate from i = 1 to i = nums.length - 1. 
+            - At each iteration, use a second for loop to iterate from j = 0 to j = i - 1 (all the elements before i). 
+            - For each element before i, check if that element is smaller than nums[i]. 
+            - If so, set dp[i] = max(dp[i], dp[j] + 1).
+    
+        3. Return the max value from dp.
+        """
+    
+        def lengthOfLIS(self, nums):
+            dp = [0] * len(nums)
+    
+            for right in range(len(nums)):
+                largest_prev_subs = 0
+    
+                for left in range(right):
+                    if nums[right] > nums[left]:
+                        #
+                        largest_prev_subs = max(
+                            dp[left],  largest_prev_subs)
+    
+                dp[right] = largest_prev_subs + 1
+    
+            return max(dp)
+    
+        def lengthOfLIS_2(self, nums):
+            dp = [1] * len(nums)
+    
+            for curr_idx in range(1, len(nums)):
+                for prev_idx in range(curr_idx):
+    
+                    if nums[curr_idx] > nums[prev_idx]:
+    
+                        dp[curr_idx] = max(
+                            dp[curr_idx],
+                            dp[prev_idx] + 1
+                        )
+    
+            return max(dp)
     
     """ 
     [10,9,2,5,3,7,101,18]
@@ -2337,38 +2396,69 @@ The majority of the Dynamic Programming problems can be categorized into two typ
     3. Return the max value from dp.
     
     """
+    ```
     
-    class Solution_Tabulation_2:
-        def lengthOfLIS(self, nums):
-            dp = [0] * len(nums)
+- [https://leetcode.com/problems/longest-string-chain/](https://leetcode.com/problems/longest-string-chain/)
+- Longest Arithmetic Subsequence **
     
-            for right in range(len(nums)):
-                largest_prev_subs = 0
+    ```python
+    """ 
+    1027. Longest Arithmetic Subsequence
     
-                for left in range(right):
-                    if nums[right] > nums[left]:
-                        #
-                        largest_prev_subs = max(
-                            dp[left],  largest_prev_subs)
+    Given an array nums of integers, return the length of the longest arithmetic subsequence in nums.
+    Recall that a subsequence of an array nums is a list nums[i1], nums[i2], ..., nums[ik] with 0 <= i1 < i2 < ... < ik <= nums.length - 1, and that a sequence seq is arithmetic if seq[i+1] - seq[i] are all the same value (for 0 <= i < seq.length - 1).
     
-                dp[right] = largest_prev_subs + 1
+    Example 1:
+        Input: nums = [3,6,9,12]
+        Output: 4
+        Explanation: 
+            The whole array is an arithmetic sequence with steps of length = 3.
+    Example 2:
+        Input: nums = [9,4,7,2,10]
+        Output: 3
+        Explanation: 
+            The longest arithmetic subsequence is [4,7,10].
+    Example 3:
+        Input: nums = [20,1,15,3,10,5,8]
+        Output: 4
+        Explanation: 
+            The longest arithmetic subsequence is [20,15,10,5].
+     
+    Constraints:
+        2 <= nums.length <= 1000
+        0 <= nums[i] <= 500
+        
+    https://leetcode.com/problems/longest-arithmetic-subsequence
+    """
     
-            return max(dp)
+    from collections import defaultdict
+    from typing import List
     
-        def lengthOfLIS_2(self, nums):
-            dp = [1] * len(nums)
+    class Solution:
+        def longestArithSeqLength(self, nums: List[int]):
+            """ 
+            - have a `sequence_cache` hashmap for each element in the array
+                with the keys and values: `{sequence_difference: count/length}`
+            - iterate in reverse order
+            - for each `element_1`:
+                - iterate through all the elements to its right, and for each `element_2`:
+                    - get the `sequence difference`: (`element_1-element_2`)
+                    - check if staring a sequence with that sequence difference will be greater than what we have seen b4 for the same sequence difference
+                    - update the longest var to reflect the longest we have seen so far
+            """
+            longest = 0
+            seq_cache = [defaultdict(lambda: 1) for num in nums]
     
-            for curr_idx in range(1, len(nums)):
-                for prev_idx in range(curr_idx):
+            for idx_1 in reversed(range(len(nums))):
+                for idx_2 in range(idx_1+1, len(nums)):
+                    seq_diff = nums[idx_2] - nums[idx_1]
     
-                    if nums[curr_idx] > nums[prev_idx]:
+                    # current_seq_len = max(current_seq_len, seq_starting_at_idx_2_len+1)
+                    seq_cache[idx_1][seq_diff] = max(seq_cache[idx_1][seq_diff], seq_cache[idx_2][seq_diff]+1)
     
-                        dp[curr_idx] = max(
-                            dp[curr_idx],
-                            dp[prev_idx] + 1
-                        )
+                    longest = max(longest, seq_cache[idx_1][seq_diff])
     
-            return max(dp)
+            return longest
     ```
     
 - Russian Doll Envelopes **
@@ -2515,6 +2605,57 @@ The majority of the Dynamic Programming problems can be categorized into two typ
             return cache[idx]
     ```
     
+
+- Longest Palindromic Subsequence **
+    
+    ```python
+    """ 
+    516. Longest Palindromic Subsequence
+    
+    Given a string s, find the longest palindromic subsequence's length in s.
+    A subsequence is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.
+    
+    Example 1:
+        Input: s = "bbbab"
+        Output: 4
+        Explanation: One possible longest palindromic subsequence is "bbbb".
+    Example 2:
+        Input: s = "cbbd"
+        Output: 2
+        Explanation: One possible longest palindromic subsequence is "bb".
+        
+    https://leetcode.com/problems/longest-palindromic-subsequence
+    """
+    
+    class Solution:
+        def longestPalindromeSubseq(self, s: str):
+            cache = [[None for _ in s] for _ in s]
+            return self.lps_helper(s, cache, 0, len(s)-1)
+    
+        def lps_helper(self, s, cache, start, end):
+            """ 
+            - if the characters at the ends match, 
+                we dive deeper and add 2 to the result of going deeper
+            - if not: skip the start and the end and return the one with the highest result
+            """
+            if start > end:
+                return 0
+            if start == end:
+                return 1
+            if cache[start][end]:
+                return cache[start][end]
+    
+            if s[start] == s[end]:
+                # dive deeper
+                cache[start][end] = 2 + self.lps_helper(s, cache, start+1, end-1)
+            else:
+                # skip one character
+                cache[start][end] = max(self.lps_helper(s, cache, start+1, end), self.lps_helper(s, cache, start, end-1))
+            return cache[start][end]
+    ```
+    
+
+- [https://leetcode.com/problems/valid-palindrome-iii/submissions/](https://leetcode.com/problems/valid-palindrome-iii/submissions/)
 
 - Climbing Stairs / Triple Step
     
@@ -2981,7 +3122,6 @@ The majority of the Dynamic Programming problems can be categorized into two typ
     
     def interweavingStringsMEMO(one, two, three):
         if len(three) != len(one) + len(two):
-    
             return False
         cache = [[None for _ in range(len(two)+1)] for _ in range(len(one)+1)]
         return interweavingStringsHelperMEMO(one, two, three, cache, 0, 0)
@@ -2996,12 +3136,10 @@ The majority of the Dynamic Programming problems can be categorized into two typ
         one_res = False
         two_res = False
         if one_idx < len(one) and one[one_idx] == three[three_idx]:
-            one_res = interweavingStringsHelperMEMO(
-                one, two, three, cache, one_idx+1, two_idx)
+            one_res = interweavingStringsHelperMEMO(one, two, three, cache, one_idx+1, two_idx)
     
         if two_idx < len(two) and two[two_idx] == three[three_idx]:
-            two_res = interweavingStringsHelperMEMO(
-                one, two, three, cache, one_idx, two_idx+1)
+            two_res = interweavingStringsHelperMEMO(one, two, three, cache, one_idx, two_idx+1)
     
         cache[one_idx][two_idx] = one_res or two_res
         return cache[one_idx][two_idx]
@@ -3146,6 +3284,17 @@ The majority of the Dynamic Programming problems can be categorized into two typ
     	The same is valid for the first column, though the path here is down->down-> ...->down.
     """
     
+    """ 
+    [
+      1  2  3  4
+    1[1, 1, 1, 1],
+    2[1, 2, 3, 4],
+    3[1, 3, 6, 10],
+    4[1, 4, 10, 20]
+    ]
+    
+    """
+    
     # starting from end to beginning
     # note that the start is 1,1.   0,0 is out of bounds
     class SolutionMEMO:
@@ -3157,18 +3306,13 @@ The majority of the Dynamic Programming problems can be categorized into two typ
             if m == 1 and n == 1:
                 return 1
             if m < 1 or n < 1:
-                return float('-inf')
+                return 0
             if cache[m][n]:
                 return cache[m][n]
     
-            left = self.uniquePathsHelper(m, n-1, cache)
-            up = self.uniquePathsHelper(m-1, n, cache)
-    
             total = 0
-            if left != float('-inf'):
-                total += left
-            if up != float('-inf'):
-                total += up
+            total += self.uniquePathsHelper(m, n-1, cache)
+            total += self.uniquePathsHelper(m-1, n, cache)
     
             cache[m][n] = total
             return cache[m][n]
@@ -3226,6 +3370,52 @@ The majority of the Dynamic Programming problems can be categorized into two typ
             return cache[-1][-1]
     ```
     
+- Unique Paths II
+    
+    ```python
+    """
+    Unique Paths II / Robot in Grid:
+    
+    A robot is located at the top-left corner of a m x n grid.
+    The robot can only move either down or right at any point in time. 
+    The robot is trying to reach the bottom-right corner of the grid.
+    Now consider if some obstacles are added to the grids. How many unique paths would there be?
+    An obstacle and space is marked as 1 and 0 respectively in the grid.
+    
+    https://leetcode.com/problems/unique-paths-ii/
+    """
+    
+    class Solution:
+        def uniquePathsWithObstacles(self, obstacleGrid):
+            if obstacleGrid[len(obstacleGrid)-1][len(obstacleGrid[0])-1] == 1:
+                return 0
+    
+            return self.helper(obstacleGrid)
+    
+        def helper(self, obstacleGrid,  row=0, col=0):
+            # out of bounds
+            if row >= len(obstacleGrid) or col >= len(obstacleGrid[0]):
+                return 0
+            # reached end
+            elif row == len(obstacleGrid)-1 and col == len(obstacleGrid[0])-1:
+                return 1
+            # is occupied with obstacle
+            elif obstacleGrid[row][col] == 1:
+                return 0
+            # get cached result
+            elif obstacleGrid[row][col] < 0:
+                return -obstacleGrid[row][col]
+    
+            # move right
+            right = self.helper(obstacleGrid,  row, col+1)
+            # move down
+            down = self.helper(obstacleGrid,  row+1, col)
+    
+            obstacleGrid[row][col] = -(right + down)  # cache results
+    
+            return right + down
+    ```
+    
 
 ### Honourable mentions
 
@@ -3259,7 +3449,7 @@ We can clearly see the overlapping subproblem pattern here, as `fib(2)` has be
 
 ---
 
-Later we'll learn that: Whenever we solve a sub-problem, we [cache its result]() so that we don’t end up solving it repeatedly if it’s called multiple times. Instead, we can just return the saved result. This technique of storing the results of already solved subproblems is called Memoization.
+Later we'll learn that: Whenever we solve a sub-problem, we [cache its result](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753.md) so that we don’t end up solving it repeatedly if it’s called multiple times. Instead, we can just return the saved result. This technique of storing the results of already solved subproblems is called Memoization.
 
 ---
 
@@ -3329,7 +3519,7 @@ tabulation: [https://youtu.be/f2xi3c1S95M?t=893](https://youtu.be/f2xi3c1S95M?t=
 
 [https://youtu.be/aPQY__2H3tE](https://youtu.be/aPQY__2H3tE)
 
-### Be careful while [calculating DP's time complexities]()
+### Be careful while [calculating DP's time complexities](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753.md)
 
 ---
 
@@ -3392,11 +3582,11 @@ In recursion for example for Fibonacci calculation, if the root node (in the rec
 
 ## Pro tips
 
-### [How to avoid duplicates in recursion]()
+### [How to avoid duplicates in recursion](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753.md)
 
 ![Screenshot 2021-11-03 at 09.54.39.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-03_at_09.54.39%201.png)
 
-### [Brute-force that can work with caching]()
+### [Brute-force that can work with caching](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753.md)
 
 ---
 
@@ -3650,6 +3840,7 @@ It is a **refined brute force** approach that tries out all the possible solut
     class Solution:
         def permuteUnique(self, nums):
             result = []
+    				 # use a counter to ensure each number is considered only once for each position in the array
             self.dfs(collections.Counter(nums), len(nums), [], result)
             return result
     
@@ -3928,9 +4119,58 @@ It is a **refined brute force** approach that tries out all the possible solut
     
 - Letter Case Permutations
 
+- Generate Parentheses *
+    
+    ```python
+    """ 
+    22. Generate Parentheses
+    
+    Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+    
+    Example 1:
+        Input: n = 3
+        Output: ["((()))","(()())","(())()","()(())","()()()"]
+    Example 2:
+        Input: n = 1
+        Output: ["()"]
+        
+    https://leetcode.com/problems/generate-parentheses
+    """
+    
+    class Solution:
+        def generateParenthesis(self, n: int):
+            all_parenthesis = []
+    
+            def place_brackets(opening, closing, curr_par):
+                """ 
+                - Only place opening if their count is less than n
+                - Only place closing if their count is less than opening
+                """
+                if opening == n and closing == n:
+                    all_parenthesis.append("".join(curr_par))
+    
+                if opening < n:
+                    curr_par.append("(")
+                    place_brackets(opening+1, closing, curr_par)
+                    curr_par.pop()
+    
+                if closing < opening:
+                    curr_par.append(")")
+                    place_brackets(opening, closing+1, curr_par)
+                    curr_par.pop()
+    
+            place_brackets(0, 0, [])
+            return all_parenthesis
+    ```
+    
+
 - Word Break
     
     [Word Break | Dynamic Programming | Leetcode #139](https://youtu.be/th4OnoGasMU)
+    
+    [139. Word Break.mp4](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/139._Word_Break.mp4)
+    
+    ![Screenshot 2021-11-22 at 20.57.39.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-11-22_at_20.57.39.png)
     
     ```python
     """ 
@@ -4360,8 +4600,12 @@ It is a **refined brute force** approach that tries out all the possible solut
             There are no other valid combinations.
     
     https://leetcode.com/problems/combination-sum-iii/
+    
+    Do after:
+    - https://leetcode.com/problems/combination-sum
     """
     
+    # O(9! * K) time
     class Solution(object):
         def combinationSum3(self, k, n):
             res = []
@@ -4422,6 +4666,9 @@ It is a **refined brute force** approach that tries out all the possible solut
         Output: [[1,1]]
     
     https://leetcode.com/problems/combination-sum
+    
+    Prerequisite:
+    - https://leetcode.com/problems/combination-sum-iii
     """
     
     """
@@ -4464,7 +4711,18 @@ It is a **refined brute force** approach that tries out all the possible solut
             return result
     
     """ 
+    Let N be the number of candidates, T be the target value, and M be the minimal value among the candidates.
     
+    Time Complexity: O(N ^ T/M)
+    Space Complexity: O(T/M)
+    
+        The execution of the backtracking is unfolded as a DFS traversal in a n-ary tree. The total number of steps during the backtracking would be the number of nodes in the tree.
+        At each node, it takes a constant time to process, except the leaf nodes which could take a linear time to make a copy of combination. So we can say that the time complexity is linear to the number of nodes of the execution tree.
+        Here we provide a loose upper bound on the number of nodes:
+            First of all, the fan-out of each node would be bounded to N, i.e. the total number of candidates.
+            The maximal depth of the tree, would be T/M, where we keep on adding the smallest element to the combination.
+            As we know, the maximal number of nodes in N-ary tree of T/M, height would be : O(N ^ (T/M + 1))
+        Note that, the actual number of nodes in the execution tree would be much smaller than the upper bound, since the fan-out of the nodes are decreasing level by level.
     """
     
     class Solution_:
@@ -4495,7 +4753,7 @@ It is a **refined brute force** approach that tries out all the possible solut
     ```
     
 
-- Expression Add Operators **
+- Expression Add Operators ***
     
     ![Screenshot 2021-10-22 at 10.19.48.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-22_at_10.19.48.png)
     
@@ -4518,6 +4776,8 @@ It is a **refined brute force** approach that tries out all the possible solut
     ![Screenshot 2021-10-22 at 10.24.07.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-22_at_10.24.07.png)
     
     ![Screenshot 2021-10-22 at 10.24.39.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-22_at_10.24.39.png)
+    
+    take note of the above ^
     
     ![Screenshot 2021-10-22 at 10.24.51.png](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753/Screenshot_2021-10-22_at_10.24.51.png)
     
@@ -4564,48 +4824,55 @@ It is a **refined brute force** approach that tries out all the possible solut
         def addOperators(self, num: str, target: int):
             answers = []
     
-            def dfs(idx, prev_operand, prev_operation, total, string):
+            def dfs(idx, operand_left_section, prev_operation, total, string):
                 """ 
                 Important info:
-                    - `prev_operand` is used to recursively build operands. 
-                        Eg: for 123, it will grow as follows 1 => 12 => 123  \n
+                    - `operand_left_section` is used to recursively build operands. 
+                        - Eg: for 123, it will grow as follows 1 => 12 => 123  \n
+                        - if its value is None it means there is no operand_left_section
                     - `prev_operation`is used to store the results of the previous operation so that it can be undone in case we need to multiply \n
                     - `total` is the result of the running calculation
                 """
+                # # End (base cases) --------------------------------------------------------------------------------------
                 if idx == len(num):
-                    if total == target and prev_operand == 0:
+                    if total == target and operand_left_section == None:
                         answers.append("".join(string[1:]))
                     return
     
-                # # Try out all possible operands --------------------------------------------------------------------------------------
+                # # Create operand --------------------------------------------------------------------------------------
                 # Extending the current operand by one digit
-                operand = (prev_operand * 10) + int(num[idx])
+                operand = int(num[idx])
+                if operand_left_section:
+                    operand += (operand_left_section * 10)
                 str_op = str(operand)
+    
+                # # Try out all(next) possible operands --------------------------------------------------------------------------------------
                 # To avoid cases where we have 1 + 05 or 1 * 05 since 05 won't be a valid operand. Hence this check
                 if operand > 0:
                     dfs(idx + 1, operand, prev_operation, total, string)
     
                 # # Math -------------------------------------------------------------------------------------------------------------------
-                # remember to reset the prev_operand to 0 (it is no longer needed, we will start a new one next time)
+                # remember to reset the operand_left_section to None (it is no longer needed, we will start a new one next time)
     
-                # Can subtract or multiply only if there are some previous operands
+                # Can subtract or multiply only if there are some previous operations (will not happen at beginning)
                 if string:
                     # ---
                     # Subtraction - negate operand (as prev_operation) so that we don't have to keep track of the signs
                     string.append("-")
                     string.append(str_op)
-                    dfs(idx+1, 0, -operand, total-operand, string)
+                    dfs(idx+1, None, -operand, total-operand, string)
                     string.pop()
                     string.pop()
     
                     # ---
                     # Multiplication - undo last operation and multiply
-                    operation = prev_operation * operand
-                    new_total = (total - prev_operation) + operation
+                    new_total = total - prev_operation  # undo
+                    operation = prev_operation * operand  # multiply
+                    new_total = new_total + operation
                     #
                     string.append("*")
                     string.append(str_op)
-                    dfs(idx+1, 0, operation, new_total, string)
+                    dfs(idx+1, None, operation, new_total, string)
                     string.pop()
                     string.pop()
     
@@ -4613,11 +4880,11 @@ It is a **refined brute force** approach that tries out all the possible solut
                 # Addition - also used to handle index 0/starting out (no string)
                 string.append("+")
                 string.append(str_op)
-                dfs(idx+1, 0, operand, total+operand, string)
+                dfs(idx+1, None, operand, total+operand, string)
                 string.pop()
                 string.pop()
     
-            dfs(0, 0, 0, 0, [])
+            dfs(0, None, 0, 0, [])
             return answers
     ```
     

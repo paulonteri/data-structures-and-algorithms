@@ -274,6 +274,149 @@ General search
     ```
     
 
+- Search Suggestions System
+    
+    ```python
+    """ 
+    1268. Search Suggestions System
+    
+    Given an array of strings products and a string searchWord. We want to design a system that suggests at most three product names from products after each character of searchWord is typed. Suggested products should have common prefix with the searchWord. 
+    If there are more than three products with a common prefix return the three lexicographically minimums products.
+    Return list of lists of the suggested products after each character of searchWord is typed.  
+    
+    Example 1:
+        Input: products = ["mobile","mouse","moneypot","monitor","mousepad"], searchWord = "mouse"
+        Output: [
+            ["mobile","moneypot","monitor"],
+            ["mobile","moneypot","monitor"],
+            ["mouse","mousepad"],
+            ["mouse","mousepad"],
+            ["mouse","mousepad"]
+            ]
+        Explanation: products sorted lexicographically = ["mobile","moneypot","monitor","mouse","mousepad"]
+            After typing m and mo all products match and we show user ["mobile","moneypot","monitor"]
+            After typing mou, mous and mouse the system suggests ["mouse","mousepad"]
+    Example 2:
+        Input: products = ["havana"], searchWord = "havana"
+        Output: [["havana"],["havana"],["havana"],["havana"],["havana"],["havana"]]
+    Example 3:
+        Input: products = ["bags","baggage","banner","box","cloths"], searchWord = "bags"
+        Output: [["baggage","bags","banner"],["baggage","bags","banner"],["baggage","bags"],["bags"]]
+    Example 4:
+        Input: products = ["havana"], searchWord = "tatiana"
+        Output: [[],[],[],[],[],[],[]]
+     
+    
+    Constraints
+        1 <= products.length <= 1000
+        There are no repeated elements in products.
+        1 <= Σ products[i].length <= 2 * 10^4
+        All characters of products[i] are lower-case English letters.
+        1 <= searchWord.length <= 1000
+        All characters of searchWord are lower-case English letters.
+        
+    https://leetcode.com/problems/search-suggestions-system/
+    """
+    
+    """
+    
+    - given: products, searchword
+    - suggests at most 3 (common prefix)
+        - after each character is typed
+    
+    BF: (P.W + P log P) * S
+    - search arr, get all words with prefix
+    - sort by lexographic order, return top 3
+    
+    SOL 1:
+    - we can store words in trie
+    
+    P*S
+    get_words(pref, trie): 
+        - heap
+        - for each word, add it to a heap, of max size 3
+        - return heap
+    
+    Input
+    ["havana"]
+    "tatiana"
+    Output:
+    []
+    Expected
+    [[],[],[],[],[],[],[]]
+    
+    """
+    
+    from typing import List
+    import heapq
+    class Word:
+        def __init__(self, word):
+            self.word = word
+    
+        def __gt__(self, other):
+            return other.word > self.word
+    
+    class Trie:
+        def __init__(self):
+            self.store = {}
+            self.end_char = "*"
+    
+        def add(self, word):
+            curr_store = self.store
+    
+            for char in word:
+                if char not in curr_store:
+                    curr_store[char] = {}
+                curr_store = curr_store[char]
+    
+            curr_store[self.end_char] = word
+    
+        def search_prefix(self, prefix):
+            curr_store = self.store
+    
+            for char in prefix:
+                if char not in curr_store:
+                    return []
+                curr_store = curr_store[char]
+    
+            res = []
+            self._get_all_words(curr_store, res)
+            return res
+    
+        def _get_all_words(self, curr_store, result):
+            """dfs"""
+    
+            for key, value in curr_store.items():
+                if key == self.end_char:
+                    heapq.heappush(result, Word(value))
+                    if len(result) > 3:
+                        heapq.heappop(result)
+                else:
+                    self._get_all_words(value, result)
+    
+    class Solution:
+        def suggestedProducts(self, products: List[str], searchWord: str):
+    
+            result = []
+    
+            trie = Trie()
+            for word in products:
+                trie.add(word)
+    
+            for i in range(len(searchWord)):
+                search_results = trie.search_prefix(searchWord[:i+1])
+    
+                if search_results:
+                    res = [item.word for item in search_results]
+                    res.sort()
+                    result.append(res)
+                else:
+                    result.append([])
+    
+            return result
+    ```
+    
+
 - Kth Largest Element in an Array
     
     ```python
@@ -893,7 +1036,7 @@ The while loop looks similar to `while left <= right:`
     print(root(0.5, 3))
     ```
     
-- Pow(x, n) *
+- Pow(x, n) **
     
     [Pow(x, n) - X to the power of N - Leetcode 50 - Python](https://youtu.be/g9YQyYi4IQQ)
     
@@ -961,7 +1104,13 @@ The while loop looks similar to `while left <= right:`
             return half_power * half_power
     ```
     
-- Divide Two Integers
+- Divide Two Integers ***
+    
+    [Divide Two Integers | Live Coding with Explanation | Leetcode -29](https://youtu.be/m4L_5qG4vG8)
+    
+    ![Screenshot 2021-11-29 at 19.48.31.png](Searching%20733ff84c808c4c9cb5c40787b2df7b98/Screenshot_2021-11-29_at_19.48.31.png)
+    
+    [Screen Recording 2021-11-29 at 19.50.23.mov](Searching%20733ff84c808c4c9cb5c40787b2df7b98/Screen_Recording_2021-11-29_at_19.50.23.mov)
     
     ```python
     """ 
@@ -1043,25 +1192,27 @@ The while loop looks similar to `while left <= right:`
                 dividend = abs(dividend)
                 is_neg = not is_neg
     
-            # # actual division
             result = 0  # quotient
+    
+            # # actual division ----------------------------------------------------
             while dividend >= divisor:
+    
                 curr_divisor = divisor
                 two_power = 0
-    
                 while curr_divisor+curr_divisor <= dividend:
-                    curr_divisor += curr_divisor # curr_divisor *= 2
-                    two_power += 1
+                    curr_divisor += curr_divisor  # (double divisor)
+                    two_power += 1  # record that we doubled the divisor
     
-                result += 2**two_power
-                dividend -= curr_divisor
+                result += 2**two_power  # we used the divisor 2**two_power times
+                dividend -= curr_divisor  # remaining
     
+             # #  ----------------------------------------------------
             if is_neg:
                 return -result
             return result
     ```
     
-- Random Pick with Weight
+- Random Pick with Weight *
     
     ```python
     """ 
@@ -1408,7 +1559,7 @@ This is an advanced form of binary search that is used to search for an element 
 
 Basic logic:
 
-check out the [examples]()
+check out the [examples](Searching%20733ff84c808c4c9cb5c40787b2df7b98.md)
 
 ```python
 def search(self, nums, target):
@@ -1450,7 +1601,7 @@ If the target is at the right index, it won't have been found in the initial sea
 
 <aside>
 💡 Note: Using pointers to remember the last seen element can drastocalluy simplify Advanced Binary Search.
-Example: [Find First and Last Position of Element in Sorted Array]()
+Example: [Find First and Last Position of Element in Sorted Array](Searching%20733ff84c808c4c9cb5c40787b2df7b98.md)
 
 </aside>
 
@@ -1650,8 +1801,27 @@ Example: [Find First and Last Position of Element in Sorted Array]()
     # @param version, an integer
     # @return an integer
     # def isBadVersion(version):
+    def isBadVersion(mid):
+        pass
     
     class Solution:
+        def firstBadVersion(self, n):
+            first_bad = n-1
+    
+            left = 1
+            right = n
+            while left <= right:
+                mid = (left+right) // 2
+    
+                if isBadVersion(mid):
+                    first_bad = mid
+                    right = mid - 1
+                else:
+                    left = mid + 1
+    
+            return first_bad
+    
+    class Solution_:
         def firstBadVersion(self, n):
     
             left = 1
@@ -1662,13 +1832,13 @@ Example: [Find First and Last Position of Element in Sorted Array]()
                 if isBadVersion(mid):
                     # in the next loop, this will result in left being brought closer to the bad versions
                     # [1,2,3] if bv=2, l=0, r=2, in the next, l=2
-    									
-    									# avoid skipping bad versions
+    
+                    # avoid skipping bad versions
                     right = mid
                 else:
-    									# only move left if mid version is good
-    			           # this ensures left never skips any bad version, it will always land on the first bad version
-    									# skip all good versions
+                    # only move left if mid version is good
+                    # this ensures left never skips any bad version, it will always land on the first bad version
+                    # skip all good versions
                     left = mid + 1
     
             return left
@@ -1714,6 +1884,27 @@ Example: [Find First and Last Position of Element in Sorted Array]()
     break
     
     """
+    
+    class Solution00:
+        def firstBadVersion(self, n):
+    
+            left = 1
+            right = n
+    
+            while left < right:
+    
+                mid = (left+right) // 2
+    
+                # only move left if mid version is good
+                # this ensures left never skips any bad version, it will always land on the first bad version
+                if not isBadVersion(mid):
+                    left = mid + 1
+    
+                # try and move right closer and closer to the first bad version
+                else:
+                    right = mid
+    
+            return left
     ```
     
 - Find First and Last Position of Element in Sorted Array/Search For Range

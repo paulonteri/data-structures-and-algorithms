@@ -230,7 +230,7 @@ A **bit shift** moves each digit in a number's binary representation left or r
 
 When shifting left, **the most-significant bit is lost**, and a 0 bit is inserted on the other end.
 
-The left shift operator is usually written as "<<".
+The left shift operator is usually written as "<<". `**0010 << 1  →  0100**`
 
 ```python
 0010 << 1  →  0100
@@ -398,7 +398,7 @@ Examples
     ```
     
 
-When shifting right with an **arithmetic right shift**, the least-significant bit is lost and the most-significant bit is *copied*. Languages handle arithmetic and logical right shifting in different ways. Java provides two right shift operators: **>> does an *arithmetic* right shift** and **>>> does a *logical* right shift**.
+When shifting right with an **arithmetic right shift**, the least-significant bit is lost and the most-significant bit is *copied*. Languages handle arithmetic and logical right shifting in different ways. Java provides two right shift operators: **>> does an *arithmetic* right shift** and **>>> does a *logical* right shift**. `**1011 >> 1  →  1101**`
 
 ```python
 1011 >> 1  →  1101
@@ -657,3 +657,21 @@ class Solution:
         # right shift == floor dividing by two, so will be smaller & have been precalculated
         return count + bits[num]
 ```
+
+# Sum of Two Integers
+
+- [https://leetcode.com/problems/sum-of-two-integers](https://leetcode.com/problems/sum-of-two-integers/)
+    
+    ![Screenshot 2021-11-29 at 09.55.57.png](Bit%20Manipulation%208c5610224bc34e8d90ac23914734bdce/Screenshot_2021-11-29_at_09.55.57.png)
+    
+    [Blind-75 - Sum of Two Integers - Leetcode 371 - Java](https://youtu.be/gVUrDV4tZfY)
+    
+    ![Screenshot 2021-11-29 at 09.57.21.png](Bit%20Manipulation%208c5610224bc34e8d90ac23914734bdce/Screenshot_2021-11-29_at_09.57.21.png)
+    
+    ![Screenshot 2021-11-29 at 09.57.36.png](Bit%20Manipulation%208c5610224bc34e8d90ac23914734bdce/Screenshot_2021-11-29_at_09.57.36.png)
+    
+    ![Screenshot 2021-11-29 at 09.57.48.png](Bit%20Manipulation%208c5610224bc34e8d90ac23914734bdce/Screenshot_2021-11-29_at_09.57.48.png)
+    
+    ![Screenshot 2021-11-29 at 09.58.08.png](Bit%20Manipulation%208c5610224bc34e8d90ac23914734bdce/Screenshot_2021-11-29_at_09.58.08.png)
+    
+    ![Screenshot 2021-11-29 at 09.58.22.png](Bit%20Manipulation%208c5610224bc34e8d90ac23914734bdce/Screenshot_2021-11-29_at_09.58.22.png)

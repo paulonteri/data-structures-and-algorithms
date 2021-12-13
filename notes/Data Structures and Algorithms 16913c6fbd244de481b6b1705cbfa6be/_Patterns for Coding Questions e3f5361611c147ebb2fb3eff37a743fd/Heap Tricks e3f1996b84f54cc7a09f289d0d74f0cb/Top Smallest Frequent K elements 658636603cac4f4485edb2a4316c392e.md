@@ -88,9 +88,9 @@ The space complexity will be `O(K)` since we need to store the top ‘K’ numbe
 
 ### Kth Smallest Number
 
-This problem follows the [Top ‘K’ Numbers]() pattern but has two differences:
+This problem follows the [Top ‘K’ Numbers](Top%20Smallest%20Frequent%20K%20elements%20658636603cac4f4485edb2a4316c392e.md) pattern but has two differences:
 
-1. Here we need to find the Kth `smallest` number, whereas in [Top ‘K’ Numbers]() we were dealing with ‘K’ `largest` numbers.
+1. Here we need to find the Kth `smallest` number, whereas in [Top ‘K’ Numbers](Top%20Smallest%20Frequent%20K%20elements%20658636603cac4f4485edb2a4316c392e.md) we were dealing with ‘K’ `largest` numbers.
 2. In this problem, we need to find only one number (Kth smallest) compared to finding all ‘K’ largest numbers.
 
 We can follow the same approach as discussed in the ‘Top K Elements’ problem. To handle the first difference mentioned above, we can **use a max-heap instead of a min-heap**. As we know, the root is the biggest element in the max heap. So, since we want to keep track of the ‘K’ smallest numbers, we can compare every number with the root while iterating through all numbers, and if it is smaller than the root, we’ll take the root out and insert the smaller number.
@@ -126,7 +126,7 @@ $\sqrt{x^2 + y^2}$
 
 **Solution**
 
-This solution uses the [Top 'K' Numbers]() pattern
+This solution uses the [Top 'K' Numbers](Top%20Smallest%20Frequent%20K%20elements%20658636603cac4f4485edb2a4316c392e.md) pattern
 
 ```python
 import heapq
@@ -264,7 +264,7 @@ class Solution:
 
 # Frequency Sort
 
-Similar to [Top 'K' Frequent Numbers]()
+Similar to [Top 'K' Frequent Numbers](Top%20Smallest%20Frequent%20K%20elements%20658636603cac4f4485edb2a4316c392e.md)
 
 ```python
 """

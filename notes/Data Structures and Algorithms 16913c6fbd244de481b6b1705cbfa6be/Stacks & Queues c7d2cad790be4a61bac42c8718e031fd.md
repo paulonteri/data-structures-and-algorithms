@@ -263,16 +263,36 @@ Some of the problems require you to implement your own stack class; for others, 
             return curr_string
     ```
     
-- Next Greater Element *
+
+- Next Greater Element II  *
     
     ```python
     """
-    Next Greater Element: 
+    Next Greater Element II 
+    Given a circular integer array nums (i.e., the next element of nums[nums.length - 1] is nums[0]), 
+        return the next greater number for every element in nums.
+    The next greater number of a number x is the first greater number to its traversing-order next in the array, 
+        which means you could search circularly to find its next greater number. If it doesn't exist, return -1 for this number.
     
-    Write a function that takes in an array of integers 
+    Example 1:
+        Input: nums = [1,2,1]
+        Output: [2,-1,2]
+        Explanation: The first 1's next greater number is 2; 
+            The number 2 can't find next greater number. 
+            The second 1's next greater number needs to search circularly, which is also 2.
+    Example 2:
+        Input: nums = [1,2,3,4,3]
+        Output: [2,3,4,-1,4]
+    https://leetcode.com/problems/next-greater-element-ii
+    """
+    
+    """
+    Next Greater Element:
+    
+    Write a function that takes in an array of integers
      and returns a new array containing,at each index,
      the next element in the input array that's greater than the element at that index in the input array.
-    In other words, your function should return a new array 
+    In other words, your function should return a new array
      where outputArray[i] is the next element in the input array that's greater than inputArray[i].
     If there's no such next greater element for a particular index,
      the value at that index in the output array should be -1.
@@ -285,10 +305,9 @@ Some of the problems require you to implement your own stack class; for others, 
       the next greater element after 3 is 5, since the array is circular.
     
     Sample Input
-        array = [2, 5, -3, -4, 6,  7, 2]
+        array = [2, 5, -3, -4, 6, 7, 2]
         Sample Output
-    							[5, -1, -1,  6, 7,-1, 2]
-                [5, 6,   6,  6, 7, -1, 5]
+        [5, 6, 6, 6, 7, -1, 5]
     
     https://www.algoexpert.io/questions/Next%20Greater%20Element
     """
@@ -318,10 +337,10 @@ Some of the problems require you to implement your own stack class; for others, 
         return res
     
     # O(n) time | O(n) space - where n is the length of the array
-    def nextGreaterElement(array):
+    def nextGreaterElement01(array):
         res = [-1] * len(array)
     
-        # stack used to store the previous smaller numbers that haven't been replaced
+        # stack used to store the previous smaller numbers' indices that haven't been replaced
         be_replaced_stack = []
     
         for i in range(len(array)*2):  # loop through twice because the array is circular
@@ -337,6 +356,50 @@ Some of the problems require you to implement your own stack class; for others, 
             be_replaced_stack.append(array_idx)
     
         return res
+    
+    """
+    # we will use a stack to keep track of the past values that have not been replaced
+    #  once we find a bigger element, we replace them and remove them from the stack
+    #  then add the big element to the stack in the hope that it will be replaced
+    
+    array = [0, 1,  2,  3, 4, 5, 6] <= indices
+    array = [2, 5, -3, -4, 6, 7, 2]
+    
+    ---
+    num = 2 (index 0)
+    res = [-1, -1, -1, -1, -1, -1, -1]
+    stack = [2]
+    
+    num = 5 (index 1)
+    res = [5, -1, -1, -1, -1, -1, -1]
+    stack = [5] -> replaced all smaller values in res and the stack
+    
+    num = -3
+    res = [5, -1, -1, -1, -1, -1, -1]
+    stack = [5, -3]
+    
+    num = -4 (index 3)
+    res = [5, -1, -1, -1, -1, -1, -1]
+    stack = [5, -3, -4]
+    
+    num = 6 (index 4)
+    res = [5, 6, 6, 6, -1, -1, -1]
+    stack = [6] -> replaced all smaller values in res and the stack
+    
+    num = 7 (index 5)
+    res = [5, 6, 6, 6, 7, -1, -1]
+    stack = [7] -> replaced all smaller values in res and the stack
+    
+    num = 2 (index 6)
+    res = [5, 6, 6, 6, 7, -1, -1]
+    stack = [7,2]
+    
+    num = 2 (index 0)
+    res = [5, 6, 6, 6, 7, -1, -1]
+    stack = [7,2,2]
+    ---
+    
+    """
     
     # O(n) time | O(n) space - where n is the length of the array
     def nextGreaterElement(array):
@@ -503,6 +566,14 @@ Some of the problems require you to implement your own stack class; for others, 
 
 - Largest Rectangle in Histogram/Largest Rectangle Under Skyline *
     
+    [LARGEST RECTANGLE IN HISTOGRAM - Leetcode 84 - Python](https://youtu.be/zx5Sw9130L0)
+    
+    [Screen Recording 2021-11-23 at 15.29.38.mov](Stacks%20&%20Queues%20c7d2cad790be4a61bac42c8718e031fd/Screen_Recording_2021-11-23_at_15.29.38.mov)
+    
+    [84. Largest Rectangle in a Histogram.mp4](Stacks%20&%20Queues%20c7d2cad790be4a61bac42c8718e031fd/84._Largest_Rectangle_in_a_Histogram.mp4)
+    
+    ![Screenshot 2021-11-23 at 15.28.35.png](Stacks%20&%20Queues%20c7d2cad790be4a61bac42c8718e031fd/Screenshot_2021-11-23_at_15.28.35.png)
+    
     ```python
     """ 
     Largest Rectangle in Histogram/Largest Rectangle Under Skyline:
@@ -529,11 +600,12 @@ Some of the problems require you to implement your own stack class; for others, 
           | | |_| | | | |_
          _| | | | |_| | | |
         |_|_|_|_|_|_|_|_|_|
-    
+        
     https://leetcode.com/problems/largest-rectangle-in-histogram
     """
     
     #
+    from collections import deque
     
     """
     Brute force:
@@ -578,27 +650,28 @@ Some of the problems require you to implement your own stack class; for others, 
     class Solution:
         def largestRectangleArea(self, heights):
             max_area = 0
-            stack = []
+            prev_valid_heights = deque()  # stack
     
-            for idx, height in enumerate(heights):
+            for idx, curr_height in enumerate(heights):
     
                 # # determine left bound of curr height
                 start_idx = idx
     
-                # remove invalid buildings (that cannot be expanded to the right)
-                while stack and height < stack[-1].height:
-                    removed = stack.pop()
-                    # calculate the area from when the removed was last valid (using the last valid index)
+                # remove invalid buildings (that cannot be expanded to the right as they are taller than curr_height)
+                # - also viewed as expanding as left as possible
+                while prev_valid_heights and curr_height < prev_valid_heights[-1].height:
+                    removed = prev_valid_heights.pop()
+                    # calculate the area from when the removed was lat valid (using the last valid index)
                     max_area = max(max_area, removed.get_area(idx-1))
     
                     # our current rectangle can start from there
                     start_idx = removed.start_idx
     
-                stack.append(RectangleInfo(start_idx, height))
+                prev_valid_heights.append(RectangleInfo(start_idx, curr_height))
     
             # # empty stack
-            while stack:
-                removed = stack.pop()
+            while prev_valid_heights:
+                removed = prev_valid_heights.pop()
                 max_area = max(max_area, removed.get_area(len(heights)-1))
     
             return max_area
@@ -1270,6 +1343,177 @@ Some of the problems require you to implement your own stack class; for others, 
     ```
     
 
+## Monotonic stack
+
+### Examples
+
+- Next Greater Element II  *
+    
+    ```python
+    """
+    Next Greater Element II 
+    Given a circular integer array nums (i.e., the next element of nums[nums.length - 1] is nums[0]), 
+        return the next greater number for every element in nums.
+    The next greater number of a number x is the first greater number to its traversing-order next in the array, 
+        which means you could search circularly to find its next greater number. If it doesn't exist, return -1 for this number.
+    
+    Example 1:
+        Input: nums = [1,2,1]
+        Output: [2,-1,2]
+        Explanation: The first 1's next greater number is 2; 
+            The number 2 can't find next greater number. 
+            The second 1's next greater number needs to search circularly, which is also 2.
+    Example 2:
+        Input: nums = [1,2,3,4,3]
+        Output: [2,3,4,-1,4]
+    https://leetcode.com/problems/next-greater-element-ii
+    """
+    
+    """
+    Next Greater Element:
+    
+    Write a function that takes in an array of integers
+     and returns a new array containing,at each index,
+     the next element in the input array that's greater than the element at that index in the input array.
+    In other words, your function should return a new array
+     where outputArray[i] is the next element in the input array that's greater than inputArray[i].
+    If there's no such next greater element for a particular index,
+     the value at that index in the output array should be -1.
+    
+    For example, given array = [1, 2], your function should return [2, -1].
+    Additionally, your function should treat the input array as a circular array.
+     A circular array wraps around itself as if it were connected end-to-end.
+     So the next index after the last index in a circular array is the first index.
+     This means that, for our problem, given array = [0, 0, 5, 0, 0, 3, 0 0],
+      the next greater element after 3 is 5, since the array is circular.
+    
+    Sample Input
+        array = [2, 5, -3, -4, 6, 7, 2]
+        Sample Output
+        [5, 6, 6, 6, 7, -1, 5]
+    
+    https://www.algoexpert.io/questions/Next%20Greater%20Element
+    """
+    
+    # O(n) time | O(n) space - where n is the length of the array
+    def nextGreaterElement00(array):
+        res = [-1] * len(array)
+    
+        # stack used to store the previous smaller numbers that haven't been replaced
+        # stored in the form of {'idx': 0, 'val': 0}
+        be_replaced_stack = []
+    
+        for i in range(len(array)*2):  # loop through twice because the array is circular
+            array_idx = i % len(array)  # prevent out of bound errors
+    
+            # check if we have found some values in the be_replaced_stack stack
+            #   that is smaller than the current array value array[array_idx]
+            #   then replace them (their corresponding values in res)
+            while len(be_replaced_stack) > 0 and be_replaced_stack[-1]['val'] < array[array_idx]:
+    
+                to_be_replaced = be_replaced_stack.pop()['idx']
+                res[to_be_replaced] = array[array_idx]
+    
+            # add the current element to the be_replaced_stack so that it can be checked in the futere for replacement
+            be_replaced_stack.append({'idx': array_idx, 'val': array[array_idx]})
+    
+        return res
+    
+    # O(n) time | O(n) space - where n is the length of the array
+    def nextGreaterElement01(array):
+        res = [-1] * len(array)
+    
+        # stack used to store the previous smaller numbers' indices that haven't been replaced
+        be_replaced_stack = []
+    
+        for i in range(len(array)*2):  # loop through twice because the array is circular
+            array_idx = i % len(array)  # prevent out of bound errors
+    
+            # check if we have found some values in the be_replaced_stack stack
+            #   that is smaller than the current array value array[array_idx]
+            #   then replace them (their corresponding values in res)
+            while len(be_replaced_stack) > 0 and array[be_replaced_stack[-1]] < array[array_idx]:
+                res[be_replaced_stack.pop()] = array[array_idx]
+    
+            # add the current element to the be_replaced_stack so that it can be checked in the futere for replacement
+            be_replaced_stack.append(array_idx)
+    
+        return res
+    
+    """
+    # we will use a stack to keep track of the past values that have not been replaced
+    #  once we find a bigger element, we replace them and remove them from the stack
+    #  then add the big element to the stack in the hope that it will be replaced
+    
+    array = [0, 1,  2,  3, 4, 5, 6] <= indices
+    array = [2, 5, -3, -4, 6, 7, 2]
+    
+    ---
+    num = 2 (index 0)
+    res = [-1, -1, -1, -1, -1, -1, -1]
+    stack = [2]
+    
+    num = 5 (index 1)
+    res = [5, -1, -1, -1, -1, -1, -1]
+    stack = [5] -> replaced all smaller values in res and the stack
+    
+    num = -3
+    res = [5, -1, -1, -1, -1, -1, -1]
+    stack = [5, -3]
+    
+    num = -4 (index 3)
+    res = [5, -1, -1, -1, -1, -1, -1]
+    stack = [5, -3, -4]
+    
+    num = 6 (index 4)
+    res = [5, 6, 6, 6, -1, -1, -1]
+    stack = [6] -> replaced all smaller values in res and the stack
+    
+    num = 7 (index 5)
+    res = [5, 6, 6, 6, 7, -1, -1]
+    stack = [7] -> replaced all smaller values in res and the stack
+    
+    num = 2 (index 6)
+    res = [5, 6, 6, 6, 7, -1, -1]
+    stack = [7,2]
+    
+    num = 2 (index 0)
+    res = [5, 6, 6, 6, 7, -1, -1]
+    stack = [7,2,2]
+    ---
+    
+    """
+    
+    # O(n) time | O(n) space - where n is the length of the array
+    def nextGreaterElement(array):
+        res = [-1] * len(array)
+    
+        # stack used to store the previous smaller numbers that haven't been replaced
+        next_nums_stack = []
+    
+        # loop through twice because the array is circular
+        for i in reversed(range(len(array)*2)):
+            array_idx = i % len(array)  # prevent out of bound errors
+    
+            while len(next_nums_stack) > 0:
+                # if value at the top of the stack is smaller than the current value in the array,
+                #	remove it from the stack till we find something larger
+                if next_nums_stack[-1] <= array[array_idx]:
+                    next_nums_stack.pop()
+    
+                # replace the value in the array by the
+                #	value at the top of the stack (if stack[-1] is larger)
+                else:
+                    res[array_idx] = next_nums_stack[-1]
+                    break
+    
+            # add the current element to the next_nums_stack so that it can be checked in the futere for replacement
+            next_nums_stack.append(array[array_idx])
+    
+        return res
+    ```
+    
+
 ---
 
 ---
@@ -1286,6 +1530,73 @@ To implement a queue, we again need two basic operations: `enqueue()` and `de
 
 [BFS](Searching%20733ff84c808c4c9cb5c40787b2df7b98.md)
 
+- Asteroid Collision
+    
+    ```python
+    """ 
+    735. Asteroid Collision
+    
+    We are given an array asteroids of integers representing asteroids in a row.
+    For each asteroid, the absolute value represents its size, and the sign represents its direction (positive meaning right, negative meaning left). 
+    Each asteroid moves at the same speed.
+    Find out the state of the asteroids after all collisions. 
+    If two asteroids meet, the smaller one will explode. If both are the same size, both will explode. Two asteroids moving in the same direction will never meet.
+    
+     
+    
+    Example 1:
+        Input: asteroids = [5,10,-5]
+        Output: [5,10]
+        Explanation: The 10 and -5 collide resulting in 10. The 5 and 10 never collide.
+    Example 2:
+        Input: asteroids = [8,-8]
+        Output: []
+        Explanation: The 8 and -8 collide exploding each other.
+    Example 3:
+        Input: asteroids = [10,2,-5]
+        Output: [10]
+        Explanation: The 2 and -5 collide resulting in -5. The 10 and -5 collide resulting in 10.
+    Example 4:
+        Input: asteroids = [-2,-1,1,2]
+        Output: [-2,-1,1,2]
+        Explanation: The -2 and -1 are moving left, while the 1 and 2 are moving right. Asteroids moving the same direction never meet, so no asteroids will meet each other.
+     
+    Constraints:
+        2 <= asteroids.length <= 104
+        -1000 <= asteroids[i] <= 1000
+        asteroids[i] != 0
+        
+    https://leetcode.com/problems/asteroid-collision
+    """
+    
+    from collections import deque
+    from typing import List
+    
+    class Solution:
+        def asteroidCollision(self, asteroids: List[int]):
+    
+            stack = deque()
+            for asteroid in asteroids:
+                if asteroid > 0:
+                    stack.append(asteroid)
+                    continue
+    
+                while asteroid and stack and stack[-1] > 0:
+                    if abs(stack[-1]) > abs(asteroid):
+                        asteroid = 0
+                    elif abs(stack[-1]) == abs(asteroid):
+                        stack.pop()
+                        asteroid = 0
+                    elif abs(stack[-1]) < abs(asteroid):
+                        stack.pop()
+    
+                if asteroid and (not stack or stack[-1] < 0):
+                    stack.append(asteroid)
+                    asteroid = 0
+    
+            return list(stack)
+    ```
+    
 - Implement Queue using Stacks
     
     ```python
@@ -1477,6 +1788,92 @@ To implement a queue, we again need two basic operations: `enqueue()` and `de
 - Animal Shelter
     
     ![Screenshot 2021-10-02 at 13.38.12.png](Stacks%20&%20Queues%20c7d2cad790be4a61bac42c8718e031fd/Screenshot_2021-10-02_at_13.38.12.png)
+    
+
+---
+
+## **Monotonic Queue**
+
+### Examples
+
+- **Sliding Window Maximum**
+    
+    ![Screenshot 2021-11-23 at 20.53.26.png](Stacks%20&%20Queues%20c7d2cad790be4a61bac42c8718e031fd/Screenshot_2021-11-23_at_20.53.26.png)
+    
+    ```python
+    """ 
+    239. Sliding Window Maximum
+    
+    You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. 
+    You can only see the k numbers in the window. Each time the sliding window moves right by one position.
+    Return the max sliding window.
+    
+    Example 1:
+        Input: nums = [1,3,-1,-3,5,3,6,7], k = 3
+        Output: [3,3,5,5,6,7]
+        Explanation: 
+            Window position                Max
+            ---------------               -----
+            [1  3  -1] -3  5  3  6  7       3
+            1 [3  -1  -3] 5  3  6  7       3
+            1  3 [-1  -3  5] 3  6  7       5
+            1  3  -1 [-3  5  3] 6  7       5
+            1  3  -1  -3 [5  3  6] 7       6
+            1  3  -1  -3  5 [3  6  7]      7
+    Example 2:
+        Input: nums = [1], k = 1
+        Output: [1]
+    Example 3:
+        Input: nums = [1,-1], k = 1
+        Output: [1,-1]
+    Example 4:
+        Input: nums = [9,11], k = 2
+        Output: [11]
+    Example 5:
+        Input: nums = [4,-2], k = 2
+        Output: [4]
+        
+    https://leetcode.com/problems/sliding-window-maximum
+    """
+    
+    from typing import List
+    from collections import deque
+    
+    class Solution:
+        def maxSlidingWindow(self, nums: List[int], k: int):
+            """ 
+            - have a double-ended-queue
+            - for each element in the array:
+                - clean deque
+                    - remove the elements that are out of the window's bounds from the left of the deque
+                    - remove all elements that are smaller than the element from the right of the deque
+                - add the element to the deque
+                - the largest element in this window is the leftmost element
+            """
+            result = []
+    
+            de_queue = deque()
+            # add first k-1 elements
+            for idx in range(k-1):
+                while de_queue and nums[de_queue[-1]] <= nums[idx]:
+                    de_queue.pop()
+                de_queue.append(idx)
+    
+            for idx in range(k-1, len(nums)):
+                # remove not in window
+                if de_queue and de_queue[0] <= idx-k:
+                    de_queue.popleft()
+    
+                # remove smaller
+                while de_queue and nums[de_queue[-1]] <= nums[idx]:
+                    de_queue.pop()
+    
+                # add the element to the deque & the largest element in this window is the left-most element
+                de_queue.append(idx)
+                result.append(nums[de_queue[0]])
+    
+            return result
+    ```
     
 
 ---

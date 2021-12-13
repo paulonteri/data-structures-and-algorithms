@@ -1,11 +1,75 @@
 # Math Tricks
 
+## Introduction
+
 [📌 TIPS | HACKS WHICH YOU CAN'T IGNORE AS A CODER ✨🎩 - LeetCode Discuss](https://leetcode.com/discuss/study-guide/1151183/TIPS-or-HACKS-WHICH-YOU-CAN'T-IGNORE-AS-A-CODER)
 
 Whenever you get an integer conversion problem, think of modulo `%` and floor division `//`
 
 6.2 epi
 
+## Tips & Tricks
+
+### How to multiply matrices
+
+[Multiplying Matrices](https://youtu.be/vzt9c7iWPxs)
+
+[https://youtu.be/vzt9c7iWPxs](https://youtu.be/vzt9c7iWPxs)
+
+row * col
+
+## Examples
+
+- **Integer to Roman**
+    
+    ![Screenshot 2021-11-23 at 18.31.32.png](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screenshot_2021-11-23_at_18.31.32.png)
+    
+    ![Screenshot 2021-11-23 at 18.32.46.png](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screenshot_2021-11-23_at_18.32.46.png)
+    
+    ![Screenshot 2021-11-23 at 18.33.33.png](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screenshot_2021-11-23_at_18.33.33.png)
+    
+    ![Screenshot 2021-11-23 at 18.34.37.png](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screenshot_2021-11-23_at_18.34.37.png)
+    
+    ```java
+    class Solution {
+        private static final int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};    
+        private static final String[] symbols = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+    
+        public String intToRoman(int num) {
+            StringBuilder sb = new StringBuilder();
+            // Loop through each symbol, stopping if num becomes 0.
+            for (int i = 0; i < values.length && num > 0; i++) {
+                // Repeat while the current symbol still fits into num.
+                while (values[i] <= num) {
+                    num -= values[i];
+                    sb.append(symbols[i]);
+                }
+            }
+            return sb.toString();
+        }
+    }
+    ```
+    
+    ```python
+    class Solution:
+        def intToRoman(self, num: int) -> str:
+            digits = [(1000, "M"), (900, "CM"), (500, "D"), (400, "CD"), (100, "C"), 
+                      (90, "XC"), (50, "L"), (40, "XL"), (10, "X"), (9, "IX"), 
+                      (5, "V"), (4, "IV"), (1, "I")]
+            
+            roman_digits = []
+            # Loop through each symbol.
+            for value, symbol in digits:
+                # We don't want to continue looping if we're done.
+                if num == 0: break
+                count, num = divmod(num, value)
+                # Append "count" copies of "symbol" to roman_digits.
+                roman_digits.append(symbol * count)
+            return "".join(roman_digits)
+    ```
+    
+    [Screen Recording 2021-11-23 at 18.34.59.mov](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screen_Recording_2021-11-23_at_18.34.59.mov)
+    
 - Reverse Integer
     
     ```python
@@ -398,6 +462,16 @@ Whenever you get an integer conversion problem, think of modulo `%` and floor di
     ```
     
 
+- [https://leetcode.com/problems/next-greater-element-iii/](https://leetcode.com/problems/next-greater-element-iii/solution/)
+    
+    ![Screenshot 2021-11-29 at 05.27.01.png](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screenshot_2021-11-29_at_05.27.01.png)
+    
+    ![Screenshot 2021-11-29 at 05.25.32.png](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screenshot_2021-11-29_at_05.25.32.png)
+    
+    ![Screenshot 2021-11-29 at 05.25.57.png](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screenshot_2021-11-29_at_05.25.57.png)
+    
+    [Screen Recording 2021-11-29 at 05.26.15.mov](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screen_Recording_2021-11-29_at_05.26.15.mov)
+    
 - Next Permutation **
     
     ![Screenshot 2021-10-15 at 06.47.46.png](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screenshot_2021-10-15_at_06.47.46.png)
@@ -926,7 +1000,10 @@ Whenever you get an integer conversion problem, think of modulo `%` and floor di
             return num
     ```
     
-- Basic Calculator II
+
+- Basic Calculator II **
+    
+    ![Screenshot 2021-11-29 at 10.18.58.png](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screenshot_2021-11-29_at_10.18.58.png)
     
     ```python
     """
@@ -968,6 +1045,8 @@ Whenever you get an integer conversion problem, think of modulo `%` and floor di
     "3+5/2" => 3+2 = 5
     "3+5/2+5/2" => 3+2+2 = 7
     
+    "38765456789+43434345/23434+53434/2" 
+    
     -------------------------- BRUTE FORCE ----------------------------------
     O(n^2) time | O(1) time 
     -  evaluate each of DMAS and add it back to the string
@@ -981,7 +1060,7 @@ Whenever you get an integer conversion problem, think of modulo `%` and floor di
     
     - separate the s into an array that contain intergers and the signs
     
-    -  evaluate each of D/MA/S and add it to an array
+    -  evaluate each of D/M A/S and add it to an array
         - do division on array, add the results to after_div array
         - do multiplication on after_div, add the results to after_mult array
         - do addition on after_mult...
@@ -1067,62 +1146,6 @@ Whenever you get an integer conversion problem, think of modulo `%` and floor di
             return "".join([str(item) for item in after_sa])
     
     """ 
-    ------------------------------------------------------------------------------------------
-    """
-    
-    class Solution2:
-        def calculate(self, s: str):
-    
-            # separate the s into an array that contain integers and the signs
-            arr = []
-            i = 0
-            while i < len(s):
-                if s[i].isnumeric():
-                    end = i
-                    while end+1 < len(s) and s[end+1].isnumeric():
-                        end += 1
-                    arr.append(s[i:end+1])
-                    i = end + 1
-                elif s[i] == " ":
-                    i += 1
-                else:
-                    arr.append(s[i])
-                    i += 1
-    
-            stack = []
-            current_number = ""
-            prev_operand = "+"
-    
-            # evaluate addition or subtraction
-            for idx in range(len(arr)+1):
-                if idx < len(arr) and arr[idx].isnumeric():
-                    current_number = arr[idx]
-                    continue
-    
-                if prev_operand == "-":
-                    stack.append(-int(current_number))
-    
-                elif prev_operand == "+":
-                    stack.append(int(current_number))
-    
-                elif prev_operand == "*":
-                    prev_num = stack.pop()
-                    stack.append(prev_num * int(current_number))
-    
-                elif prev_operand == "/":
-                    prev_num = stack.pop()
-                    stack.append(math.trunc(prev_num / int(current_number)))
-    
-                if idx < len(arr):
-                    prev_operand = arr[idx]
-    
-            number = 0
-            while stack:
-                number += stack.pop()
-    
-            return number
-    
-    """ 
     
     """
     
@@ -1158,6 +1181,62 @@ Whenever you get an integer conversion problem, think of modulo `%` and floor di
                     continue
     
                 prev_operand = arr[idx-1]
+    
+                if prev_operand == "-":
+                    stack.append(-int(current_number))
+    
+                elif prev_operand == "+":
+                    stack.append(int(current_number))
+    
+                elif prev_operand == "*":
+                    prev_num = stack.pop()
+                    stack.append(prev_num * int(current_number))
+    
+                elif prev_operand == "/":
+                    prev_num = stack.pop()
+                    stack.append(math.trunc(prev_num / int(current_number)))
+    
+                if idx < len(arr):
+                    prev_operand = arr[idx]
+    
+            number = 0
+            while stack:
+                number += stack.pop()
+    
+            return number
+    
+    """ 
+    ------------------------------------------------------------------------------------------
+    """
+    
+    class Solution2:
+        def calculate(self, s: str):
+    
+            # separate the s into an array that contain integers and the signs
+            arr = []
+            i = 0
+            while i < len(s):
+                if s[i].isnumeric():
+                    end = i
+                    while end+1 < len(s) and s[end+1].isnumeric():
+                        end += 1
+                    arr.append(s[i:end+1])
+                    i = end + 1
+                elif s[i] == " ":
+                    i += 1
+                else:
+                    arr.append(s[i])
+                    i += 1
+    
+            stack = []
+            current_number = ""
+            prev_operand = "+"
+    
+            # evaluate addition or subtraction
+            for idx in range(len(arr)+1):
+                if idx < len(arr) and arr[idx].isnumeric():
+                    current_number = arr[idx]
+                    continue
     
                 if prev_operand == "-":
                     stack.append(-int(current_number))
@@ -1521,34 +1600,13 @@ Whenever you get an integer conversion problem, think of modulo `%` and floor di
     ```
     
 
-- Integer to English Words
+- [https://leetcode.com/problems/integer-to-english-words/](https://leetcode.com/problems/integer-to-english-words/)
     
     ![Screenshot 2021-10-15 at 20.59.35.png](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screenshot_2021-10-15_at_20.59.35.png)
     
     [Screen Recording 2021-10-15 at 21.00.14.mov](Math%20Tricks%208c99fd21a1d343f7bee1eaf0467ea362/Screen_Recording_2021-10-15_at_21.00.14.mov)
     
     ```python
-    """ 
-    Integer to English Words
-    
-    Convert a non-negative integer num to its English words representation.
-    
-    Example 1:
-        Input: num = 123
-        Output: "One Hundred Twenty Three"
-    Example 2:
-        Input: num = 12345
-        Output: "Twelve Thousand Three Hundred Forty Five"
-    Example 3:
-        Input: num = 1234567
-        Output: "One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven"
-    Example 4:
-        Input: num = 1234567891
-        Output: "One Billion Two Hundred Thirty Four Million Five Hundred Sixty Seven Thousand Eight Hundred Ninety One"
-    
-    https://leetcode.com/problems/integer-to-english-words
-    """
-    
     """ 
     This problem is about the decomposition of the problem -- how do you break it down. Not about efficiency.
     
@@ -1559,84 +1617,52 @@ Whenever you get an integer conversion problem, think of modulo `%` and floor di
     
     class Solution:
     
-        def ones(self, num):
-            store = {
-                1: 'One',
-                2: 'Two',
-                3: 'Three',
-                4: 'Four',
-                5: 'Five',
-                6: 'Six',
-                7: 'Seven',
-                8: 'Eight',
-                9: 'Nine'
-            }
-            return store[num]
-    
-        def tens_less_20(self, num):
-            store = {
-                10: 'Ten',
-                11: 'Eleven',
-                12: 'Twelve',
-                13: 'Thirteen',
-                14: 'Fourteen',
-                15: 'Fifteen',
-                16: 'Sixteen',
-                17: 'Seventeen',
-                18: 'Eighteen',
-                19: 'Nineteen'
-            }
-            return store[num]
-    
-        def tens_greater_20(self, num):
-            store = {
-                2: 'Twenty',
-                3: 'Thirty',
-                4: 'Forty',
-                5: 'Fifty',
-                6: 'Sixty',
-                7: 'Seventy',
-                8: 'Eighty',
-                9: 'Ninety'
-            }
+        def len_one(self, num):
+            store = {1: 'One', 2: 'Two', 3: 'Three', 4: 'Four',
+                     5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine'}
             return store[num]
     
         def len_two(self, num):
-            if not num:
-                return ''
-            elif num < 10:
-                return self.ones(num)
-            elif num < 20:
-                return self.tens_less_20(num)
-            else:
-                tenner = num // 10
-                rest = num % 10
+            tens_less_20 = {10: 'Ten', 11: 'Eleven', 12: 'Twelve', 13: 'Thirteen', 14: 'Fourteen',
+                            15: 'Fifteen', 16: 'Sixteen', 17: 'Seventeen', 18: 'Eighteen', 19: 'Nineteen'}
+            tens_greater_20 = {2: 'Twenty', 3: 'Thirty', 4: 'Forty',
+                               5: 'Fifty', 6: 'Sixty', 7: 'Seventy', 8: 'Eighty', 9: 'Ninety'}
     
-                if rest:
-                    return self.tens_greater_20(tenner) + ' ' + self.ones(rest)
+            if num < 10:
+                return self.len_one(num)
+            elif num < 20:
+                return tens_less_20[num]
+            # tens > 20
+            elif num >= 20:
+                tens = num // 10
+                ones = num % 10
+                if ones:
+                    return tens_greater_20[tens] + ' ' + self.len_one(ones)
                 else:
-                    return self.tens_greater_20(tenner)
+                    return tens_greater_20[tens]
+            return ''
     
         def len_three(self, num):
             hundred = num // 100
             rest = num % 100
     
             if hundred and rest:
-                return self.ones(hundred) + ' Hundred ' + self.len_two(rest)
+                return self.len_one(hundred) + ' Hundred ' + self.len_two(rest)
             elif hundred and not rest:
-                return self.ones(hundred) + ' Hundred'
+                return self.len_one(hundred) + ' Hundred'
             elif not hundred and rest:
                 return self.len_two(rest)
+            return ''  # not needed
     
         def numberToWords(self, num):
+            # special case
+            if not num:
+                return 'Zero'
     
             billion = num // 1000000000
             million = (num - billion * 1000000000) // 1000000
             thousand = (num - billion * 1000000000 - million * 1000000) // 1000
             rest = num - billion * 1000000000 - million * 1000000 - thousand * 1000
-    
-            if not num:
-                return 'Zero'
     
             result = ''
             if billion:
@@ -1706,3 +1732,10 @@ Whenever you get an integer conversion problem, think of modulo `%` and floor di
     
             return "".join([str(item) for item in res])
     ```
+    
+- [https://leetcode.com/problems/sparse-matrix-multiplication/](https://leetcode.com/problems/sparse-matrix-multiplication/)
+- [https://leetcode.com/problems/evaluate-division/](https://leetcode.com/problems/evaluate-division/)
+    
+    [EVALUATE DIVISION (Leetcode) - Code & Whiteboard](https://youtu.be/00qH6CfmB-M)
+    
+    [Google | Phone | Currency Conversion - LeetCode Discuss](https://leetcode.com/discuss/interview-question/483660/Google-or-Phone-or-Currency-Conversion)

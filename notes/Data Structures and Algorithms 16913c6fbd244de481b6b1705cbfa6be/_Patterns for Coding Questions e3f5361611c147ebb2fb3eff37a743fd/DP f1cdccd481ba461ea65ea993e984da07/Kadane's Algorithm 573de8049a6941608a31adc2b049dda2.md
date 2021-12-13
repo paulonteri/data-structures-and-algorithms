@@ -33,8 +33,8 @@ from typing import List
 class Solution:
     def maxSubArray(self, nums: List[int]):
         # # # find the maximum subarray per given element:
-        # # check which one is larger:
-        # # adding the element to the current subarray or starting a new subarray at the element
+        # # ***check which one is larger:***
+        # # ***adding the element to the current subarray or starting a new subarray at the element***
 
         # the max subarray we found's sum
         max_sa_sum = float("-inf")

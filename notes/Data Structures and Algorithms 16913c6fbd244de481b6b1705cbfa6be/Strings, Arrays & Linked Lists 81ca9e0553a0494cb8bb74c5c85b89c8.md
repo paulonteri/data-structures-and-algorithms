@@ -231,9 +231,165 @@ Array-based problems are the **hardest** problems by far there are way **too man
     print(groupAnagrams1(['yo', 'act', 'flop', 'tac', 'foo', 'cat', 'oy', 'olfp']))
     ```
     
+
+- Minimum Window Substring **
+    
+    [Minimum Window Substring - Airbnb Interview Question - Leetcode 76](https://youtu.be/jSto0O4AJbM)
+    
+    ```python
+    """ 
+    76. Minimum Window Substring
+    
+    Given two strings s and t of lengths m and n respectively, 
+    return the minimum window substring of s such that every character in t (including duplicates) is included in the window. 
+    If there is no such substring, return the empty string "".
+    
+    The testcases will be generated such that the answer is unique.
+    
+    A substring is a contiguous sequence of characters within the string.
+    
+    Example 1:
+        Input: s = "ADOBECODEBANC", t = "ABC"
+        Output: "BANC"
+        Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+    Example 2:
+        Input: s = "a", t = "a"
+        Output: "a"
+        Explanation: The entire string s is the minimum window.
+    Example 3:
+        Input: s = "a", t = "aa"
+        Output: ""
+        Explanation: Both 'a's from t must be included in the window.
+        Since the largest window of s only has one 'a', return empty string.
+    
+    https://leetcode.com/problems/minimum-window-substring
+    
+    Prerequisites:
+    - https://leetcode.com/problems/find-all-anagrams-in-a-string/ (https://www.notion.so/paulonteri/Sliding-Window-f6685a15f97a4ca2bb40111e2b264fb2#618e5fb94ea54bee8ff5eb7ab0c155ab)
+    - https://leetcode.com/problems/permutation-in-string
+    """
+    
+    import collections
+    
+    """ BF """
+    
+    class Solution_:
+    
+        def minWindow(self, s: str, t: str):
+            t_count = collections.Counter(t)
+            store = collections.defaultdict(int)
+    
+            idx = 0
+            while idx < len(s) and not self.hasAllInT(store, t_count):
+                store[s[idx]] += 1
+                idx += 1
+    
+            if not self.hasAllInT(store, t_count):
+                return ""
+    
+            res = [0, idx-1]
+            left = 0
+            right = idx-1
+            while left <= right and right < len(s):
+                # # we have all needed characters
+                if left <= right and self.hasAllInT(store, t_count):
+                    # record size
+                    res = min(res, [left, right], key=lambda x: x[1]-x[0])
+    
+                    # reduce size
+                    store[s[left]] -= 1
+                    if store[s[left]] == 0:
+                        store.pop(s[left])
+                    left += 1
+    
+                # # do not have all needed characters - expand window
+                else:
+                    right += 1
+                    if right < len(s):
+                        store[s[right]] += 1
+    
+            return s[res[0]:res[1]+1]
+    
+        def hasAllInT(self, store, t_count):
+    
+            for char in t_count:
+                if char not in store:
+                    return False
+                if store[char] < t_count[char]:
+                    return False
+            return True
+    
+    """ Optimal """
+    
+    class Solution:
+    
+        def minWindow(self, s: str, t: str):
+            t_count = collections.Counter(t)
+    
+    				 # # window
+            window_val_count = collections.defaultdict(int)  # default 0
+            # add index 0
+    				 num_of_valid_chars = self.increase_window(-1, s, t_count, window_val_count, 0)
+    
+            res = (0, float("inf"))
+    
+            left, right = 0, 0
+            while left <= right and right < len(s):
+    
+                # we have all characters - decrease window
+                if num_of_valid_chars == len(t_count):
+                    res = min(res, (left, right), key=lambda x: x[1]-x[0])
+                    num_of_valid_chars = self.decrease_window(
+                        left, s, t_count, window_val_count, num_of_valid_chars)
+                    left += 1
+    
+                # do not have all characters - increase window
+                else:
+                    num_of_valid_chars = self.increase_window(
+                        right, s, t_count, window_val_count, num_of_valid_chars)
+                    right += 1
+    
+            if res[1] == float('inf'):
+                return ""
+            return s[res[0]:res[1]+1]
+    
+        def decrease_window(self, left, s, t_count, window_val_count, num_of_valid_chars):
+            left_char = s[left]
+            if left_char not in t_count:
+                return num_of_valid_chars
+    
+            had_needed = window_val_count[left_char] >= t_count[left_char]
+    
+            window_val_count[left_char] -= 1
+    
+            # correct valid chars: one is now missing
+            if had_needed and window_val_count[left_char] < t_count[left_char]:
+                return num_of_valid_chars-1
+    
+            return num_of_valid_chars
+    
+        def increase_window(self, right, s, t_count, window_val_count, num_of_valid_chars):
+            if right+1 >= len(s):
+                return num_of_valid_chars
+    
+            right_char = s[right+1]
+            if right_char not in t_count:
+                return num_of_valid_chars
+    
+            had_needed = window_val_count[right_char] >= t_count[right_char]
+    
+            window_val_count[right_char] += 1
+    
+            # correct valid chars: one is now added
+            if not had_needed and window_val_count[right_char] >= t_count[right_char]:
+                return num_of_valid_chars+1
+    
+            return num_of_valid_chars
+    ```
+    
 - [https://leetcode.com/problems/subdomain-visit-count/](https://leetcode.com/problems/subdomain-visit-count/)
     
-    ```cpp
+    ```python
     from collections import defaultdict
     
     # O(N) time | O(N) space
@@ -259,11 +415,12 @@ Array-based problems are the **hardest** problems by far there are way **too man
             return [f"{value} {key}" for key, value in visited.items()]
     ```
     
-- Pattern Matcher *
+- Word Pattern II / Pattern Matcher *
     
     ```python
     """ 
     Pattern Matcher:
+    Word Pattern II:
     
     You're given two non-empty strings. 
     The first one is a pattern consisting of only "x"s and / or "y"s; the other one is a normal string of alphanumeric characters. 
@@ -281,6 +438,8 @@ Array-based problems are the **hardest** problems by far there are way **too man
         string = "gogopowerrangergogopowerranger"
     Sample Output
         ["go", "powerranger"]
+        
+    https://leetcode.com/problems/word-pattern-ii/
     """
     
     import collections
@@ -880,162 +1039,6 @@ Array-based problems are the **hardest** problems by far there are way **too man
         return "".join(letters)
     ```
     
-
-- Minimum Window Substring **
-    
-    [Minimum Window Substring - Airbnb Interview Question - Leetcode 76](https://youtu.be/jSto0O4AJbM)
-    
-    ```python
-    """ 
-    76. Minimum Window Substring
-    
-    Given two strings s and t of lengths m and n respectively, 
-    return the minimum window substring of s such that every character in t (including duplicates) is included in the window. 
-    If there is no such substring, return the empty string "".
-    
-    The testcases will be generated such that the answer is unique.
-    
-    A substring is a contiguous sequence of characters within the string.
-    
-    Example 1:
-        Input: s = "ADOBECODEBANC", t = "ABC"
-        Output: "BANC"
-        Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
-    Example 2:
-        Input: s = "a", t = "a"
-        Output: "a"
-        Explanation: The entire string s is the minimum window.
-    Example 3:
-        Input: s = "a", t = "aa"
-        Output: ""
-        Explanation: Both 'a's from t must be included in the window.
-        Since the largest window of s only has one 'a', return empty string.
-    
-    https://leetcode.com/problems/minimum-window-substring
-    
-    Prerequisites:
-    - https://leetcode.com/problems/find-all-anagrams-in-a-string/ (https://www.notion.so/paulonteri/Sliding-Window-f6685a15f97a4ca2bb40111e2b264fb2#618e5fb94ea54bee8ff5eb7ab0c155ab)
-    - https://leetcode.com/problems/permutation-in-string
-    """
-    
-    import collections
-    
-    """ BF """
-    
-    class Solution_:
-    
-        def minWindow(self, s: str, t: str):
-            t_count = collections.Counter(t)
-            store = collections.defaultdict(int)
-    
-            idx = 0
-            while idx < len(s) and not self.hasAllInT(store, t_count):
-                store[s[idx]] += 1
-                idx += 1
-    
-            if not self.hasAllInT(store, t_count):
-                return ""
-    
-            res = [0, idx-1]
-            left = 0
-            right = idx-1
-            while left <= right and right < len(s):
-                # # we have all needed characters
-                if left <= right and self.hasAllInT(store, t_count):
-                    # record size
-                    res = min(res, [left, right], key=lambda x: x[1]-x[0])
-    
-                    # reduce size
-                    store[s[left]] -= 1
-                    if store[s[left]] == 0:
-                        store.pop(s[left])
-                    left += 1
-    
-                # # do not have all needed characters - expand window
-                else:
-                    right += 1
-                    if right < len(s):
-                        store[s[right]] += 1
-    
-            return s[res[0]:res[1]+1]
-    
-        def hasAllInT(self, store, t_count):
-    
-            for char in t_count:
-                if char not in store:
-                    return False
-                if store[char] < t_count[char]:
-                    return False
-            return True
-    
-    """ Optimal """
-    
-    class Solution:
-    
-        def minWindow(self, s: str, t: str):
-            t_count = collections.Counter(t)
-    
-    				 # # window
-            window_val_count = collections.defaultdict(int)  # default 0
-            # add index 0
-    				 num_of_valid_chars = self.increase_window(-1, s, t_count, window_val_count, 0)
-    
-            res = (0, float("inf"))
-    
-            left, right = 0, 0
-            while left <= right and right < len(s):
-    
-                # we have all characters - decrease window
-                if num_of_valid_chars == len(t_count):
-                    res = min(res, (left, right), key=lambda x: x[1]-x[0])
-                    num_of_valid_chars = self.decrease_window(
-                        left, s, t_count, window_val_count, num_of_valid_chars)
-                    left += 1
-    
-                # do not have all characters - increase window
-                else:
-                    num_of_valid_chars = self.increase_window(
-                        right, s, t_count, window_val_count, num_of_valid_chars)
-                    right += 1
-    
-            if res[1] == float('inf'):
-                return ""
-            return s[res[0]:res[1]+1]
-    
-        def decrease_window(self, left, s, t_count, window_val_count, num_of_valid_chars):
-            left_char = s[left]
-            if left_char not in t_count:
-                return num_of_valid_chars
-    
-            had_needed = window_val_count[left_char] >= t_count[left_char]
-    
-            window_val_count[left_char] -= 1
-    
-            # correct valid chars: one is now missing
-            if had_needed and window_val_count[left_char] < t_count[left_char]:
-                return num_of_valid_chars-1
-    
-            return num_of_valid_chars
-    
-        def increase_window(self, right, s, t_count, window_val_count, num_of_valid_chars):
-            if right+1 >= len(s):
-                return num_of_valid_chars
-    
-            right_char = s[right+1]
-            if right_char not in t_count:
-                return num_of_valid_chars
-    
-            had_needed = window_val_count[right_char] >= t_count[right_char]
-    
-            window_val_count[right_char] += 1
-    
-            # correct valid chars: one is now added
-            if not had_needed and window_val_count[right_char] >= t_count[right_char]:
-                return num_of_valid_chars+1
-    
-            return num_of_valid_chars
-    ```
-    
 - Minimum Characters For Words
     
     ```python
@@ -1252,6 +1255,94 @@ Array-based problems are the **hardest** problems by far there are way **too man
                 # move on to the next set of chars
                 a_pointer += 1
                 b_pointer -= 1
+            return True
+    ```
+    
+- Count Binary Substrings
+    
+    ```python
+    """ 
+    696. Count Binary Substrings
+    
+    Give a binary string s, return the number of non-empty substrings that have the same number of 0's and 1's,
+        and all the 0's and all the 1's in these substrings are grouped consecutively.
+    Substrings that occur multiple times are counted the number of times they occur.
+    
+    Example 1:
+        Input: s = "00110011"
+        Output: 6
+        Explanation: There are 6 substrings that have equal number of consecutive 1's and 0's: "0011", "01", "1100", "10", "0011", and "01".
+            Notice that some of these substrings repeat and are counted the number of times they occur.
+            Also, "00110011" is not a valid substring because all the 0's (and 1's) are not grouped together.
+    Example 2:
+        Input: s = "10101"
+        Output: 4
+        Explanation: There are 4 substrings: "10", "01", "10", "01" that have equal number of consecutive 1's and 0's.
+        
+    https://leetcode.com/problems/count-binary-substrings
+    """
+    
+    class Solution(object):
+        def countBinarySubstrings(self, s):
+            ans = 0
+            # group sizes (group of zeros or ones)
+            prev, cur = 0, 1
+    
+            for idx in range(1, len(s)):
+                if s[idx-1] != s[idx]:
+                    # add curr group + the one b4 it
+                    ans += min(prev, cur)
+                    # create a new group and move cur to prev
+                    prev, cur = cur, 1
+                else:
+                    cur += 1
+    
+            ans += min(prev, cur)
+    
+            return ans
+    
+    class Solution_:
+        def countBinarySubstrings(self, s: str):
+            """ 
+            - count = 0
+            - iterate from index 0 to the 2nd last index
+            - for each index:
+                - left = index
+                - right = index + 1
+                - while expand_window(left, right):
+                    count += 1
+                    left -= 1
+                    right += 1
+            - return count
+            """
+            count = 0
+    
+            for idx in range(len(s)-1):
+                left, right = idx, idx+1
+    
+                # check if can start expansion
+                left_char, right_char = s[left], s[right]
+                expand = left_char + right_char
+                if not ("0" in expand and "1" in expand):
+                    continue
+    
+                # expand
+                while self.expand_window(s, left, right, left_char, right_char):
+                    count += 1
+                    left -= 1
+                    right += 1
+    
+            return count
+    
+        def expand_window(self, s, left, right, left_char, right_char):
+            """ 
+            check if we have a 0 & 1 in left+right
+            """
+            if left < 0 or right >= len(s):
+                return False
+            if s[left] != left_char or s[right] != right_char:
+                return False
+    
             return True
     ```
     
@@ -1582,7 +1673,7 @@ x = ["", "2", "", "3"]
 
 ### **Slicing ***
 
-A subset of [array slicing]()
+A subset of [array slicing](Strings,%20Arrays%20&%20Linked%20Lists%2081ca9e0553a0494cb8bb74c5c85b89c8.md)
 
 ```python
 word = "0123456789"
@@ -1988,62 +2079,14 @@ StringBuilder (Java)
     """
     ```
     
-- Maximum Subarray
-    
-    ```python
-    """
-    Maximum Subarray:
-    
-    Given an integer array nums, 
-    find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
-    
-    Example 1:
-        Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
-        Output: 6
-        Explanation: [4,-1,2,1] has the largest sum = 6.
-    Example 2:
-        Input: nums = [1]
-        Output: 1
-    Example 3:
-        Input: nums = [5,4,-1,7,8]
-        Output: 23
-    
-    https://leetcode.com/problems/maximum-subarray/
-    """
-    
-    # O(n) time | O(1) space
-    class Solution:
-        def maxSubArray(self, nums):
-            # # # find the maximum subarray per given element:
-            # # check which one is larger:
-            # # adding the element to the current subarray or starting a new subarray at the element
-    
-            # the max subarray we found's sum
-            max_sum = float("-inf")
-    
-            # sum of the current subarray that we are working with
-            curr_subarray = float("-inf")
-            for num in nums:
-    
-                # check if adding the num to the current subarray will be a larger sum than starting a new subarray at the element
-                # then the current subarray should be the longer/larger of the two
-                after_add = curr_subarray + num
-                if after_add > num:
-                    curr_subarray = after_add
-                else:
-                    curr_subarray = num
-    
-                # record the largest (sum) we found
-                max_sum = max(max_sum, curr_subarray)
-    
-            return max_sum
-    ```
-    
-- Maximum Subarray *
+
+- Maximum Subarray **
 
 - Subarray Sum Equals K *
     
-    Next: [Path sum III](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185.md), [Segment trees]()
+    Next: [Path sum III](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185.md), [Segment trees](Strings,%20Arrays%20&%20Linked%20Lists%2081ca9e0553a0494cb8bb74c5c85b89c8.md)
+    
+    [Subarray Sum Equals K - Prefix Sums - Leetcode 560 - Python](https://youtu.be/fFVZt-6sgyo)
     
     [LeetCode Subarray Sum Equals K Solution Explained - Java](https://youtu.be/AmlVSNBHzJg)
     
@@ -2146,6 +2189,34 @@ StringBuilder (Java)
     """
     ```
     
+- [https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/](https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/) *
+    
+    ```python
+    class Solution:
+        def maxSubArrayLen(self, nums: List[int], k: int) -> int:
+            prefix_sum = longest_subarray = 0
+            indices = {}
+            
+            for i, num in enumerate(nums):
+                prefix_sum += num
+                
+                # Check if all of the numbers seen so far sum to k.
+                if prefix_sum == k:
+                    longest_subarray = i + 1
+                    
+                # If any subarray seen so far sums to k, then
+                # update the length of the longest_subarray. 
+                if prefix_sum - k in indices:
+                    longest_subarray = max(longest_subarray, i - indices[prefix_sum - k])
+                    
+                # Only add the current prefix_sum index pair to the 
+                # map if the prefix_sum is not already in the map.
+                if prefix_sum not in indices:
+                    indices[prefix_sum] = i
+            
+            return longest_subarray
+    ```
+    
 
 - Continuous Subarray Sum ***
     
@@ -2160,6 +2231,10 @@ StringBuilder (Java)
     [LeetCode 523. Continuous Subarray Sum Explanation and Solution](https://youtu.be/wsTcByj8QbI)
     
     ![523. Continuous Subarray Sum.png](Strings,%20Arrays%20&%20Linked%20Lists%2081ca9e0553a0494cb8bb74c5c85b89c8/523._Continuous_Subarray_Sum.png)
+    
+    If two sums A and B are giving the same remainder when divided by a number K, then their difference abs(A-B) is always divisible by K.
+    Simply, If you get the same remainder again, it means that you've encountered some sum which is a multiple of K.
+    - Their difference is a multiple of k, that's why they have the same remainder
     
     ```python
     """
@@ -2498,57 +2573,6 @@ StringBuilder (Java)
     ```
     
 - Subarrays with Product Less than a Target *
-- Array Of Products / Product of Array Except Self
-    
-    ```python
-    """
-    Array Of Products:
-    Product of Array Except Self:
-    
-    Write a function that takes in a non-empty array of integers and returns an array of the same length,
-     where each element in the output array is equal to the product of every other number in the input array.
-    In other words, the value at output[i] is equal to the product of every number in the input array other than input[i].
-    
-    Note that you're expected to solve this problem without using division.
-    
-    https://www.algoexpert.io/questions/Array%20Of%20Products
-    https://leetcode.com/problems/product-of-array-except-self/
-    """
-    
-    # O(n) time | O(n) space - where n is the length of the input array (O(3n) time)
-    def arrayOfProducts(array):
-        res = array[:]
-    
-        # We know that for each element, the product of all other elements
-        #  will be equal to the the products of the elements to its right and and the products of the elements to its left
-        # we can try to calculate that beforehand
-    
-        # multiply left & right products for each element
-        left_products = [0]*len(array)
-        running_left = 1  # first element will have a product of 1
-        for idx in range(len(array)):
-            left_products[idx] = running_left
-            running_left = array[idx] * running_left
-    
-        # calculate products to the right of elements
-        right_products = [0]*len(array)
-        running_right = 1  # last element will have a product of 1
-        for idx in reversed(range(len(array))):
-            right_products[idx] = running_right
-            running_right = array[idx] * running_right
-    
-        # multiply left & right products for each element
-        for idx in range(len(array)):
-            res[idx] = left_products[idx] * right_products[idx]
-    
-        return res
-    
-    y = [5, 1, 4, 2]
-    x = [1, 2, 3, 4, 5]
-    print(arrayOfProducts(x))
-    print(arrayOfProducts(y))
-    ```
-    
 - Array Of Products / Product of Array Except Self
     
     ```python
@@ -2962,6 +2986,58 @@ StringBuilder (Java)
     
         Output: [1,2,2,3,5,6]
     """
+    ```
+    
+
+- Max Substring Alphabetically *
+    
+    ```python
+    """
+    Max Substring Alphabetically
+    Given a string, determine the maximum alphabetically, substring
+    """
+    
+    def maxSubstring(s):
+    
+        if len(s) < 1:
+            return ""
+    
+        # get all characters' indexes
+        # sort characters alphabetically
+        characters = []  # ['a', 'p', 'p', 'l', 'e']
+        idx_store = {}  # {'a': [0], 'p': [1, 2], 'l': [3], 'e': [4]}
+        for idx, char in enumerate(s):
+            if char not in idx_store:
+                characters.append(char)
+                idx_store[char] = [idx]
+            else:
+                idx_store[char].append(idx)
+    
+        characters.sort()
+        # handle the last character's (from characters array) substrings only
+        last_char = characters[-1]
+    
+        # get all substrings starting with the last character
+        # sort them
+        substrings = []  # ['p', 'pp', 'ppl', 'pple', 'p', 'pl', 'ple']
+        for idx in idx_store[last_char]:
+            right = idx
+            while right < len(s):
+                substrings.append(s[idx:right+1])
+                right += 1
+    
+        substrings.sort()
+        return substrings[-1]  # pple
+    
+    print(maxSubstring("apple"))
+    print(maxSubstring("apsgsxvbbdbsdbsdknnple"))
+    print(maxSubstring("asazsxs"))
+    print(maxSubstring("as"))
+    print(maxSubstring("applze"))
+    print(maxSubstring("azpple"))
+    print(maxSubstring("apzzple"))
+    
+    # Not on Leetcode
     ```
     
 
@@ -3531,7 +3607,7 @@ print(my_tuple)
 
 ### Store multiple items in a dict or other hashable manner:
 
-- Use a [tuple]()
+- Use a [tuple](Strings,%20Arrays%20&%20Linked%20Lists%2081ca9e0553a0494cb8bb74c5c85b89c8.md)
 - [Example:](Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753.md)
 
 ### Multiplying lists can just create several copies to the same list
@@ -3557,6 +3633,11 @@ print(my_tuple)
 [Linked Lists](https://emre.me/data-structures/linked-lists/)
 
 ### Examples
+
+- Check/Store unique nodes (not necessarily with unique values)
+    
+    Not necessarily with unique values → meaning we can have two different nodes with the same value
+    
 
 [Hare & Tortoise Algorithm](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Pointers%20c5f2aa24da174319aec737993acf4e6a/Hare%20&%20Tortoise%20Algorithm%201020d217ffb54e47b7aea3c175d75618.md)
 
@@ -3807,10 +3888,6 @@ print(my_tuple)
             two = two.next
         return one
     ```
-    
-- Check/Store unique nodes (not necessarily with unique values)
-    
-    Not necessarily with unique values → meaning we can have two different nodes with the same value
     
 - Merge K Sorted Lists
 - Rotate List/Shift Linked List
@@ -4223,12 +4300,203 @@ print(my_tuple)
     ```
     
 
+- Add Two Numbers II
+    
+    ```python
+    """
+    Add Two Numbers II:
+    
+    You are given two non-empty linked lists representing two non-negative integers.
+    The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+    You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+    
+    Follow up:
+    What if you cannot modify the input lists? In other words, reversing the lists is not allowed.
+    
+    https://leetcode.com/problems/add-two-numbers-ii/
+    """
+    # can also reverse
+    
+    # Definition for singly-linked list.
+    class ListNode:
+        def __init__(self, val=0, next=None):
+            self.val = val
+            self.next = next
+    
+    # 0(max(n+m)) time | 0(n+m) space
+    class Solution:
+        def addTwoNumbers(self, l1: ListNode, l2: ListNode):
+    
+            result = ListNode(-1)
+    
+            stack_one = []
+            stack_two = []
+    
+            # fill up the stacks
+            item_one = l1
+            while item_one:
+                stack_one.append(item_one.val)
+                item_one = item_one.next
+            item_two = l2
+            while item_two:
+                stack_two.append(item_two.val)
+                item_two = item_two.next
+    
+            len_one = len(stack_one)
+            len_two = len(stack_two)
+            max_len = max(len_one, len_two)
+    
+            # addition
+            i = 0
+            carry = 0
+            node_after_head = None
+            while i <= max_len:  # iterate till max_len in order to handle carries
+    
+                # get values
+                val_one = 0
+                if i < len_one:
+                    val_one = stack_one.pop()
+                val_two = 0
+                if i < len_two:
+                    val_two = stack_two.pop()
+    
+                # arithmetic
+                total = val_one + val_two + carry
+                carry = 0
+                if total > 9:
+                    total -= 10  # eg: when total = 19 : add (19-10) and carry 1
+                    carry = 1
+    
+                # add nodes to the result
+                # if we are still adding or we have one left carry(eg: 99 + 99)
+                if i < max_len or total > 0:
+                    node = ListNode(total)
+                    if node_after_head:
+                        node.next = node_after_head
+                        result.next = node
+                        node_after_head = node
+                    else:
+                        result.next = node
+                        node_after_head = node
+                i += 1
+    
+            # skip the first node (start at node_after_head)
+            return result.next
+    
+    """
+    Example:
+    
+    Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
+    Output: 7 -> 8 -> 0 -> 7
+    
+    input:
+        [7,2,4,3]
+        [5,6,4]
+        [9,8,7,6,6,7,8,9]
+        [9,8,7,6,6,7,8,9]
+        [1,2,3,4,5,5,6,9]
+        [1,2,3,4,5,5,6,9]
+    output:
+        [7,8,0,7]
+        [7,8,0,7]
+        [1,9,7,5,3,3,5,7,8]
+        [2,4,6,9,1,1,3,8]
+        [1,5]
+    """
+    
+    class Solution00:
+        def reverseLinkedList(self, head):
+            prev = None
+            curr = head
+            while curr is not None:
+                nxt = curr.next
+                curr.next = prev
+                prev = curr
+                curr = nxt
+            return prev
+    
+        def addTwoNumbers(self, l1: ListNode, l2: ListNode):
+            one = self.reverseLinkedList(l1)
+            two = self.reverseLinkedList(l2)
+    
+            res = ListNode()
+            curr = res
+            carry = 0
+            while one is not None or two is not None or carry > 0:
+                total = carry
+                carry = 0
+                if one is not None:
+                    total += one.val
+                    one = one.next
+                if two is not None:
+                    total += two.val
+                    two = two.next
+    
+                curr.next = ListNode(total % 10)
+                curr = curr.next
+                carry = total // 10
+    
+            return self.reverseLinkedList(res.next)
+    
+    class Solution01:
+    
+        def stackFromLinkedList(self, head):
+            stack = []
+            curr = head
+            while curr is not None:
+                stack.append(curr.val)
+                curr = curr.next
+    
+            return stack
+    
+        def addTwoNumbers(self, l1: ListNode, l2: ListNode):
+            res = ListNode()
+            node_after_res = None
+    
+            stack_one = self.stackFromLinkedList(l1)
+            stack_two = self.stackFromLinkedList(l2)
+    
+            carry = 0
+            idx, len_one, len_two = 0, len(stack_one), len(stack_two)
+            while idx < len_one or idx < len_two or carry > 0:
+                total = carry
+                if idx < len_one:
+                    total += stack_one.pop()
+                if idx < len_two:
+                    total += stack_two.pop()
+    
+                carry = total // 10
+    
+                # make sure node comes between res & node_after_res,
+                #  making it the new node_after_res
+                node = ListNode(total % 10)
+                if node_after_res:
+                    node.next = node_after_res
+                res.next = node
+                node_after_res = node
+    
+                idx += 1
+    
+            return res.next
+    
+    """ 
+    Input: l1 = [7,2,4,3], l2 = [5,6,4]
+    Output: [7,8,0,7]
+    
+    h -> 7
+    h -> 0 -> 7
+    h -> 8 -> 0 -> 7
+    """
+    ```
+    
+
 - Palindrome Linked List
     
     ![Screenshot 2021-09-29 at 08.29.33.png](Strings,%20Arrays%20&%20Linked%20Lists%2081ca9e0553a0494cb8bb74c5c85b89c8/Screenshot_2021-09-29_at_08.29.33.png)
     
     ![Screenshot 2021-10-16 at 06.43.20.png](Strings,%20Arrays%20&%20Linked%20Lists%2081ca9e0553a0494cb8bb74c5c85b89c8/Screenshot_2021-10-16_at_06.43.20.png)
     
+
 - Copy List with Random Pointer *
     
     ```python
@@ -4252,6 +4520,71 @@ print(my_tuple)
             self.random = random
     
     class Solution:
+        def copyRandomList(self, head: 'Node'):
+            if not head:
+                return None
+    
+            # create new nodes
+            node = head
+            while node:
+                # create the node's holder & store it at random
+                node.random = Node(node.val, None, node.random)
+                node = node.next
+    
+            # populate random field of the new node
+            node = head
+            while node:
+                temp_node = node.random
+                if temp_node.random:
+                    temp_node.random = temp_node.random.random
+                node = node.next
+    
+            # build new list
+            head_copy, node = head.random, head
+            while node:
+                if node.next:
+                    node.random.next = node.next.random
+                node = node.next
+    
+            return head_copy
+    
+    class Solution_:
+        def copyRandomList(self, head: 'Node'):
+            if not head:
+                return None
+    
+            # create new nodes
+            node = head
+            while node:
+                # create the node's holder & store it at random
+                node.random = Node(node.val, None, node.random)
+                node = node.next
+    
+            # populate random field of the new node
+            node = head
+            while node:
+                temp_node = node.random
+                if temp_node.random:
+                    temp_node.next = temp_node.random
+                    temp_node.random = temp_node.random.random
+                node = node.next
+    
+            # restore original list and build new list
+            head_copy, node = head.random, head
+            while node:
+                nodes_random = node.random.next
+                node.random.next = None
+    
+                if node.next:
+                    node.random.next = node.next.random
+    
+                node.random = nodes_random
+    
+                node = node.next
+    
+            return head_copy
+    
+    class Solution__:
         def copyRandomList(self, head: 'Node'):
     
             # create new nodes
@@ -4278,7 +4611,7 @@ print(my_tuple)
     """ 
     """
     
-    class Solution_:
+    class Solution___:
         def copyRandomList(self, head):
     
             result = Node(-1)

@@ -131,7 +131,7 @@ Let’s visually draw the recursive calls to see if there are any overlapping su
 
 Denoted capacity with `c` and idx/currentIndex with `i`
 
-We can clearly see that ‘`c:4`, `i:3`’ has been called twice; hence we have an [overlapping sub-problems](../../Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753.md) pattern. As we discussed above, overlapping sub-problems can be solved through [Memoization](). Let's look at how we can do that next.
+We can clearly see that ‘`c:4`, `i:3`’ has been called twice; hence we have an [overlapping sub-problems](../../Recursion,%20DP%20&%20Backtracking%20525dddcdd0874ed98372518724fc8753.md) pattern. As we discussed above, overlapping sub-problems can be solved through [Memoization](0%201%20Knapsack%20(Dynamic%20Programming)%20b70111b897a547b6afdc2fc5cec2fbb6.md). Let's look at how we can do that next.
 
 ---
 

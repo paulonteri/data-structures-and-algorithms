@@ -192,5 +192,21 @@ Examples:
 
 The time complexity of DFS & BFS if the entire tree is traversed is `O(V)` where V is the number of nodes. In the case of a **graph**, the time complexity is where V is the number of vertexes and E is the number of edges.
 
-> The **Time complexity of BFS** is `O(V+E)` when **Adjacency List** is used and `O(V^2)` when **Adjacency Matrix** is used, where V stands for vertices and E stands for edges.
->
+<aside>
+💡 The **Time complexity of BFS** is `O(V+E)` when **Adjacency List** is used and `O(V^2)` when **Adjacency Matrix** is used, where V stands for vertices and E stands for edges.
+
+</aside>
+
+Pseudocode of BFS:
+
+- *put starting node in the queue*
+- *while queue is not empty*
+    - *get first node from the queue, name it v*
+    - *(process v)*
+    - *for each edge e going from v to other nodes*
+        - *put the other end of edge e at the end of the queue*
+
+As you can see, the worst case (which is what O means), is basically for all vertices if the graph, do a O(1) operation with them - getting it from the queue, then for all outbound edges of v do another O(1) operation, adding their other end to the queue. 
+Thus summing the first O(1) operation for *all vertices* gives O(V) 
+and summing the O(outbound edge count) over all the vertices gives O(E), 
+which gives `O(V) + O(E) = O(V+E)`. Without the processing of course, or assuming it is O(1) like adding the vertex to a list.

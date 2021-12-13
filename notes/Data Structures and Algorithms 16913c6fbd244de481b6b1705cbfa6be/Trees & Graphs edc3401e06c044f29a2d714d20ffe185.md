@@ -175,6 +175,8 @@ Bidirectional Search
 
 # Graphs/Networks
 
+[Graph Search Algorithms in 100 Seconds - And Beyond with JS](https://youtu.be/cWNEl4HE2OE)
+
 [Graphs](https://emre.me/data-structures/graphs/)
 
 [Graph Data Structure: Directed, Acyclic, etc | Interview Cake](https://www.interviewcake.com/concept/python/graph?course=fc1&section=trees-graphs)
@@ -368,6 +370,107 @@ It can be helpful to go through [2D array problems](Strings,%20Arrays%20&%20Link
     
             for email in graph[node]:
                 self.dfs(graph, email, visited, emails_found)
+    ```
+    
+
+- Word Ladder **
+    
+    [127. Word Ladder.mp4](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/127._Word_Ladder.mp4)
+    
+    ![Screenshot 2021-11-22 at 20.27.21.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-22_at_20.27.21.png)
+    
+    ![Screenshot 2021-11-22 at 20.27.56.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-22_at_20.27.56.png)
+    
+    ![Screenshot 2021-11-22 at 20.28.19.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-22_at_20.28.19.png)
+    
+    ![Screenshot 2021-11-22 at 20.28.41.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-22_at_20.28.41.png)
+    
+    ![Screenshot 2021-11-22 at 20.29.24.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-22_at_20.29.24.png)
+    
+    ![Screenshot 2021-11-22 at 20.29.45.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-22_at_20.29.45.png)
+    
+    ![Screenshot 2021-11-22 at 20.29.58.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-22_at_20.29.58.png)
+    
+    ![Screenshot 2021-11-22 at 20.30.15.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-22_at_20.30.15.png)
+    
+    ![Screenshot 2021-11-22 at 20.30.33.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-22_at_20.30.33.png)
+    
+    ```python
+    """ 
+    127. Word Ladder
+    
+    A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of words beginWord -> s1 -> s2 -> ... -> sk such that:
+        Every adjacent pair of words differs by a single letter.
+        Every si for 1 <= i <= k is in wordList. Note that beginWord does not need to be in wordList.
+        sk == endWord
+    Given two words, beginWord and endWord, and a dictionary wordList, return the number of words in the shortest transformation sequence from beginWord to endWord, 
+        or 0 if no such sequence exists.
+    
+    Example 1:
+        Input: beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]
+        Output: 5
+        Explanation: One shortest transformation sequence is "hit" -> "hot" -> "dot" -> "dog" -> cog", which is 5 words long.
+    Example 2:
+        Input: beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log"]
+        Output: 0
+        Explanation: The endWord "cog" is not in wordList, therefore there is no valid transformation sequence.
+    
+    Constraints:
+        1 <= beginWord.length <= 10
+        endWord.length == beginWord.length
+        1 <= wordList.length <= 5000
+        wordList[i].length == beginWord.length
+        beginWord, endWord, and wordList[i] consist of lowercase English letters.
+        beginWord != endWord
+        All the words in wordList are unique.
+        
+    https://leetcode.com/problems/word-ladder
+    """
+    from collections import defaultdict, deque
+    from typing import List
+    
+    """ 
+    https://www.notion.so/paulonteri/Trees-Graphs-edc3401e06c044f29a2d714d20ffe185#6f533b3f9c35463492e9378f632ef22b
+    """
+    
+    # N is the number of words, W is the length of the longest word,
+    # Preprocess: process N words taking W time for each (N*W), forming each word takes W time. Total (N*W^2) time
+    # BSF: might visit N words and at each word we need to examine need to examine M different combinations (creating them will take W^2 time). Total (N*W^2) time
+    class Solution:
+        def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]):
+    
+            # preprocess words (record all words  with a certain pattern/transformation)
+            word_transfms = defaultdict(list)
+            for word in wordList:
+                for word_transfm in self.get_word_transf(word):
+                    word_transfms[word_transfm].append(word)
+    
+            # BFS (find shortest path)
+            visited = set()
+            queue = deque()
+            queue.append((beginWord, 1))
+            while queue:
+                word, dist = queue.popleft()
+    
+                # reached end
+                if word == endWord:
+                    return dist
+    
+                # add neighbours to queue
+                for word_transfm in self.get_word_transf(word):
+                    for next_word in word_transfms[word_transfm]:
+                        if next_word in visited:
+                            continue
+                        queue.append((next_word, dist+1))
+    
+                visited.add(word)
+            return 0
+    
+        def get_word_transf(self, word):
+            word_transformations = []
+            for idx in range(len(word)):
+                word_transformations.append(word[:idx]+"*"+word[idx+1:])
+            return word_transformations
     ```
     
 
@@ -1705,7 +1808,7 @@ We could also use a dictionary where the **keys** *represent the node* and th
 
 This representation allows for **constant-time lookup of adjacent vertices**, which is useful in many **query** and **pathfinding** scenarios. It is **slower for edge lookups**, as the whole list of vertices adjacent to `u` must be examined for `v`, in order to find edge `uv`.
 
-[Adjacency lists](https://emre.me/data-structures/graphs/#adjacency-list) are the typical choice for **general purpose** use, though [edge lists]() or [adjacency matrices]() have their own strengths, which may match a specific use case.
+[Adjacency lists](https://emre.me/data-structures/graphs/#adjacency-list) are the typical choice for **general purpose** use, though [edge lists](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185.md) or [adjacency matrices](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185.md) have their own strengths, which may match a specific use case.
 
 Pros:
 
@@ -1899,7 +2002,7 @@ Binary Tree
 
 ### Examples:
 
-- Symmetric Tree *
+- Symmetric Tree **
     
     ```python
     """ 
@@ -1977,6 +2080,91 @@ Binary Tree
                 queue.append(two.left)
     
             return True
+    ```
+    
+- Binary Tree Zigzag Level Order Traversal
+    
+    ```python
+    """
+    Binary Tree Zigzag Level Order Traversal:
+    
+    Given a binary tree, return the zigzag level order traversal of its nodes' values.
+     (ie, from left to right, then right to left for the next level and alternate between).
+    
+    https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
+    """
+    
+    # Definition for a binary tree node.
+    from collections import deque
+    
+    class TreeNode:
+        def __init__(self, val=0, left=None, right=None):
+            self.val = val
+            self.left = left
+            self.right = right
+    
+    class Solution:
+        def zigzagLevelOrder(self, root: TreeNode):
+            res = []
+            self.zigzagHelper(root, res, 1)
+            return res
+    
+        def zigzagHelper(self, root, res, level):
+            if not root:
+                return
+    
+            if len(res) < level:
+                # add array for level
+                res.append([])
+    
+            if level % 2 == 0:  # right to left
+                res[level-1].insert(0, root.val)
+            else:  # left to right
+                res[level-1].append(root.val)
+    
+            self.zigzagHelper(root.left, res, level+1)
+            self.zigzagHelper(root.right, res, level+1)
+    
+    """ 
+    Using a double ended queue makes the time complexity better
+    (collections.dequeue)
+    """
+    
+    # Definition for a binary tree node.
+    # class TreeNode:
+    #     def __init__(self, x):
+    #         self.val = x
+    #         self.left = None
+    #         self.right = None
+    
+    class Solution:
+        def zigzagLevelOrder(self, root):
+            """
+            :type root: TreeNode
+            :rtype: List[List[int]]
+            """
+            if root is None:
+                return []
+    
+            results = []
+    
+            def dfs(node, level):
+                if level >= len(results):
+                    results.append(deque([node.val]))
+                else:
+                    if level % 2 == 0:
+                        results[level].append(node.val)
+                    else:
+                        results[level].appendleft(node.val)
+    
+                for next_node in [node.left, node.right]:
+                    if next_node is not None:
+                        dfs(next_node, level+1)
+    
+            # normal level order traversal with DFS
+            dfs(root, 0)
+    
+            return results
     ```
     
 - Binary Tree Paths
@@ -2184,7 +2372,7 @@ Binary Tree
         return Result(nxt_longest_path, curr_longest_diameter)
     ```
     
-- Binary Tree Maximum Path Sum *
+- Binary Tree Maximum Path Sum **
     
     ```python
     """
@@ -2221,6 +2409,41 @@ Binary Tree
             self.val = val
             self.left = left
             self.right = right
+    
+    class Solution_:
+        def maxPathSum(self, root):
+            if not root:
+                return 0
+            maximum = float('-inf')
+    
+            def max_path(root):
+                nonlocal maximum
+                if not root:
+                    return float('-inf')
+    
+                left = max_path(root.left)
+                right = max_path(root.right)
+    
+                # longest continuous branch/straight line.
+                curr_branch = max(
+                    root.val,
+                    root.val + left,
+                    root.val + right
+                )
+    
+                # longest branch/triangle we have seen so far
+                maximum = max(
+                    maximum,
+                    curr_branch,
+                    root.val + left + right,  # as triangle
+                )
+    
+                return curr_branch
+    
+            max_path(root)
+            return maximum
+    
+    """"""
     
     class Solution:
         def maxPathSum(self, root):
@@ -2640,7 +2863,7 @@ Binary Tree
     
     **Approach 3: O(1) Iterative Solution (Greedy & similar to Morris Traversal)**
     
-    similar to [Morris Traversal]()
+    similar to [Morris Traversal](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185.md)
     
     ![Screenshot 2021-10-09 at 07.25.23.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-09_at_07.25.23.png)
     
@@ -3397,6 +3620,104 @@ Binary Tree
     # ans = deser.deserialize(ser.serialize(root))
     ```
     
+- Construct Binary Tree from String
+    
+    ![Screenshot 2021-11-27 at 11.50.38.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.50.38.png)
+    
+    ![Screenshot 2021-11-27 at 11.51.39.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.51.39.png)
+    
+    ![Screenshot 2021-11-27 at 11.52.13.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.52.13.png)
+    
+    ![Screenshot 2021-11-27 at 11.52.53.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.52.53.png)
+    
+    ![Screenshot 2021-11-27 at 11.53.24.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.53.24.png)
+    
+    ![Screenshot 2021-11-27 at 11.54.03.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.54.03.png)
+    
+    ![Screenshot 2021-11-27 at 11.54.41.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.54.41.png)
+    
+    ![Screenshot 2021-11-27 at 11.54.59.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.54.59.png)
+    
+    ![Screenshot 2021-11-27 at 11.55.35.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.55.35.png)
+    
+    ![Screenshot 2021-11-27 at 11.56.58.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.56.58.png)
+    
+    ![Screenshot 2021-11-27 at 11.57.33.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.57.33.png)
+    
+    ![Screenshot 2021-11-27 at 11.57.57.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.57.57.png)
+    
+    ![Screenshot 2021-11-27 at 11.58.15.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.58.15.png)
+    
+    ![Screenshot 2021-11-27 at 11.58.34.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.58.34.png)
+    
+    ```python
+    """ 
+    536. Construct Binary Tree from String
+    
+    You need to construct a binary tree from a string consisting of parenthesis and integers.
+    The whole input represents a binary tree. It contains an integer followed by zero, one or two pairs of parenthesis.
+    The integer represents the root's value and a pair of parenthesis contains a child binary tree with the same structure.
+    You always start to construct the left child node of the parent first if it exists.
+    
+    https://leetcode.com/problems/construct-binary-tree-from-string
+    """
+    
+    """ 
+    "4( 2( 3) ( 1) ) (6(5))"
+    
+    - tree startes at number
+    - new opening bracket means new subtree
+    - unclosable closing brackets means we return
+    
+    - record number as value then idx + 1
+    - left: if opening bracket, start new tree at idx + 1
+        - skip closing bracket move idx += 1
+    - right: if opening bracket, start new tree at idx + 1
+         - skip closing bracket move idx += 1
+    - else:
+        return 
+    
+    """
+    
+    class TreeNode:
+        def __init__(self, val=0, left=None, right=None):
+            self.val = val
+            self.left = left
+            self.right = right
+    
+    class Solution:
+        def str2tree(self, s: str):
+    
+            idx = 0
+    
+            def build_tree():
+                nonlocal idx
+                # base cases
+                if idx >= len(s):
+                    return None
+    
+                start_idx = idx
+                # get number
+                while idx < len(s) and (s[idx].isnumeric() or s[idx] == '-'):
+                    idx += 1
+                node = TreeNode(s[start_idx:idx])
+    
+                # subtrees
+                if idx < len(s) and s[idx] == "(":
+                    idx += 1
+                    node.left = build_tree()
+                    idx += 1
+    
+                if idx < len(s) and s[idx] == "(":
+                    idx += 1
+                    node.right = build_tree()
+                    idx += 1
+    
+                return node
+    
+            return build_tree()
+    ```
+    
 
 - Flatten Binary Tree to Linked List **
     
@@ -3513,7 +3834,7 @@ Binary Tree
     
     **Approach 3: O(1) Iterative Solution (Greedy & similar to Morris Traversal)**
     
-    similar to [Morris Traversal]()
+    similar to [Morris Traversal](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185.md)
     
     ![Screenshot 2021-10-09 at 07.25.23.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-09_at_07.25.23.png)
     
@@ -3941,6 +4262,90 @@ Binary Tree
     ![Screenshot 2021-10-07 at 09.31.19.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-07_at_09.31.19.png)
     
 - [Find Bottom Left Tree Value - LeetCode](https://leetcode.com/problems/find-bottom-left-tree-value/submissions/)
+- **Boundary of Binary Tree**
+    
+    ![Screenshot 2021-11-23 at 18.07.13.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-23_at_18.07.13.png)
+    
+    ![Screenshot 2021-11-23 at 18.07.26.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-23_at_18.07.26.png)
+    
+    ![Screenshot 2021-11-23 at 18.07.44.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-23_at_18.07.44.png)
+    
+    ![Screenshot 2021-11-23 at 18.06.58.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-23_at_18.06.58.png)
+    
+    ```java
+    /**
+     * Definition for a binary tree node.
+     * public class TreeNode {
+     *     int val;
+     *     TreeNode left;
+     *     TreeNode right;
+     *     TreeNode(int x) { val = x; }
+     * }
+     */
+    public class Solution {
+    
+        public boolean isLeaf(TreeNode t) {
+            return t.left == null && t.right == null;
+        }
+    
+        public void addLeaves(List<Integer> res, TreeNode root) {
+            if (isLeaf(root)) {
+                res.add(root.val);
+            } else {
+                if (root.left != null) {
+                    addLeaves(res, root.left);
+                }
+                if (root.right != null) {
+                    addLeaves(res, root.right);
+                }
+            }
+        }
+    
+        public List<Integer> boundaryOfBinaryTree(TreeNode root) {
+            ArrayList<Integer> res = new ArrayList<>();
+            if (root == null) {
+                return res;
+            }
+            if (!isLeaf(root)) {
+                res.add(root.val);
+            }
+            TreeNode t = root.left;
+            while (t != null) {
+                if (!isLeaf(t)) {
+                    res.add(t.val);
+                }
+                if (t.left != null) {
+                    t = t.left;
+                } else {
+                    t = t.right;
+                }
+    
+            }
+            addLeaves(res, root);
+            Stack<Integer> s = new Stack<>();
+            t = root.right;
+            while (t != null) {
+                if (!isLeaf(t)) {
+                    s.push(t.val);
+                }
+                if (t.right != null) {
+                    t = t.right;
+                } else {
+                    t = t.left;
+                }
+            }
+            while (!s.empty()) {
+                res.add(s.pop());
+            }
+            return res;
+        }
+    }
+    ```
+    
+    ![Screenshot 2021-11-23 at 18.06.33.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-23_at_18.06.33.png)
+    
+    ![Screenshot 2021-11-23 at 18.06.46.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-23_at_18.06.46.png)
+    
 
 ### Definition of terms
 
@@ -4065,21 +4470,21 @@ Binary trees have a few interesting properties when they're perfect:
 
 ## Binary Tree Traversals (Inorder, Preorder and Postorder)
 
-We can use [DFS]() to do `pre-order`, `in-order` and `post-order` traversal. There is a common feature among these three traversal orders: we never trace back unless we reach the deepest node. That is also the largest difference between [DFS and BFS](), BFS never go deeper unless it has already visited all nodes at the current level. Typically, we implement DFS using recursion.
+We can use [DFS](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185.md) to do `pre-order`, `in-order` and `post-order` traversal. There is a common feature among these three traversal orders: we never trace back unless we reach the deepest node. That is also the largest difference between [DFS and BFS](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185.md), BFS never go deeper unless it has already visited all nodes at the current level. Typically, we implement DFS using recursion.
 
-### **Pre-order Traversal**
+### **Pre-order Traversal (nlr)**
 
 In this traversal mode, one starts from the ***root***, move to *left child*, then *right child*.
 
-### **In-order Traversal**
+### **In-order Traversal (lnr)**
 
 [Screen Recording 2021-10-23 at 13.31.41.mov](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screen_Recording_2021-10-23_at_13.31.41.mov)
 
 In this traversal mode, one starts visiting with the ***left** child*, followed by *root* and then the *right child*.
 
-Check out [how to do it iteratively](). 
+Check out [how to do it iteratively](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185.md). 
 
-### **Post-order Traversal**
+### **Post-order Traversal (lrn)**
 
 In this traversal mode, **one starts from the *left child*, move to the *right child***, and terminate at the *root*.
 
@@ -5414,6 +5819,104 @@ In this traversal mode, **one starts from the *left child*, move to the *right
     # ans = deser.deserialize(ser.serialize(root))
     ```
     
+- Construct Binary Tree from String
+    
+    ![Screenshot 2021-11-27 at 11.50.38.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.50.38.png)
+    
+    ![Screenshot 2021-11-27 at 11.51.39.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.51.39.png)
+    
+    ![Screenshot 2021-11-27 at 11.52.13.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.52.13.png)
+    
+    ![Screenshot 2021-11-27 at 11.52.53.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.52.53.png)
+    
+    ![Screenshot 2021-11-27 at 11.53.24.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.53.24.png)
+    
+    ![Screenshot 2021-11-27 at 11.54.03.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.54.03.png)
+    
+    ![Screenshot 2021-11-27 at 11.54.41.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.54.41.png)
+    
+    ![Screenshot 2021-11-27 at 11.54.59.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.54.59.png)
+    
+    ![Screenshot 2021-11-27 at 11.55.35.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.55.35.png)
+    
+    ![Screenshot 2021-11-27 at 11.56.58.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.56.58.png)
+    
+    ![Screenshot 2021-11-27 at 11.57.33.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.57.33.png)
+    
+    ![Screenshot 2021-11-27 at 11.57.57.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.57.57.png)
+    
+    ![Screenshot 2021-11-27 at 11.58.15.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.58.15.png)
+    
+    ![Screenshot 2021-11-27 at 11.58.34.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-11-27_at_11.58.34.png)
+    
+    ```python
+    """ 
+    536. Construct Binary Tree from String
+    
+    You need to construct a binary tree from a string consisting of parenthesis and integers.
+    The whole input represents a binary tree. It contains an integer followed by zero, one or two pairs of parenthesis.
+    The integer represents the root's value and a pair of parenthesis contains a child binary tree with the same structure.
+    You always start to construct the left child node of the parent first if it exists.
+    
+    https://leetcode.com/problems/construct-binary-tree-from-string
+    """
+    
+    """ 
+    "4( 2( 3) ( 1) ) (6(5))"
+    
+    - tree startes at number
+    - new opening bracket means new subtree
+    - unclosable closing brackets means we return
+    
+    - record number as value then idx + 1
+    - left: if opening bracket, start new tree at idx + 1
+        - skip closing bracket move idx += 1
+    - right: if opening bracket, start new tree at idx + 1
+         - skip closing bracket move idx += 1
+    - else:
+        return 
+    
+    """
+    
+    class TreeNode:
+        def __init__(self, val=0, left=None, right=None):
+            self.val = val
+            self.left = left
+            self.right = right
+    
+    class Solution:
+        def str2tree(self, s: str):
+    
+            idx = 0
+    
+            def build_tree():
+                nonlocal idx
+                # base cases
+                if idx >= len(s):
+                    return None
+    
+                start_idx = idx
+                # get number
+                while idx < len(s) and (s[idx].isnumeric() or s[idx] == '-'):
+                    idx += 1
+                node = TreeNode(s[start_idx:idx])
+    
+                # subtrees
+                if idx < len(s) and s[idx] == "(":
+                    idx += 1
+                    node.left = build_tree()
+                    idx += 1
+    
+                if idx < len(s) and s[idx] == "(":
+                    idx += 1
+                    node.right = build_tree()
+                    idx += 1
+    
+                return node
+    
+            return build_tree()
+    ```
+    
 
 - Flatten Binary Tree to Linked List **
     
@@ -5530,7 +6033,7 @@ In this traversal mode, **one starts from the *left child*, move to the *right
     
     **Approach 3: O(1) Iterative Solution (Greedy & similar to Morris Traversal)**
     
-    similar to [Morris Traversal]()
+    similar to [Morris Traversal](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185.md)
     
     ![Screenshot 2021-10-09 at 07.25.23.png](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Screenshot_2021-10-09_at_07.25.23.png)
     
@@ -7038,7 +7541,7 @@ In this traversal mode, **one starts from the *left child*, move to the *right
     ```
     
 
-The **Binary Search Tree (BST)** is a [Binary Tree]() with the following properties.
+The **Binary Search Tree (BST)** is a [Binary Tree](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185.md) with the following properties.
 
 1. Keys that are **less than** the *parent* are found in the **left subtree**
 2. Keys that are **greater than or equal to** the *parent* are found in the **right subtree**
@@ -7057,7 +7560,7 @@ Key lookup, insertion, and deletion take time proportional to the height of the 
 
 When we are talking about the *average case*, it is the time it takes for the operation on a **balanced tree**, and when we are talking about the *worst case*, it is the time it takes for the given operation on a **non-balanced tree**.
 
-These are discussed in more depth [below]().
+These are discussed in more depth [below](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185.md).
 
 [Operations](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185/Operations%20afa24885f0c94372b3f16d911d3c5e13.csv)
 
@@ -7368,7 +7871,7 @@ Once we have found the node containing the key we want to *delete*, there are 
 
 2. The node to be deleted has **only one** child
 
-[]()
+[https://www.notion.so](https://www.notion.so)
 
 1. Handling the first case is pretty easy ↑
 2. ← If a node has only a **single child**, then we can simply promote the child to take the place of its parent.The decision proceeds as follows:
@@ -8377,7 +8880,7 @@ The red node being the root node, the blue nodes being the internal nodes and th
 
 If we wanted to compute, let's say, the maximum element then we would be storing the maximum element in each segment in the corresponding nodes. Thus before building the Segment Tree one must figure out the intent behind building the tree and the type of values to be stored in the tree’s nodes.
 
-> Thus we can also notice that a segment tree is always going to be a [*full binary tree*]() i.e. each node either has 2 or 0 children.
+> Thus we can also notice that a segment tree is always going to be a [*full binary tree*](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185.md) i.e. each node either has 2 or 0 children.
 > 
 
 ---
@@ -8589,6 +9092,6 @@ int range_min_query(int node, int st, int end, int l, int r)
 
 [Topological Sort (for graphs) *](_Patterns%20for%20Coding%20Questions%20e3f5361611c147ebb2fb3eff37a743fd/Trees%20&%20Graphs%20(Additional%20content)%200fcf8228f7574bfc90076f33e9e274e0/Topological%20Sort%20(for%20graphs)%20e35d20a5223f4c50b4a73c0f71dc2c07.md)
 
-# [Morris Traversal]()
+# [Morris Traversal](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185.md)
 
-→ [Morris Traversal]()
+→ [Morris Traversal](Trees%20&%20Graphs%20edc3401e06c044f29a2d714d20ffe185.md)
