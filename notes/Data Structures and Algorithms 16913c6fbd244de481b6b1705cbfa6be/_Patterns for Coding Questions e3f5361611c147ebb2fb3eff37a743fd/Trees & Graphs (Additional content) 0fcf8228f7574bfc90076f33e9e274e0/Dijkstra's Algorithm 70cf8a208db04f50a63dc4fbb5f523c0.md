@@ -1,3 +1,0 @@
-# Dijkstra's Algorithm
-
-Related:

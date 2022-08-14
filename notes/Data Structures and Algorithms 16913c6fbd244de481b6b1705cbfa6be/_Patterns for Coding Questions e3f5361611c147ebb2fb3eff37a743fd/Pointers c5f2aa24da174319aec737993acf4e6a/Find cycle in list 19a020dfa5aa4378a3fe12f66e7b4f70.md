@@ -1,1 +1,0 @@
-# Find cycle in list
