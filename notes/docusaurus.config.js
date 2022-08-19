@@ -6,7 +6,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-    title: "DSA",
+    title: "DSA | PaulOnteri.com",
     tagline: "DSA & System Design",
     url: "https://pauulontteri.com",
     baseUrl: "/dsa/",
@@ -63,7 +63,7 @@ const config = {
                 respectPrefersColorScheme: false,
             },
             navbar: {
-                title: "DSA",
+                title: "",
                 logo: {
                     alt: "My Site Logo",
                     src: "img/logo.png",
@@ -90,7 +90,7 @@ const config = {
                 // style: "dark",
                 links: [
                     {
-                        title: "DSA",
+                        title: "Main",
                         items: [
                             {
                                 to: "/ds&a/intro",
