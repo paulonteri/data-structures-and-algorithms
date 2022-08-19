@@ -1,0 +1,52 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+    --ifm-color-primary: #0489d1;
+    --ifm-color-primary-dark: #047bbc;
+    --ifm-color-primary-darker: #0374b2;
+    --ifm-color-primary-darkest: #036092;
+    --ifm-color-primary-light: #0497e6;
+    --ifm-color-primary-lighter: #059ef0;
+    --ifm-color-primary-lightest: #1aacfb;
+    --ifm-code-font-size: 90%;
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+    --ifm-font-family-base: "Menlo Regular", system-ui, -apple-system, Segoe UI,
+        Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont,
+        "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol";
+    --ifm-font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+    --ifm-heading-font-family: var(--ifm-font-family-base);
+    --ifm-font-size-base: 90%;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme="dark"] {
+    --ifm-color-primary: #0ea5e9;
+    --ifm-color-primary-dark: #0d95d2;
+    --ifm-color-primary-darker: #0c8cc6;
+    --ifm-color-primary-darkest: #0a74a3;
+    --ifm-color-primary-light: #1eb0f1;
+    --ifm-color-primary-lighter: #2ab4f2;
+    --ifm-color-primary-lightest: #4dc0f4;
+    --ifm-code-font-size: 90%;
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+    --ifm-background-color: #000000 !important;
+    --ifm-background-surface-color: #0b101a !important;
+    --ifm-footer-background-color: #0b101a !important;
+}
+
+/* ------------------------------- `Menlo Regular` font https://google-webfonts-helper.herokuapp.com/fonts/ubuntu?subsets=latin ------- */
+@font-face {
+    font-family: "Menlo Regular";
+    font-style: normal;
+    font-weight: normal;
+    src: local("Menlo Regular"),
+        url("../fonts/Menlo/Menlo-Regular.woff") format("woff");
+}
+/* ------------------------------- End `Menlo Regular` font  -------------------------------------------------------- */
