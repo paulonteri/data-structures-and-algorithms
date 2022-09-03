@@ -8,7 +8,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
     title: "DSA | PaulOnteri.com",
     tagline: "DSA & System Design",
-    url: "https://pauulontteri.com",
+    url: "https://paulontteri.com",
     baseUrl: "/dsa/",
     onBrokenLinks: "throw",
     onBrokenMarkdownLinks: "warn",
