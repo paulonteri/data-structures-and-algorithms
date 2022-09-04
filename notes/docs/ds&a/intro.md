@@ -2,6 +2,6 @@
 sidebar_position: 1
 ---
 
-# Intro
+# Introduction
 
-Hello world
+Notes on data structures and algorithms.
