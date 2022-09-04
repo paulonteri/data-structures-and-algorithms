@@ -1,6 +1,7 @@
 ---
 sidebar_position: 2
 image: "./assets/time-and-space-complexity/Big-O_Complexity_Chart.png"
+description: "Time and space complexity of algorithms."
 tags:
     - dsa
     - time-and-space-complexity
