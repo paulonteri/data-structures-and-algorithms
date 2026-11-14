@@ -29,7 +29,7 @@ Example 5:
     Output: [1, 5, 7, 8, 9]
 
 https://leetcode.com/problems/merge-k-sorted-lists/
-https://www.educative.io/courses/grokking-the-coding-interview/Y5n0n3vAgYK
+https://www.designgurus.io/course-play/grokking-the-coding-interview/doc/merge-k-sorted-lists-medium
 """
 
 from typing import List

@@ -20,7 +20,7 @@ Example 2:
     Explanation: We can put 3 'B' in one basket and two 'C' in the other basket. 
         This can be done if we start with the second letter: ['B', 'C', 'B', 'B', 'C']
 
-https://www.educative.io/courses/grokking-the-coding-interview/Bn2KLlOR0lQ
+https://www.designgurus.io/course-play/grokking-the-coding-interview/doc/fruits-into-baskets-medium
 """
 from collections import defaultdict
 """ 

@@ -33,7 +33,7 @@ Example 4:
     Output: [[3,7]]
 
 https://leetcode.com/problems/interval-list-intersections/
-https://www.educative.io/courses/grokking-the-coding-interview/JExVVqRAN9D
+https://www.designgurus.io/course-play/grokking-the-coding-interview/doc/intervals-intersection-medium
 """
 
 """
