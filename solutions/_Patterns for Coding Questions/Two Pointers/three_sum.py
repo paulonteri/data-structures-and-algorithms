@@ -21,7 +21,7 @@ Example 3:
     Output: []
 
 https://leetcode.com/problems/3sum/
-https://www.educative.io/courses/grokking-the-coding-interview/gxk639mrr5r#try-it-yourself
+https://www.designgurus.io/course-play/grokking-the-coding-interview/doc/triplet-sum-to-zero-medium
 https://github.com/paulonteri/leetcode/blob/master/Arrays/three_sum.py
 """
 from typing import List

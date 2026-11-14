@@ -6,7 +6,7 @@ return indices of the two numbers such that they add up to target.
 
 https://leetcode.com/problems/two-sum/
 https://www.algoexpert.io/questions/Two%20Number%20Sum
-https://www.educative.io/courses/grokking-the-coding-interview/xog6q15W9GP
+https://www.designgurus.io/course-play/grokking-the-coding-interview/doc/pair-with-target-sum-easy
 
 Do next:
 - Pairs with Specific Difference

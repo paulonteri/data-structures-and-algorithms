@@ -7,7 +7,7 @@ Given two integer arrays to represent weights and profits of ‘N’ items,
 Write a function that returns the maximum profit.
 Each item can only be selected once, which means either we put an item in the knapsack or skip it.
 
-https://www.educative.io/courses/grokking-dynamic-programming-patterns-for-coding-interviews/RM1BDv71V60
+https://www.designgurus.io/course-play/grokking-dynamic-programming/doc/01-knapsack
 """
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

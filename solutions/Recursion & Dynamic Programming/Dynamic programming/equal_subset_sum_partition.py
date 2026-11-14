@@ -17,7 +17,7 @@ Example 3
     Explanation: The given set cannot be partitioned into two subsets with equal sum.
 
 https://leetcode.com/problems/partition-equal-subset-sum
-https://www.educative.io/courses/grokking-dynamic-programming-patterns-for-coding-interviews/3jEPRo5PDvx
+https://www.designgurus.io/course-play/grokking-dynamic-programming/doc/equal-subset-sum-partition
 https://afteracademy.com/blog/partition-equal-subset-sum
 """
 
